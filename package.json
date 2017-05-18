@@ -1,0 +1,28 @@
+{
+  "name": "aloloco",
+  "version": "1.0.0",
+  "description": "it is the front end for the aloloco app",
+  "main": "server.js",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "bootstrap": "^3.3.7"
+  },
+  "devDependencies": {
+    "angular": "^1.6.4",
+    "bootstrap": "^3.3.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaimeJesus/grupo-b-012017-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LaimeJesus/grupo-b-012017-frontend/issues"
+  },
+  "homepage": "https://github.com/LaimeJesus/grupo-b-012017-frontend#readme"
+}
