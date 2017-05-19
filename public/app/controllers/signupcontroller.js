@@ -8,15 +8,15 @@ angular.module('aloloco-app')
     $scope.signup.password = "";
     $scope.signup.repeatpassword = "";
 
-    $scope.signup = function() {
-    SignUpService.signup($scope.signup, $scope.callback,
-    	$scope.errorHandler);
+    $scope.signup = function(user) {
+    //SignUpService.signup($scope.signup, $scope.callback, $scope.errorHandler);
+      SignUpService.signup(user).success($scope.callback).error($scope.errorHandler);
     };
     $scope.callback = function(data) {
-      var nuevoUser = data.id;
-      alert("new user");
+      console.log(data);
     };
     $scope.errorHandler = function(error) {
+      console.log(error);
       $scope.spanLog = error.descripcion;
       $scope.loginFailure = true;
     };

@@ -5,7 +5,10 @@
   "main": "server.js",
   "dependencies": {
     "angular": "^1.6.4",
-    "bootstrap": "^3.3.7"
+    "angular-route": "^1.6.4",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "tether": "^1.4.0"
   },
   "devDependencies": {
     "angular": "^1.6.4",

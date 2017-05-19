@@ -1,3 +1,6 @@
+(function(){
+'use strict';
+
 angular.module('aloloco-app').service('LoginService', function($http, myURL) {
   var user = {};
   user.username = "";
@@ -21,9 +24,7 @@ angular.module('aloloco-app').service('LoginService', function($http, myURL) {
 			url : myURL + "/user/login",
 			method : "POST",
 			data : jsonObject,
-			headers : {
-				'Content-Type' : 'application/x-www-form-urlencoded'
-			}
 		}).success(callback).error(errorHandler);
 	};
 });
+})();

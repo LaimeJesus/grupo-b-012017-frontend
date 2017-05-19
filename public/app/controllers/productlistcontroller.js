@@ -11,8 +11,8 @@ angular.module('aloloco-app')
   .controller('ProductListController', [
   '$scope',
   'ProductListService',
-  'LoginService'
-  function($scope, ProductListService) {
+  'LoginService',
+  function($scope, ProductListService, LoginService) {
     $scope.productlists = [];
     $scope.spanLog = "";
 
