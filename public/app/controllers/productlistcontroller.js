@@ -11,18 +11,15 @@ angular.module('aloloco-app')
   .controller('ProductListController', [
   '$scope',
   'ProductListService',
-  'LoginService',
-  function($scope, ProductListService, LoginService) {
+  function($scope, ProductListService) {
     $scope.productlists = [];
     $scope.spanLog = "";
 
     //esto deberia ir al final
-    $scope.getlists();
+    //$scope.getlists();
 
-    $scope.getlists = function(){
-      if(LoginService.islogged()){
-        ProductListService.getlists(LoginService.getUser(), $scope.callback, $scope.errorHandler);
-      }
+    $scope.getlists = function(user){
+      ProductListService.getlists(LoginService.getUser(), $scope.callback, $scope.errorHandler);
     };
 
     $scope.createproductlist = function(name){

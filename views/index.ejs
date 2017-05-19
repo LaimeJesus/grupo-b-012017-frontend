@@ -7,6 +7,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
+
+
     <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" type="text/plain" href="css/bootstrap.min.css.map"> -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -18,10 +20,13 @@
     <script src="js/angular-route.min.js"></script>
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script> -->
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script> -->
+    <!-- <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script> -->
 
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 
 
     <!-- <script src="app/app.js"></script>
@@ -110,38 +115,28 @@
               </ul>
             </div>
 
-            <div class="col col-md-8">
+            <div class="col col-md-8" data-ng-controller="ProductController">
               <ul class="list-group">
                <!-- <ng-repeat li class="list-group-item"> {{element.name}} </li>  -->
-               <li class="list-group-item list-group-item-info">
-                 <a class="nav-link" href="#">Product 1</a>
-               </li>
-               <li class="list-group-item">
-                 <a class="nav-link" href="#">Product 2</a>
-               </li>
-               <li class="list-group-item">
-                 <a class="nav-link" href="#">Product 3</a>
-               </li>
-               <li class="list-group-item">
-                 <a class="nav-link" href="#">Product 4</a>
-               </li>
-              </ul>
+               <div data-ng-repeat="prod in products" class="col-md-3" class="productImage">
+                   <div class="productImage">
+                       <img data-ng-src="{{prod.url}}" alt={{prod.name}} class="img-thumbnail">
+                   </div>
+                   <div class="productImage">
+                       <label> {{prod.name}} </label>
+                   </div>
+               </div>
             </div>
           </div>
         </div>
 
-        <div data-ng-controller="ProductController">
-          <button data-ng-click="getProducts()">Get Products</button>
-          <ul><li data-ng-repeat="prod in products">{{prod.name}}</li><ul>
+        <div ng-view>
         </div>
 
-        <div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
-          <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Login</button>
-          <div class="modal-parent">
-          </div>
-      </div>
-
-
+        <div ng-controller="ModalDemoCtrl">
+            <button class="btn" ng-click="open()">Open me!</button>
+            <div ng-show="user">User from a modal: {{ user }}</div>
+        </div>
         <footer class="fixed-bottom">
           <div class="footer">
             <h5> Laime Jesus & Sandoval Lucas Enterprise - 2017  </h5>

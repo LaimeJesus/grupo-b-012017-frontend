@@ -97,3 +97,8 @@ body 						{ padding-top:50px; }
     border-bottom: 0;
   }
 }
+
+
+.productImage {
+    text-align: center;
+}

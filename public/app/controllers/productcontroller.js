@@ -27,4 +27,18 @@ angular.module('aloloco-app')
     $scope.errorHandler = function(error) {
       $scope.spanLog = error.descripcion;
     };
+      
+      
+    $scope.getProduct = function(id) {
+        ProductService.getProduct(id , $scope.callbackGetProduct , $scope.errorHandlerGetProduct);
+    };
+      
+    $scope.callbackGetProduct = function(data) {
+      $scope.products = data;
+    };
+    $scope.errorHandlerGetProduct = function(error) {
+      $scope.spanLog = error.descripcion;
+    };
+      
+      
 } ]);
