@@ -7,9 +7,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-    <!-- <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script> -->
-    <!-- <script src="https://github.com/angular-ui/bootstrap/blob/gh-pages/ui-bootstrap-tpls-2.0.1.min.js"></script> -->
-
     <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" type="text/plain" href="css/bootstrap.min.css.map"> -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -19,6 +16,13 @@
     <!-- <script src="js/bootstrap.min.js"></script> -->
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
+
 
     <!-- <script src="app/app.js"></script>
     <script src="app/services/signupservice.js"></script>
@@ -130,6 +134,13 @@
           <button data-ng-click="getProducts()">Get Products</button>
           <ul><li data-ng-repeat="prod in products">{{prod.name}}</li><ul>
         </div>
+
+        <div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
+          <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Login</button>
+          <div class="modal-parent">
+          </div>
+      </div>
+
 
         <footer class="fixed-bottom">
           <div class="footer">
