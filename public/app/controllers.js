@@ -1,4 +1,4 @@
-var controllers = angular.module('aloloco-app.controllers', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
+var controllers = angular.module('aloloco-app.controllers', []);
 
 controllers.controller('ProductController', function ($scope, ProductService) {
 
@@ -8,16 +8,15 @@ controllers.controller('ProductController', function ($scope, ProductService) {
 
     $scope.callback = function(data){
         console.log(data);
-        $scope.products = [];
-        for(var i=0; i < data.products.length;i++){
-          var prod = data.products[i];
-          if(!prod.hasOwnProperty('url')){
-            //prod.url = '../images/no-image-available.png';
-            console.log(prod);
-            prod.url="../images/no-image-available.png";
-          };
-          $scope.products.push(prod);
-        };
+        // $scope.products = [];
+        // for(var i=0; i < data.products.length;i++){
+        //   var prod = data.products[i];
+        //   if(!prod.hasOwnProperty('url')){
+        //     console.log(prod);
+        //     prod.url="../images/no-image-available.png";
+        //   };
+        //   $scope.products.push(prod);
+        // };
     };
     $scope.errorHandler = function(error){
         console.log(error);
@@ -129,37 +128,3 @@ controllers.controller('ProductListController', [
       console.log(error);
     };
 }]);
-
-var ModalDemoCtrl = function ($scope, $modal, $log) {
-
-  $scope.user = {};
-
-  $scope.open = function () {
-    var modalInstance = $modal.open({
-      templateUrl: 'modal-login.html',
-      controller: ModalInstanceCtrl,
-      resolve: {
-        user: function () {
-          return $scope.user;
-        }
-      }
-    });
-    modalInstance.result.then(function (user) {
-      $scope.user = user;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
-};
-
-var ModalInstanceCtrl = function ($scope, $modalInstance, user) {
-  $scope.user = user;
-  $scope.ok = function () {
-    $modalInstance.close($scope.user);
-  };
-
-  $scope.cancel = function () {
-    $scope.user = {};
-    $modalInstance.dismiss('cancel');
-  };
-};

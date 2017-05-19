@@ -24,9 +24,6 @@
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script> -->
     <!-- <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script> -->
 
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
-
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 
 
     <!-- <script src="app/app.js"></script>
@@ -115,27 +112,27 @@
               </ul>
             </div>
 
-            <div class="col col-md-8" data-ng-controller="ProductController">
+            <div class="col col-md-8">
               <ul class="list-group">
                <!-- <ng-repeat li class="list-group-item"> {{element.name}} </li>  -->
-               <div data-ng-repeat="prod in products" class="col-md-3" class="productImage">
-                   <div class="productImage">
-                       <img data-ng-src="{{prod.url}}" alt={{prod.name}} class="img-thumbnail">
-                   </div>
-                   <div class="productImage">
-                       <label> {{prod.name}} </label>
-                   </div>
-               </div>
+                <li class="list-group-item list-group-item-info">
+                  <a class="nav-link" href="#">Product 1</a>
+                </li>
+                <li class="list-group-item">
+                  <a class="nav-link" href="#">Product 2</a>
+                </li>
+                <li class="list-group-item">
+                  <a class="nav-link" href="#">Product 3</a>
+                </li>
+                <li class="list-group-item">
+                  <a class="nav-link" href="#">Product 4</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
         <div ng-view>
-        </div>
-
-        <div ng-controller="ModalDemoCtrl">
-            <button class="btn" ng-click="open()">Open me!</button>
-            <div ng-show="user">User from a modal: {{ user }}</div>
         </div>
         <footer class="fixed-bottom">
           <div class="footer">

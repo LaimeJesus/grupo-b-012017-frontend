@@ -1,5 +1,5 @@
 
-var services = angular.module('aloloco-app.services', ['ui.bootstrap']);
+var services = angular.module('aloloco-app.services', []);
 
 services.factory('ProductService', function($http) {
     var urlbase = 'http://localhost:8080/grupo-b-012017/rest';
@@ -113,22 +113,4 @@ services.factory('ProductListService', function($http) {
       }
 
       return ProductListAPI;
-    });
-
-services.factory('modalFactory', function($uibModal) {
-      return {
-        open: function(size, template, params) {
-          return $uibModal.open({
-            animation: true,
-            templateUrl: '/views/modal-login.html',
-            controller: 'ModalResultInstanceCtrl',
-            size: size,
-            resolve: {
-              params: function() {
-                return params;
-              }
-            }
-          });
-        }
-      };
     });

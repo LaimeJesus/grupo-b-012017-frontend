@@ -7,7 +7,6 @@
  * Main module of the application.
  */
 var app = angular.module('aloloco-app', [
-    'ui.bootstrap',
     'aloloco-app.controllers',
     'aloloco-app.services',
     'ngRoute'
