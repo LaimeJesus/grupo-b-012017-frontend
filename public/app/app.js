@@ -6,7 +6,11 @@
  *
  * Main module of the application.
  */
-var app = angular.module('aloloco-app', ['aloloco-app.controllers', 'aloloco-app.services']);
+var app = angular.module('aloloco-app', [
+    'aloloco-app.controllers', 
+    'aloloco-app.services',
+    'ngRoute'
+])
     // 'ngAnimate',
     // 'ngAria',
     // 'ngCookies',
@@ -25,16 +29,15 @@ var app = angular.module('aloloco-app', ['aloloco-app.controllers', 'aloloco-app
   //   'ProductController',
   //   'ProductListController',
   // ])
-  // .config(function ($routeProvider) {
-  //   $routeProvider
-  //     .when('/', {
-  //       templateUrl: '../views/index.html',
-  //       controller: 'MainCtrl',
-  //       controllerAs: 'main'
-  //     })
-  //     .otherwise({
-  //       redirectTo: '/'
-  //     });
-  // });
+   .config(function ($routeProvider) {
+     $routeProvider
+       .when('/', {
+         templateUrl: '../views/all_products.html',
+         controller: 'ProductController',
+       })
+       .otherwise({
+         redirectTo: '/'
+       });
+   });
 
 // app.constant('myURL', 'http://localhost:8080/grupo-b-012017/rest/');

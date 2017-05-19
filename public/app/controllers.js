@@ -1,22 +1,39 @@
 var controllers = angular.module('aloloco-app.controllers', []);
 
-controllers.controller('ProductController', function($scope, ProductService){
-  $scope.products = [{"name" : "Tomate"}, {"name" : "Mayonesa"}];
+controllers.controller('ProductController', function ($scope, ProductService) {
+    
+    $scope.products = [{"name" : "Tomate"}, {"name" : "Mayonesa"}, {"name" : "Pollo"}, {"name" : "Bondiola"} , {"name" : "Huevo"} ];
+    $scope.selectedProduct = {};
 
-  $scope.callback = function(data){
-    console.log(data);
-    $scope.products = data.products;
-    //$scope.$apply();
 
-  };
-  $scope.errorHandler = function(error){
-    console.log(error);
-  };
+    $scope.callback = function(data){
+        console.log(data);
+        $scope.products = data.products;
+        //$scope.$apply();
 
-  $scope.getProducts = function(){
-    ProductService.getProducts().then($scope.callback, $scope.errorHandler);
-  };
+    };
+    
+    $scope.errorHandler = function(error){
+        console.log(error);
+    };  
 
+    $scope.getProducts = function(){
+        ProductService.getProducts().then($scope.callback, $scope.errorHandler);
+    };
+
+    $scope.getProduct = function(id) {
+        ProductService.getProduct(id , $scope.callbackGetProduct , $scope.errorHandlerGetProduct);
+    };
+      
+    $scope.callbackGetProduct = function(data) {
+        $scope.selectedProduct = data;
+    };
+    $scope.errorHandlerGetProduct = function(error) {
+        $scope.spanLog = error.descripcion;
+    };
+      
+    
+    
 });
 
 controllers.controller('UserController', function($scope, UserService){
@@ -24,41 +41,41 @@ controllers.controller('UserController', function($scope, UserService){
   $scope.user = {"username":"Pepe", "password":"123"};
   $scope.logged = true;
 
-  $scope.reset = function(){
+  $scope.reset = function (){
     $scope.user.username = "";
     $scope.user.password = "";
     $scope.logged = false;
-  }
+  };
 
   // $scope.reset();
 
 
-  $scope.loginCall = function(response){
+  $scope.loginCall = function (response){
     $scope.user = response.user;
     $scope.logged = true;
-  }
+  };
 
-  $scope.signCall = function(response){
+  $scope.signCall = function (response){
     $scope.reset();
-  }
+    };
 
-  $scope.logoutCall = function(response){
+  $scope.logoutCall = function (response){
     $scope.reset();
-  }
+  };
 
-  $scope.errorHandler = function(error){
+  $scope.errorHandler = function (error){
     $scope.reset();
-  }
+  };
 
-  $scope.login = function(){
+  $scope.login = function (){
     UserService.login($scope.user).then($scope.loginCall, $scope.errorHandler);
   };
 
-  $scope.signup = function(){
+  $scope.signup = function (){
     UserService.signup($scope.user).then($scope.signCall, $scope.errorHandler);
   };
 
-  $scope.logout = function(){
+  $scope.logout = function (){
     UserService.logout($scope.user).then($scope.logoutCall, $scope.errorHandler);
   };
 

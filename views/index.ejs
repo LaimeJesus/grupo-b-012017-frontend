@@ -126,9 +126,7 @@
           </div>
         </div>
 
-        <div data-ng-controller="ProductController">
-          <button data-ng-click="getProducts()">Get Products</button>
-          <ul><li data-ng-repeat="prod in products">{{prod.name}}</li><ul>
+        <div ng-view>
         </div>
 
         <footer class="fixed-bottom">
