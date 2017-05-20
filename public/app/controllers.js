@@ -9,7 +9,7 @@ controllers.controller('ProductController', function ($scope, ProductService) {
         {"name": "Bondiola", "id": 4},
         {"name": "Huevo", "id": 5}
     ];
-    
+
     $scope.selectedProduct = {
         "id" : 6,
         "name" : "Zanahoria",
@@ -25,15 +25,7 @@ controllers.controller('ProductController', function ($scope, ProductService) {
 
     $scope.callback = function(data){
         console.log(data);
-        // $scope.products = [];
-        // for(var i=0; i < data.products.length;i++){
-        //   var prod = data.products[i];
-        //   if(!prod.hasOwnProperty('url')){
-        //     console.log(prod);
-        //     prod.url="../images/no-image-available.png";
-        //   };
-        //   $scope.products.push(prod);
-        // };
+        $scope.products = data.data;
     };
     $scope.errorHandler = function(error){
         console.log(error);
@@ -62,20 +54,20 @@ controllers.controller('ProductController', function ($scope, ProductService) {
     $scope.callbackAddProductToList = function(data) {
         console.log("La wea");
     };
-    
+
     $scope.errorHandlerAddProductToList = function(error) {
         console.log("Penca");
     };
-    
+
     $scope.addProductToList = function() {
         ProductService.addProductToList(
-            $scope.selectedProduct.id, 
-            $scope.selectedList.name, 
+            $scope.selectedProduct.id,
+            $scope.selectedList.name,
             $scope.callbackAddProductToList,
             $scope.errorHandlerAddProductToList
         )
     };
-    
+
     $scope.getProducts();
 
 });
