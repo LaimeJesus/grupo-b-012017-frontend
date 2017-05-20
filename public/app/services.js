@@ -14,6 +14,33 @@ services.factory('ProductService', function($http) {
       }
       });
     }
+    
+    ProductAPI.getProduct = function(id) {
+      return $http({
+        method: 'GET',
+        url: 'http://localhost:8080/grupo-b-012017/rest/product/?id=' + id,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+      }
+      });
+    }
+    
+    ProductAPI.addProductToList = function(username, prodListName, idProd, cant) {
+      return $http({
+        method: 'POST',
+        data: {
+            user : username,
+            productList : prodListName,
+            product : idProd,
+            quantity : cant
+        },
+        url: 'http://localhost:8080/grupo-b-012017/rest/productList/selectProduct',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+      }
+      });
+    }
+    
     return ProductAPI;
   });
 

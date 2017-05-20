@@ -102,3 +102,12 @@ body 						{ padding-top:50px; }
 .productImage {
     text-align: center;
 }
+
+.marginLeft40 {
+    margin-left: 40px;
+}
+
+.bigSelector {
+    width: 269px;
+    margin-top: 5px;
+}
