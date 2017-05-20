@@ -8,10 +8,7 @@ services.factory('ProductService', function($http) {
     ProductAPI.getProducts = function() {
       return $http({
         method: 'GET',
-        url: 'http://localhost:8080/grupo-b-012017/rest/product/all',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-      }
+        url: 'http://localhost:8080/grupo-b-012017/rest/product/all'
       });
     }
     
@@ -46,7 +43,7 @@ services.factory('ProductService', function($http) {
 
 
 services.factory('UserService', function($http) {
-    var urlbase = 'http://localhost:8080/grupo-b-012017/rest';
+    var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
     var UserAPI = {};
 
     var user = {};
@@ -77,8 +74,10 @@ services.factory('UserService', function($http) {
       return $http({
         method: 'POST',
         url: urlbase + 'user/login',
+        data: user,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          "Accept": "application/json;odata=verbose",
+          'Content-Type': 'application/json'
         }
       });
     }
@@ -86,8 +85,10 @@ services.factory('UserService', function($http) {
       return $http({
         method: 'POST',
         url: urlbase + 'user/signup',
+        data: user,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          "Accept": "application/json;odata=verbose",
+          'Content-Type': 'application/json'
         }
       });
     }
@@ -95,8 +96,10 @@ services.factory('UserService', function($http) {
       return $http({
         method: 'POST',
         url: urlbase + 'user/logout',
+        data: user,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          "Accept": "application/json;odata=verbose",
+          'Content-Type': 'application/json'
         }
       });
     }
@@ -114,7 +117,7 @@ services.factory('ProductListService', function($http) {
           params: {username: user.username},
           url: urlbase + 'productlist/mylists',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
           }
         });
       }
@@ -124,7 +127,7 @@ services.factory('ProductListService', function($http) {
           data: userlist,
           url: urlbase + 'productlist/create',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
           }
         });
       }
@@ -134,7 +137,7 @@ services.factory('ProductListService', function($http) {
           data: userlistprodquantity,
           url: urlbase + 'productlist/selectproduct',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
           }
         });
       }

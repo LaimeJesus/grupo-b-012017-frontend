@@ -19,13 +19,6 @@
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
 
-
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script> -->
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script> -->
-    <!-- <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script> -->
-
-
-
     <!-- <script src="app/app.js"></script>
     <script src="app/services/signupservice.js"></script>
     <script src="app/services/loginservice.js"></script>
@@ -37,6 +30,7 @@
     <script src="app/controllers/productlistcontroller.js"></script> -->
 
   </head>
+    <base href="/">
 
    <body data-ng-app="aloloco-app">
       <div class="container-fluid">
@@ -51,38 +45,31 @@
                 </form>
               </div>
               <a class="navbar-brand d-flex mx-auto" href="#">A lo loco!!! </a>
-              <div class="navbar-collapse collapse dual-collapse" data-ng-controller="UserController">
-                  <ul class="navbar-nav ml-auto">
-                      <li class="nav-item btn-sm btn-outline-success">
-                          <a class="nav-link" data-ng-hide="logged" class="ng-hide" data-ng-click="login()" href="#">Login</a>
-                      </li>
-                      <li class="nav-item btn-sm btn-outline-success">
-                          <a class="nav-link" data-ng-hide="logged" class="ng-hide" data-ng-click="signup()" href="#">Sign Up</a>
-                      </li>
-                      <li class="nav-item btn-sm btn-outline-success">
-                          <a class="nav-link" data-ng-show="logged" data-ng-click="logout()" href="#">Log Out</a>
-                      </li>
-                  </ul>
-              </div>
           </nav>
 
         </div>
 
         <div>
           <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
-              <div class="navbar-collapse collapse dual-collapse">
+              <div class="navbar-collapse collapse dual-collapse" ng-controller="MainController">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item btn-sm btn-outline-success active">
                         <a class="nav-link " href="/">Products</a>
                     </li>
                     <li class="nav-item btn-sm btn-outline-success">
-                        <a class="nav-link " href="#">Offers</a>
+                        <a class="nav-link " href="mylists">My Lists</a>
                     </li>
                     <li class="nav-item btn-sm btn-outline-success " style="margin:auto">
                         <a class="nav-link " href="#">My Profile</a>
                     </li>
-                    <li class="nav-item btn-sm btn-outline-success" style="margin:auto">
-                        <a class="nav-link " href="#">Create Offer</a>
+                    <li class="nav-item btn-sm btn-outline-success ng-hide" data-ng-hide="logged" style="margin:auto">
+                        <a class="nav-link " href="login">Login</a>
+                    </li>
+                    <li class="nav-item btn-sm btn-outline-success ng-hide" data-ng-hide="logged" style="margin:auto">
+                      <a class="nav-link" href="signup">Sign Up</a>
+                    </li>
+                    <li class="nav-item btn-sm btn-outline-success" ng-show="logged" style="margin:auto">
+                      <a class="nav-link" href="signup">Logout</a>
                     </li>
                 </ul>
               </div>

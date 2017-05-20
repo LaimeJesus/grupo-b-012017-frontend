@@ -1,5 +1,9 @@
 var controllers = angular.module('aloloco-app.controllers', []);
 
+controllers.controller('MainController',function($scope, UserService){
+  $scope.user = UserService.getUser();
+  $scope.logged = UserService.islogged();
+});
 controllers.controller('ProductController', function ($scope, ProductService) {
 
     $scope.products = [
@@ -72,60 +76,6 @@ controllers.controller('ProductController', function ($scope, ProductService) {
 
 });
 
-controllers.controller('UserController', function($scope, UserService){
-  UserService.setUser({"username":"Pepe", "password":"123"});
-  $scope.user = UserService.getUser();
-  UserService.logged(true);
-  $scope.logged = UserService.islogged();
-
-  $scope.reset = function (){
-    UserService.reset();
-    $scope.user = UserService.getUser();
-    $scope.logged = UserService.islogged();
-  };
-
-  // $scope.reset();
-
-
-  $scope.loginCall = function (response){
-    UserService.setUser(response.user);
-    UserService.logged(true);
-    $scope.user = UserService.getUser();
-    $scope.logged = UserService.islogged();
-  };
-
-  $scope.signCall = function (response){
-    $scope.reset();
-    $scope.user = UserService.getUser();
-    $scope.logged = UserService.islogged();
-  };
-
-  $scope.logoutCall = function (response){
-    $scope.reset();
-    $scope.user = UserService.getUser();
-    $scope.logged = UserService.islogged();
-  };
-
-  $scope.errorHandler = function (error){
-    $scope.reset();
-    $scope.user = UserService.getUser();
-    $scope.logged = UserService.islogged();
-  };
-
-  $scope.login = function (){
-    UserService.login($scope.user).then($scope.loginCall, $scope.errorHandler);
-  };
-
-  $scope.signup = function (){
-    UserService.signup($scope.user).then($scope.signCall, $scope.errorHandler);
-  };
-
-  $scope.logout = function (){
-    UserService.logout($scope.user).then($scope.logoutCall, $scope.errorHandler);
-  };
-
-});
-
 controllers.controller('ProductListController', [
   '$scope',
   'UserService',
@@ -136,6 +86,11 @@ controllers.controller('ProductListController', [
 
     //esto deberia ir al final
     //$scope.getlists();
+    $scope.newlist = false;
+    $scope.showNewList = function(){
+      $scope.newlist = true;
+      $scope.name = "";
+    }
 
     $scope.getlists = function(){
       if(UserService.islogged()){
@@ -143,15 +98,83 @@ controllers.controller('ProductListController', [
       }
     };
 
-    $scope.createproductlist = function(name){
-      var list = {"user" : LoginService.getUser(), "name" : name};
+    $scope.createproductlist = function(){
+      $scope.newlist = false;
+      var list = {"user" : LoginService.getUser(), "name" : $scope.name};
       ProductListService.create(list).then($scope.callback, $scope.errorHandler);
     };
 
-    $scope.callback = function(data) {
-      $scope.productlists = data.productlists;
+    $scope.callback = function(info) {
+      $scope.productlists.push($scope.name);
+      $scope.name = "";
     };
     $scope.errorHandler = function(error) {
       console.log(error);
     };
 }]);
+
+controllers.controller('SignUpController', function($scope, UserService){
+
+  $scope.user = {};
+  $scope.user.username = "";
+  $scope.user.password = "";
+
+  $scope.reset = function (){
+    $scope.user.username = "";
+    $scope.user.password = "";
+  };
+
+  $scope.signcallback = function (response){
+    console.log(response);
+    $scope.reset();
+  };
+
+  $scope.errorHandler = function (error){
+    console.log(error);
+    $scope.reset();
+  };
+
+  $scope.signup = function (){
+    UserService.signup($scope.user).then($scope.signCall, $scope.errorHandler);
+  };
+
+});
+
+controllers.controller('LoginController', function($scope, UserService){
+
+  $scope.user = {};
+  $scope.user.username = "";
+  $scope.user.password = "";
+
+  $scope.reset = function (){
+    $scope.user.username = "";
+    $scope.user.password = "";
+  };
+
+  $scope.logincallback = function(response){
+    console.log(response);
+    UserService.logged(true);
+    UserService.user($scope.user);
+  };
+
+  $scope.logoutcallback = function(response){
+    console.log(response);
+    UserService.logged(false);
+    $scope.reset();
+    UserService.user($scope.user);
+  }
+
+  $scope.errorHandler = function(error){
+    console.log(error);
+    $scope.reset();
+  };
+
+  $scope.login = function(){
+    console.log($scope.user);
+    UserService.login($scope.user).then($scope.logincallback, $scope.errorHandler);
+  };
+
+  $scope.logout = function(){
+    UserService.logout($scope.user).then($scope.logoutcallback, $scope.errorHandler);
+  };
+});
