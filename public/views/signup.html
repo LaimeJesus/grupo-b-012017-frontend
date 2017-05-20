@@ -1,0 +1,14 @@
+<div>
+  <form ng-submit="signup()">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" ng-model="user.username" placeholder="username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="text" name="password" class="form-control" ng-model="user.password" placeholder="password" ng-minlength="3" ng-maxlength="8" required>
+      </div>
+      <input type="submit" class="btn primary-btn" value="SignUp" />
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  </form>
+</div>

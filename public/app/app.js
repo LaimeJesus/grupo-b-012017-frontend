@@ -10,33 +10,26 @@ var app = angular.module('aloloco-app', [
     'aloloco-app.controllers',
     'aloloco-app.services',
     'ngRoute'
-]).config(function ($routeProvider) {
+]).config(function ($routeProvider, $locationProvider) {
      $routeProvider
        .when('/', {
          templateUrl: '../views/all_products.html',
          controller: 'ProductController',
        })
+       .when('/signup',{
+         templateUrl: '../views/signup.html',
+         controller: 'SignUpController',
+       })
+       .when('/login',{
+         templateUrl: '../views/login.html',
+         controller: 'LoginController',
+       })
+       .when('/mylists',{
+         templateUrl: '../views/productlist.html',
+         controller: 'ProductListController',
+       })
        .otherwise({
          redirectTo: '/'
        });
+      $locationProvider.html5Mode(true);
    });
-
-// app.constant('myURL', 'http://localhost:8080/grupo-b-012017/rest/');
-// 'ngAnimate',
-// 'ngAria',
-// 'ngCookies',
-// 'ngMessages',
-// 'ngResource',
-// 'ngRoute',
-// 'ngSanitize',
-// 'ngTouch',
-// 'routeProvider',
-//   'SignUpService',
-//   'LoginService',
-//   'ProductService',
-//   'ProductListService',
-//   'SignUpController',
-//   'LoginController',
-//   'ProductController',
-//   'ProductListController',
-// ])
