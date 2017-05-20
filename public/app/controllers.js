@@ -6,9 +6,26 @@ controllers.controller('MainController',function($scope, UserService){
 });
 controllers.controller('ProductController', function ($scope, ProductService) {
 
-    $scope.products = [{"name" : "Tomate"}, {"name" : "Mayonesa"}, {"name" : "Pollo"}, {"name" : "Bondiola"} , {"name" : "Huevo"} ];
-    $scope.selectedProduct = {};
+    $scope.products = [
+        {"name": "Tomate", "id": 1},
+        {"name": "Mayonesa", "id": 2},
+        {"name": "Pollo", "id": 3},
+        {"name": "Bondiola", "id": 4},
+        {"name": "Huevo", "id": 5}
+    ];
+    
+    $scope.selectedProduct = {
+        "id" : 6,
+        "name" : "Zanahoria",
+        "category" : "Dairy",
+        "price" : "13,50"
+    };
+    $scope.userLists = [
+        {"name" : "list1" },
+        {"name" : "list2" }
+    ];
 
+    $scope.selectedList = {"name": "Choose a List"};
 
     $scope.callback = function(data){
         console.log(data);
@@ -41,10 +58,28 @@ controllers.controller('ProductController', function ($scope, ProductService) {
         $scope.spanLog = error.descripcion;
     };
 
-    $scope.getDetail = function(prod){
-        console.log(prod);
+    $scope.getDetail = function(id){
+        console.log("Pedi detalle");
+        $scope.getProduct(id);
     };
 
+    $scope.callbackAddProductToList = function(data) {
+        console.log("La wea");
+    };
+    
+    $scope.errorHandlerAddProductToList = function(error) {
+        console.log("Penca");
+    };
+    
+    $scope.addProductToList = function() {
+        ProductService.addProductToList(
+            $scope.selectedProduct.id, 
+            $scope.selectedList.name, 
+            $scope.callbackAddProductToList,
+            $scope.errorHandlerAddProductToList
+        )
+    };
+    
     $scope.getProducts();
 
 });
