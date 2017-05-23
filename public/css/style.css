@@ -1,5 +1,6 @@
-body 						{ padding-top:50px; }
-.container .jumbotron   	{ border-radius:40px; }
+.container.jumbotron {
+  border-radius:40px;
+}
 
 .browsehappy {
   margin: 0.2em 0;
@@ -8,13 +9,13 @@ body 						{ padding-top:50px; }
   padding: 0.2em 0;
 }
 
-/*body {
-    padding: 0;
-    background-image: url("../images/background-image.jpg");
-    background-size:     cover;                      
-    background-repeat:   no-repeat;
-    background-position: center center;
-}*/
+body {
+  background: url("../images/background-image.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 .toRight {
   width: 700px ;
@@ -110,4 +111,14 @@ body 						{ padding-top:50px; }
 .bigSelector {
     width: 269px;
     margin-top: 5px;
+}
+
+.bigOneButton {
+  width: 75%;
+  height: 400px;
+}
+
+.separated {
+  padding: 20px;
+  margin: 20px !important;
 }

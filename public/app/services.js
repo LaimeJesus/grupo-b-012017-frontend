@@ -14,12 +14,10 @@ services.factory('ProductService', function($http) {
 
     ProductAPI.getDetail = function(name, brand) {
       return $http({
-        method: 'POST',
-        data: {
-            'id': "",
-            'name' : name,
-            'brand' : brand,
-            'imageUrl' : ""
+        method: 'GET',
+        params: {
+          name: name,
+          brand: brand
         },
         url: urlbase + 'product/detail'
       });
@@ -112,20 +110,25 @@ services.factory('ProductListService', function($http) {
       var urlbase = 'http://localhost:8080/grupo-b-012017/rest';
       var ProductListAPI = {};
 
-      ProductListAPI.mylists = function(user) {
+      ProductListAPI.mylists = function(username) {
         return $http({
           method: 'GET',
-          params: {username: user.username},
+          params: {
+            username : username
+          },
           url: urlbase + 'productlist/mylists',
           headers: {
             'Content-Type': 'application/json'
           }
         });
       }
-      ProductListAPI.create = function(userlist) {
+      ProductListAPI.create = function(username , listname) {
         return $http({
           method: 'POST',
-          data: userlist,
+          data: {
+            username : username,
+            name : listname
+          },
           url: urlbase + 'productlist/create',
           headers: {
             'Content-Type': 'application/json'

@@ -30,6 +30,11 @@ controllers.controller('ProductController', function ($scope, ProductService) {
     $scope.callback = function(data){
         console.log(data);
         $scope.products = data.data;
+        for (var i=0 ; i<data.data.length ; i++){
+          if ($scope.products[i].imageUrl == "no-image"){
+            $scope.products[i].imageUrl = "../images/no-image-available.png"
+          }
+        }
     };
     $scope.errorHandler = function(error){
         console.log(error);
@@ -45,7 +50,8 @@ controllers.controller('ProductController', function ($scope, ProductService) {
 
     $scope.callbackGetDetal = function(data) {
         console.log("Detalle obtenido exitosamente");
-        $scope.selectedProduct = data;
+        console.log(data);
+        $scope.selectedProduct = data.data;
     };
     $scope.errorHandlerGetDetail = function(error) {
         console.log("Detalle no obtenido, algo fallo");
@@ -54,7 +60,7 @@ controllers.controller('ProductController', function ($scope, ProductService) {
 
     $scope.getDetail = function(name,brand){
         console.log("Pedi detalle");
-        ProductService.getDetail(name,brand,$scope.callbackGetDetal,$scope.errorHandlerGetDetail);
+        ProductService.getDetail(name,brand).then($scope.callbackGetDetal,$scope.errorHandlerGetDetail);
     };
 
     $scope.callbackAddProductToList = function(data) {
@@ -74,6 +80,14 @@ controllers.controller('ProductController', function ($scope, ProductService) {
         )
     };
 
+    $scope.getImage = function(product) {
+      if (product.imageUrl != "no-image"){
+        return product.imageUrl;
+      } else {
+        return "../images/no-image-available";
+      }
+    }
+
     $scope.getProducts();
 
 });
@@ -83,7 +97,7 @@ controllers.controller('ProductListController', [
   'UserService',
   'ProductListService',
   function($scope, UserService, ProductListService) {
-    $scope.productlists = [];
+    $scope.productlists = [{"name" : "Lista 1"} , {"name" : "Lista2"} , {"name" : "Lista 3"} , {"name" : "Lista4"} , {"name" : "Lista5"} ];
     $scope.spanLog = "";
 
     //esto deberia ir al final
@@ -93,51 +107,60 @@ controllers.controller('ProductListController', [
       $scope.newlist = true;
       $scope.name = "";
     }
+    $scope.callbackGetLists = function(data) {
+      console.log("Lists Received Succesfully");
+      $scope.productlists = data.data;
+    };
+    $scope.errorHandlerGetList = function(error) {
+      console.log("Lists Received Failure");
+      console.log(error);
+    };
 
     $scope.getlists = function(){
       if(UserService.islogged()){
-        ProductListService.mylists(LoginService.getUser()).then($scope.callback, $scope.errorHandler);
+        ProductListService.mylists(UserService.getUser().username).then($scope.callbackGetLists, $scope.errorHandlerGetList);
       }
     };
 
+    $scope.callbackCreate = function(data) {
+      console.log("List Created Succesfully");
+      console.log(data);
+    }
+
+    $scope.errorHandlerCreate = function(error) {
+      console.log("List Creation Failed");
+      console.log(error);
+    }
+
     $scope.createproductlist = function(){
-      $scope.newlist = false;
-      var list = {"user" : LoginService.getUser(), "name" : $scope.name};
-      ProductListService.create(list).then($scope.callback, $scope.errorHandler);
+      if (UserService.islogged()){
+        ProductListService.create(UserService.getUser().username , $scope.newListName).then($scope.callback, $scope.errorHandler);
+      }
     };
 
-    $scope.callback = function(info) {
-      $scope.productlists.push($scope.name);
-      $scope.name = "";
-    };
-    $scope.errorHandler = function(error) {
-      console.log(error);
-    };
 }]);
 
 controllers.controller('SignUpController', function($scope, UserService){
 
-  $scope.user = {};
-  $scope.user.username = "";
-  $scope.user.password = "";
+  $scope.signupuser = {};
+  $scope.signupuser.username = "";
+  $scope.signupuser.password = "";
 
   $scope.reset = function (){
-    $scope.user.username = "";
-    $scope.user.password = "";
+    $scope.signupuser.username = "";
+    $scope.signupuser.password = "";
   };
 
   $scope.signcallback = function (response){
-    console.log(response);
     $scope.reset();
   };
 
   $scope.errorHandler = function (error){
-    console.log(error);
     $scope.reset();
   };
 
   $scope.signup = function (){
-    UserService.signup($scope.user).then($scope.signCall, $scope.errorHandler);
+    UserService.signup($scope.signupuser).then($scope.signcallback, $scope.errorHandler);
   };
 
 });
@@ -154,26 +177,22 @@ controllers.controller('LoginController', function($scope, UserService){
   };
 
   $scope.logincallback = function(response){
-    console.log(response);
     UserService.logged(true);
-    UserService.user($scope.user);
+    UserService.setUser($scope.loginuser);
   };
 
   $scope.logoutcallback = function(response){
-    console.log(response);
     UserService.logged(false);
     $scope.reset();
     UserService.user($scope.user);
   }
 
   $scope.errorHandler = function(error){
-    console.log(error);
     $scope.reset();
   };
 
   $scope.login = function(){
-    console.log($scope.user);
-    UserService.login($scope.user).then($scope.logincallback, $scope.errorHandler);
+    UserService.login($scope.loginuser).then($scope.logincallback, $scope.errorHandler);
   };
 
   $scope.logout = function(){
