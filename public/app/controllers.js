@@ -137,49 +137,46 @@ controllers.controller('SignUpController', function($scope, UserService){
   };
 
   $scope.signup = function (){
-    UserService.signup($scope.user).then($scope.signcallback, $scope.errorHandler);
+    UserService.signup($scope.user).then($scope.signCall, $scope.errorHandler);
   };
 
 });
 
 controllers.controller('LoginController', function($scope, UserService){
 
-  $scope.loginuser = {};
-  $scope.loginuser.username = "";
-  $scope.loginuser.password = "";
+  $scope.user = {};
+  $scope.user.username = "";
+  $scope.user.password = "";
 
   $scope.reset = function (){
-    $scope.loginuser.username = "";
-    $scope.loginuser.password = "";
+    $scope.user.username = "";
+    $scope.user.password = "";
   };
 
   $scope.logincallback = function(response){
-    console.log("Login Callback");
+    console.log(response);
     UserService.logged(true);
-    UserService.user($scope.loginuser);
+    UserService.user($scope.user);
   };
 
   $scope.logoutcallback = function(response){
     console.log(response);
     UserService.logged(false);
     $scope.reset();
-    UserService.user($scope.loginuser);
+    UserService.user($scope.user);
   }
 
   $scope.errorHandler = function(error){
-    console.log("Error Callback");
     console.log(error);
     $scope.reset();
   };
 
   $scope.login = function(){
-    console.log($scope.loginuser);
-    var res = UserService.login($scope.loginuser);
-    console.log(res);
-    res.then($scope.logincallback, $scope.errorHandler);
+    console.log($scope.user);
+    UserService.login($scope.user).then($scope.logincallback, $scope.errorHandler);
   };
 
   $scope.logout = function(){
-    UserService.logout($scope.loginuser).then($scope.logoutcallback, $scope.errorHandler);
+    UserService.logout($scope.user).then($scope.logoutcallback, $scope.errorHandler);
   };
 });
