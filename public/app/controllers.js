@@ -171,4 +171,18 @@ controllers.controller('LoginController', function($scope, UserService){
   $scope.logout = function(){
     UserService.logout($scope.loginuser).then($scope.logoutcallback, $scope.errorHandler);
   };
+
+  $scope.loginadmincallback = function(data){
+    UserService.loggedAsAdmin(true);
+    $scope.resetadmin();
+    UserService.user(data.user);
+  }
+  $scope.erroradminHandler = function(error){
+    $scope.resetadmin();
+  }
+
+  $scope.loginAsAdmin = function(){
+    UserService.loginAsAdmin($scope.loginuseradmin).then($scope.loginadmincallback, $scope.erroradminHandler)
+  }
+
 });
