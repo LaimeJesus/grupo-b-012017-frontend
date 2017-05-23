@@ -43,16 +43,18 @@ controllers.controller('ProductController', function ($scope, ProductService) {
         ProductService.getProduct(id , $scope.callbackGetProduct , $scope.errorHandlerGetProduct);
     };
 
-    $scope.callbackGetProduct = function(data) {
+    $scope.callbackGetDetal = function(data) {
+        console.log("Detalle obtenido exitosamente");
         $scope.selectedProduct = data;
     };
-    $scope.errorHandlerGetProduct = function(error) {
+    $scope.errorHandlerGetDetail = function(error) {
+        console.log("Detalle no obtenido, algo fallo");
         $scope.spanLog = error.descripcion;
     };
 
-    $scope.getDetail = function(id){
+    $scope.getDetail = function(name,brand){
         console.log("Pedi detalle");
-        $scope.getProduct(id);
+        ProductService.getDetail(name,brand,$scope.callbackGetDetal,$scope.errorHandlerGetDetail);
     };
 
     $scope.callbackAddProductToList = function(data) {
