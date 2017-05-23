@@ -115,27 +115,25 @@ controllers.controller('ProductListController', [
 
 controllers.controller('SignUpController', function($scope, UserService){
 
-  $scope.user = {};
-  $scope.user.username = "";
-  $scope.user.password = "";
+  $scope.signupuser = {};
+  $scope.signupuser.username = "";
+  $scope.signupuser.password = "";
 
   $scope.reset = function (){
-    $scope.user.username = "";
-    $scope.user.password = "";
+    $scope.signupuser.username = "";
+    $scope.signupuser.password = "";
   };
 
   $scope.signcallback = function (response){
-    console.log(response);
     $scope.reset();
   };
 
   $scope.errorHandler = function (error){
-    console.log(error);
     $scope.reset();
   };
 
   $scope.signup = function (){
-    UserService.signup($scope.user).then($scope.signcallback, $scope.errorHandler);
+    UserService.signup($scope.signupuser).then($scope.signcallback, $scope.errorHandler);
   };
 
 });
@@ -152,29 +150,22 @@ controllers.controller('LoginController', function($scope, UserService){
   };
 
   $scope.logincallback = function(response){
-    console.log("Login Callback");
     UserService.logged(true);
-    UserService.user($scope.loginuser);
+    UserService.setUser($scope.loginuser);
   };
 
   $scope.logoutcallback = function(response){
-    console.log(response);
     UserService.logged(false);
     $scope.reset();
     UserService.user($scope.loginuser);
   }
 
   $scope.errorHandler = function(error){
-    console.log("Error Callback");
-    console.log(error);
     $scope.reset();
   };
 
   $scope.login = function(){
-    console.log($scope.loginuser);
-    var res = UserService.login($scope.loginuser);
-    console.log(res);
-    res.then($scope.logincallback, $scope.errorHandler);
+    UserService.login($scope.loginuser).then($scope.logincallback, $scope.errorHandler);
   };
 
   $scope.logout = function(){
