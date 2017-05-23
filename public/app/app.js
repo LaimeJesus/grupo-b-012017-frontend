@@ -9,7 +9,8 @@
 var app = angular.module('aloloco-app', [
     'aloloco-app.controllers',
     'aloloco-app.services',
-    'ngRoute'
+    'ngRoute',
+    'ngResource'
 ]).config(function ($routeProvider, $locationProvider) {
      $routeProvider
        .when('/', {
