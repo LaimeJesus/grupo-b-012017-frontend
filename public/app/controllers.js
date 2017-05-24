@@ -176,13 +176,14 @@ controllers.controller('LoginController', function($scope, UserService){
     UserService.loggedAsAdmin(true);
     $scope.resetadmin();
     UserService.user(data.user);
-  }
+  };
+
   $scope.erroradminHandler = function(error){
     $scope.resetadmin();
-  }
+  };
 
   $scope.loginAsAdmin = function(){
     UserService.loginAsAdmin($scope.loginuseradmin).then($scope.loginadmincallback, $scope.erroradminHandler)
-  }
+  };
 
 });
