@@ -6,20 +6,10 @@ controllers.controller('MainController',function($scope, UserService){
 });
 controllers.controller('ProductController', function ($scope, ProductService) {
 
-    $scope.products = [
-        {"name": "Tomate", "id": 1},
-        {"name": "Mayonesa", "id": 2},
-        {"name": "Pollo", "id": 3},
-        {"name": "Bondiola", "id": 4},
-        {"name": "Huevo", "id": 5}
-    ];
+    $scope.products = [];
 
-    $scope.selectedProduct = {
-        "id" : 6,
-        "name" : "Zanahoria",
-        "category" : "Dairy",
-        "price" : "13,50"
-    };
+    $scope.selectedProduct = {};
+
     $scope.userLists = [
         {"name" : "list1" },
         {"name" : "list2" }
