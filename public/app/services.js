@@ -2,26 +2,27 @@
 var services = angular.module('aloloco-app.services', []);
 
 services.factory('ProductService', function($http) {
-    var urlbase = 'http://localhost:8080/grupo-b-012017/rest';
+    var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
     var ProductAPI = {};
 
     ProductAPI.getProducts = function() {
       return $http({
         method: 'GET',
-        url: 'http://localhost:8080/grupo-b-012017/rest/product/all'
+        url: urlbase + 'product/all'
       });
     }
-    
-    ProductAPI.getProduct = function(id) {
+
+    ProductAPI.getDetail = function(name, brand) {
       return $http({
         method: 'GET',
-        url: 'http://localhost:8080/grupo-b-012017/rest/product/?id=' + id,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-      }
+        params: {
+          name: name,
+          brand: brand
+        },
+        url: urlbase + 'product/detail'
       });
     }
-    
+
     ProductAPI.addProductToList = function(username, prodListName, idProd, cant) {
       return $http({
         method: 'POST',
@@ -31,13 +32,10 @@ services.factory('ProductService', function($http) {
             product : idProd,
             quantity : cant
         },
-        url: 'http://localhost:8080/grupo-b-012017/rest/productList/selectProduct',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-      }
+        url: 'http://localhost:8080/grupo-b-012017/rest/productList/selectProduct'
       });
     }
-    
+
     return ProductAPI;
   });
 
@@ -87,6 +85,7 @@ services.factory('UserService', function($http) {
         url: urlbase + 'user/signup',
         data: user,
         headers: {
+          'Access-Control-Allow-Origin': '*',
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'
         }
@@ -111,20 +110,25 @@ services.factory('ProductListService', function($http) {
       var urlbase = 'http://localhost:8080/grupo-b-012017/rest';
       var ProductListAPI = {};
 
-      ProductListAPI.mylists = function(user) {
+      ProductListAPI.mylists = function(username) {
         return $http({
           method: 'GET',
-          params: {username: user.username},
+          params: {
+            username : username
+          },
           url: urlbase + 'productlist/mylists',
           headers: {
             'Content-Type': 'application/json'
           }
         });
       }
-      ProductListAPI.create = function(userlist) {
+      ProductListAPI.create = function(username , listname) {
         return $http({
           method: 'POST',
-          data: userlist,
+          data: {
+            username : username,
+            name : listname
+          },
           url: urlbase + 'productlist/create',
           headers: {
             'Content-Type': 'application/json'
