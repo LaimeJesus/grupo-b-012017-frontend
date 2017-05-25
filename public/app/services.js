@@ -44,20 +44,19 @@ services.factory('UserService', function($http) {
     var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
     var UserAPI = {};
 
-    var user = {};
+    var username = {};
     var logged = false;
 
     UserAPI.reset = function(){
-      user.username = "";
-      user.password = "";
+      username.username = "";
       logged = false;
     }
 
     UserAPI.setUser = function(newuser){
-      user = newuser;
+      username = newuser;
     }
     UserAPI.getUser = function(){
-      return user;
+      return username;
     }
 
     UserAPI.logged = function(bool){
@@ -91,11 +90,14 @@ services.factory('UserService', function($http) {
         }
       });
     }
-    UserAPI.logout = function(user) {
+    UserAPI.logout = function(username) {
+        console.log("Usuario : " + username);
       return $http({
         method: 'POST',
         url: urlbase + 'user/logout',
-        data: user,
+        data: {
+            username : username
+        },
         headers: {
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'
@@ -107,7 +109,7 @@ services.factory('UserService', function($http) {
   });
 
 services.factory('ProductListService', function($http) {
-      var urlbase = 'http://localhost:8080/grupo-b-012017/rest';
+      var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
       var ProductListAPI = {};
 
       ProductListAPI.mylists = function(username) {
