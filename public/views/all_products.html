@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <div class="row">
-        <div data-ng-repeat="prod in products" class="col-md-3" class="productImage">
+        <div data-ng-repeat="prod in products" class="col-md-3 col-xs-6" class="productImage">
             <div class="productImage">
-                <a>
-                <img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-thumbnail">
-                </a>
+                <div>
+                    <a><img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-thumbnail squareImage"></a>
+                </div>
             </div>
             <div class="productImage">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">Comprar {{prod.name}} {{prod.brand}}</button>
@@ -34,7 +34,7 @@
                         <label>Category : {{selectedProduct.category}}</label>
                     </div>
                 <div class="row marginLeft40">
-                    <a><img src="../images/product-tomate.jpg" alt={{prod.name}} class="img-thumbnail"></a>
+                    <a><img ng-src={{selectedProduct.imageUrl}} alt={{selectedProduct.name}} class="img-thumbnail"></a>
                 </div>
                 <div class="row marginLeft40">
                     <div class="productImage">
