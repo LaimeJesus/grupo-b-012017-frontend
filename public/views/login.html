@@ -1,14 +1,19 @@
-<div>
-  <form ng-submit="login()">
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text" name="username" class="form-control" ng-model="loginuser.username" placeholder="username" required>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="loginpassword" class="form-control" ng-model="loginuser.password" placeholder="password">
-      </div>
-      <input type="submit" class="btn primary-btn" value="Login" />
-      <button class="btn btn-warning" type="button" >Cancel</button>
-  </form>
+<div class="container-fluid">
+    <div class="row justify-content-center bg-inverse" style="padding: 15px">
+        <div class="col-md-8 col-md-offset-2">
+            <form ng-submit="login()">
+                <div class="form-group">
+                    <label class="btn-outline-success"><h2>Username</h2></label>
+                    <input type="text" name="username" class="form-control" ng-model="loginuser.username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <label class="btn-outline-success"><h2>Password</h2></label>
+                    <input type="password" name="loginpassword" class="form-control" ng-model="loginuser.password" placeholder="Password">
+                </div>
+                <input type="submit" class="btn btn-success" value="Login" />
+                <button class="btn btn-primary" type="button" >Cancel</button>
+                <a class="nav-link" href="/signup"> New here? Create Account </a>
+            </form>
+        </div>
+    </div>
 </div>
