@@ -41,18 +41,33 @@ var app = angular.module('aloloco-app', [
 
      $translateProvider.translations(
        "es-es" , {
-         "index" : {
-         "title" : "A lo loco!"
+         "navbar" : {
+         "title" : "A lo loco!!!",
+         "search" : "Busqueda",
+         "login" : "Ingresar",
+         "signup" : "Registrarse",
+         "logout" : "Cerrar Sesion",
+         "products" : "Productos",
+         "mylists" : "Mis Listas",
+         "profile" : "Mi Perfil"
           }
         }
      );
      $translateProvider.translations(
        "en-us" , {
-         "index" : {
-         "title" : "A LOCOLCOLCOCLOCLCOLC!"
+         "navbar" : {
+         "title" : "Crazy Shop",
+         "search" : "Search",
+         "login" : "Log In",
+         "signup" : "Sign Up",
+         "logout" : "Log Out",
+         "products" : "Products",
+         "mylists" : "My Lists",
+         "profile" : "My Profile"
           }
         }
      );
+     $translateProvider.useSanitizeValueStrategy('escapeParameters');
    }]);
 
 app.run(["$window", "$translate", function($window, $translate){

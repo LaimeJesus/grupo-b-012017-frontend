@@ -17,8 +17,9 @@
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.js" type="text/javascript"></script>
-    <script src="js/angular-locale_es-us.js" type="text/javascript"></script>
+    <!-- <script src="js/angular-locale_es-us.js" type="text/javascript"></script> -->
     <script src="js/angular-translate.min.js" type="text/javascript"></script>
+    <script src="js/tmhDynamicLocale.min.js" type="text/javascript"></script>
     <!-- <script src="app/app.js"></script>
     <script src="app/services/signupservice.js"></script>
     <script src="app/services/loginservice.js"></script>
@@ -41,10 +42,10 @@
               <div class="navbar-collapse collapse dual-collapse">
                 <form class="form-inline">
                   <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{'navbar.search' | translate}}</button>
                 </form>
               </div>
-              <a class="navbar-brand d-flex mx-auto" href="#">A lo loco!!! </a>
+              <a class="navbar-brand d-flex mx-auto" href="#">{{'navbar.title' | translate}} </a>
           </nav>
 
         </div>
@@ -54,22 +55,22 @@
               <div class="navbar-collapse collapse dual-collapse" ng-controller="MainController">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item btn-sm btn-outline-success active">
-                        <a class="nav-link " href="/">Products</a>
+                        <a class="nav-link " href="/">{{'navbar.products' | translate}}</a>
                     </li>
                     <li class="nav-item btn-sm btn-outline-success" data-ng-show="logged" style="margin:auto">
-                        <a class="nav-link " href="mylists">My Lists</a>
+                        <a class="nav-link " href="mylists">{{'navbar.mylists' | translate}}</a>
                     </li>
                     <li class="nav-item btn-sm btn-outline-success " data-ng-show="logged" style="margin:auto">
-                        <a class="nav-link " href="#">My Profile</a>
+                        <a class="nav-link " href="#">{{'navbar.profile' | translate}}</a>
                     </li>
                     <li class="nav-item btn-sm btn-outline-success ng-hide" data-ng-hide="logged" style="margin:auto">
-                        <a class="nav-link " href="login">Login</a>
+                        <a class="nav-link " href="login">{{'navbar.login' | translate}}</a>
                     </li>
                     <li class="nav-item btn-sm btn-outline-success ng-hide" data-ng-hide="logged" style="margin:auto">
-                      <a class="nav-link" href="signup">Sign Up</a>
+                      <a class="nav-link" href="signup">{{'navbar.signup' | translate}}</a>
                     </li>
                     <li class="nav-item btn-sm btn-outline-success" data-ng-show="logged" style="margin:auto">
-                      <a class="nav-link" href="signup">Logout</a>
+                      <a class="nav-link" href="signup">{{'navbar.logout' | translate}}</a>
                     </li>
                 </ul>
               </div>
