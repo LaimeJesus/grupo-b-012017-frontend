@@ -10,7 +10,7 @@
   </div>
   <div class="row">
     <div>
-      <button type="button" class="btn btn-success separated" data-toggle="modal" data-target="#modalNewProductList">Create New List</button>
+      <button type="button" class="btn btn-success separated" data-toggle="modal" data-target="#modalNewProductList">{{'productlist.createlist' | translate}}</button>
     </div>
   </div>
 </div>
@@ -21,7 +21,7 @@
         <div class="modal-content">
 
             <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">Create new list</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{'productlist.createlist' | translate}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -29,15 +29,15 @@
 
             <div class="modal-body">
               <div class="form-group">
-                <label for="exampleInputEmail1">List name</label>
+                <label for="exampleInputEmail1">{{'productlist.listname' | translate}}</label>
                 <input type="text" class="form-control" ng-model="newListName" aria-describedby="emailHelp" placeholder="Enter new name">
-                <small id="emailHelp" class="form-text text-muted">Please, dont repeat names. We trust in you </small>
+                <small id="emailHelp" class="form-text text-muted">{{'productlist.repeatedname' | translate}} </small>
               </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="addProductToList()" >Create now</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'general.cancel' | translate}}</button>
+                <button type="button" class="btn btn-primary" ng-click="addProductToList()" >{{'productlist.create' | translate}}</button>
             </div>
 
         </div>

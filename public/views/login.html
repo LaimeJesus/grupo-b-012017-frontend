@@ -3,16 +3,16 @@
         <div class="col-md-8 col-md-offset-2">
             <form ng-submit="login()">
                 <div class="form-group">
-                    <label class="btn-outline-success"><h2>Username</h2></label>
+                    <label class="btn-outline-success"><h2>{{'user.username' | translate}}</h2></label>
                     <input type="text" name="username" class="form-control" ng-model="loginuser.username" placeholder="Username" required>
                 </div>
                 <div class="form-group">
-                    <label class="btn-outline-success"><h2>Password</h2></label>
+                    <label class="btn-outline-success"><h2>{{'user.password' | translate}}</h2></label>
                     <input type="password" name="loginpassword" class="form-control" ng-model="loginuser.password" placeholder="Password">
                 </div>
                 <input type="submit" class="btn btn-success" value="Login" />
-                <button class="btn btn-primary" type="button" >Cancel</button>
-                <a class="nav-link" href="/signup"> New here? Create Account </a>
+                <button class="btn btn-primary" type="button" >{{'general.cancel' | translate}}</button>
+                <a class="nav-link" href="/signup">{{'user.createaccount' | translate}}</a>
             </form>
         </div>
     </div>

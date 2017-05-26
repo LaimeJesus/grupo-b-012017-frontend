@@ -65,9 +65,16 @@ var app = angular.module('aloloco-app', [
            "category" : "Categoria",
            "addtolist" : "Agregar a la lista"
         },
-        "signup" : {
+        "productlist" : {
+          "createlist" : "Crear una lista nueva",
+          "listname" : "Nombre de la lista",
+          "create" : "Crear ahora",
+          "repeatedname" : "Por favor no repitas nombres"
+        },
+        "user" : {
           "username" : "Nombre de usuario",
-          "password" : "Contrasena"
+          "password" : "Contrasena",
+          "createaccount" : "Nuevo aqui? Create una cuenta"
         }
       }
      );
@@ -90,15 +97,21 @@ var app = angular.module('aloloco-app', [
            "category" : "Category",
            "addtolist" : "Add to list",
          },
+         "productlist" : {
+           "createlist" : "Create New List",
+           "listname" : "List name",
+           "create" : "Create now",
+           "repeatedname" : "Please, dont repeat names. We trust in you"
+         },
          "general" : {
            "cancel" : "Cancel"
          },
-         "signup" : {
+         "user" : {
            "username" : "Username",
-           "password" : "Password"
+           "password" : "Password",
+           "createaccount" : "New here? Create Account"
          }
        }
-        }
      );
      $translateProvider.useSanitizeValueStrategy('escapeParameters');
    }]);

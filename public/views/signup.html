@@ -3,10 +3,10 @@
         <div class="col-md-8 col-md-offset-2">
             <form ng-submit="signup()">
                 <div class="form-group">
-                      <label class="btn-outline-success"><h2>{{signup.username | translate}}</h2></label>
+                      <label class="btn-outline-success"><h2>{{'user.username' | translate}}</h2></label>
                     <input type="text" name="username" class="form-control" ng-model="signupuser.username" placeholder="Username" required>
                 <div class="form-group">
-                    <label class="btn-outline-success"><h2>{{signup.password | translate}}</h2></label>
+                    <label class="btn-outline-success"><h2>{{'user.password' | translate}}</h2></label>
                     <input type="password" name="password1" class="form-control" ng-model="signupuser.password" placeholder="Password">
                 </div>
                 <!--
@@ -16,7 +16,7 @@
                     </div>
                     -->
                     <input type="submit" class="btn btn-success" value="Register" />
-                    <button class="btn btn-primary" type="button" >{{general.cancel | translate}}</button>
+                    <button class="btn btn-primary" type="button" >{{'general.cancel' | translate}}</button>
                 </form>
             </div>
         </div>
