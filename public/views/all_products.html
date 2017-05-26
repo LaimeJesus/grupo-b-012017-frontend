@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
-        <div data-ng-repeat="prod in products" class="col-md-3" class="productImage">
+        <div data-ng-repeat="prod in products" class="col-md-3 col-xs-6" class="productImage">
             <div class="productImage">
-                <a>
-                <img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-thumbnail">
-                </a>
+                <div>
+                    <a><img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-thumbnail squareImage"></a>
+                </div>
             </div>
             <div class="productImage">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">Comprar {{prod.name}} {{prod.brand}}</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">{{products.comprar | translate}} {{prod.name}} {{prod.brand}}</button>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">Comprar {{selectedProduct.name}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{products.comprar | translate}} {{selectedProduct.name}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -25,16 +25,16 @@
             <div class="modal-body">
                 <div>
                     <div class="row marginLeft40">
-                        <label>Name : {{selectedProduct.name}}</label>
+                        <label>{{products.name | translate}} : {{selectedProduct.name}}</label>
                     </div>
                     <div class="row marginLeft40">
-                        <label>Price : {{selectedProduct.price}}</label>
+                        <label>{{products.price | translate}} : {{selectedProduct.price}}</label>
                     </div>
                     <div class="row marginLeft40">
-                        <label>Category : {{selectedProduct.category}}</label>
+                        <label>{{products.category | translate}} : {{selectedProduct.category}}</label>
                     </div>
                 <div class="row marginLeft40">
-                    <a><img src="../images/product-tomate.jpg" alt={{prod.name}} class="img-thumbnail"></a>
+                    <a><img ng-src={{selectedProduct.imageUrl}} alt={{selectedProduct.name}} class="img-thumbnail"></a>
                 </div>
                 <div class="row marginLeft40">
                     <div class="productImage">
@@ -43,8 +43,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="addProductToList()" >Add to List</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{products.cancel | translate}}</button>
+                <button type="button" class="btn btn-primary" ng-click="addProductToList()" >{{products.addtolist | translate}}</button>
             </div>
         </div>
     </div>

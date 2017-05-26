@@ -99,6 +99,27 @@ body {
   }
 }
 
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -142px;
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  height: 50px;
+}
+.site-footer {
+  background: orange;
+}
 
 .productImage {
     text-align: center;
@@ -121,4 +142,28 @@ body {
 .separated {
   padding: 20px;
   margin: 20px !important;
+}
+
+.offerBack {
+  width: 250px;
+  height: 250px;
+  background-color: darkcyan;
+}
+
+.whiteSpaceBottom {
+  height: 100px;
+}
+
+.whiteSpaceTop {
+  height: 150px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.squareImage{
+  width: 325px;
+  height: 325px;
 }

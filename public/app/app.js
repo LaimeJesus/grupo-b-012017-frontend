@@ -31,6 +31,10 @@ var app = angular.module('aloloco-app', [
          templateUrl: '../views/productlist.html',
          controller: 'ProductListController',
        })
+       .when('/offers',{
+           templateUrl: '../views/homeOffer.html',
+           controller: 'HomeOfferController',
+       })
        .otherwise({
          redirectTo: '/'
        });
@@ -50,21 +54,50 @@ var app = angular.module('aloloco-app', [
          "products" : "Productos",
          "mylists" : "Mis Listas",
          "profile" : "Mi Perfil"
-          }
+       },
+        "general" : {
+         "cancel" : "Cancelar"
+       },
+         "products" : {
+           "name" : "Nombre",
+           "buy" : "Comprar",
+           "price" : "Precio",
+           "category" : "Categoria",
+           "addtolist" : "Agregar a la lista"
+        },
+        "signup" : {
+          "username" : "Nombre de usuario",
+          "password" : "Contrasena"
         }
+      }
      );
      $translateProvider.translations(
        "en-us" , {
          "navbar" : {
-         "title" : "Crazy Shop",
-         "search" : "Search",
-         "login" : "Log In",
-         "signup" : "Sign Up",
-         "logout" : "Log Out",
-         "products" : "Products",
-         "mylists" : "My Lists",
-         "profile" : "My Profile"
-          }
+           "title" : "Crazy Shop",
+           "search" : "Search",
+           "login" : "Log In",
+           "signup" : "Sign Up",
+           "logout" : "Log Out",
+           "products" : "Products",
+           "mylists" : "My Lists",
+           "profile" : "My Profile"
+       },
+        "products" : {
+           "name" : "Name",
+           "buy" : "Buy",
+           "price" : "Price",
+           "category" : "Category",
+           "addtolist" : "Add to list",
+         },
+         "general" : {
+           "cancel" : "Cancel"
+         },
+         "signup" : {
+           "username" : "Username",
+           "password" : "Password"
+         }
+       }
         }
      );
      $translateProvider.useSanitizeValueStrategy('escapeParameters');

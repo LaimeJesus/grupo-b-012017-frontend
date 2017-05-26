@@ -3,8 +3,30 @@ var controllers = angular.module('aloloco-app.controllers', []);
 controllers.controller('MainController',function($scope, UserService){
   $scope.user = UserService.getUser();
   $scope.logged = UserService.islogged();
+
+  $scope.someoneLogged = function () {
+      return UserService.islogged();
+  }
+
+  $scope.callbackLogout = function (data) {
+      console.log("Logout Exitoso");
+      UserService.logged(false);
+      console.log(UserService.islogged());
+      UserService.setUser({});
+      console.log(UserService.getUser());
+  }
+
+  $scope.errorHandlerLogout = function (error) {
+      console.log("Logout Fallo");
+  }
+
+  $scope.logout = function () {
+      UserService.logout(UserService.getUser()).then($scope.callbackLogout() , $scope.errorHandlerLogout());
+  }
+
 });
-controllers.controller('ProductController', function ($scope, ProductService) {
+
+controllers.controller('ProductController', function ($scope, ProductService , UserService , ProductListService) {
 
     $scope.products = [];
 
@@ -53,6 +75,23 @@ controllers.controller('ProductController', function ($scope, ProductService) {
         ProductService.getDetail(name,brand).then($scope.callbackGetDetal,$scope.errorHandlerGetDetail);
     };
 
+    $scope.callbackGetLists = function (data) {
+        console.log("Listas obtenidas exitosamente");
+        console.log(data);
+        $scope.userLists = data.data;
+    };
+
+    $scope.errorHandlerGetList = function(error) {
+        console.log("Listas no obtenidas, algo fallo");
+        console.log(error);
+    };
+
+    $scope.getLists = function () {
+        if(UserService.islogged()){
+            ProductListService.mylists(UserService.getUser()).then( $scope.callbackGetLists() , $scope.errorHandlerGetList() )
+        }
+    };
+
     $scope.callbackAddProductToList = function(data) {
         console.log("La wea");
     };
@@ -70,16 +109,7 @@ controllers.controller('ProductController', function ($scope, ProductService) {
         )
     };
 
-    $scope.getImage = function(product) {
-      if (product.imageUrl != "no-image"){
-        return product.imageUrl;
-      } else {
-        return "../images/no-image-available";
-      }
-    }
-
     $scope.getProducts();
-
 });
 
 controllers.controller('ProductListController', [
@@ -108,7 +138,7 @@ controllers.controller('ProductListController', [
 
     $scope.getlists = function(){
       if(UserService.islogged()){
-        ProductListService.mylists(UserService.getUser().username).then($scope.callbackGetLists, $scope.errorHandlerGetList);
+        ProductListService.mylists(UserService.getUser()).then($scope.callbackGetLists, $scope.errorHandlerGetList);
       }
     };
 
@@ -155,29 +185,28 @@ controllers.controller('SignUpController', function($scope, UserService){
 
 });
 
-controllers.controller('LoginController', function($scope, UserService){
+controllers.controller('LoginController', function($scope, $window, UserService){
 
-  $scope.user = {};
-  $scope.user.username = "";
-  $scope.user.password = "";
+  $scope.loginuser = {};
+  $scope.loginuser.username = "";
+  $scope.loginuser.password = "";
 
   $scope.reset = function (){
-    $scope.user.username = "";
-    $scope.user.password = "";
+    $scope.loginuser.username = "";
+    $scope.loginuser.password = "";
   };
 
   $scope.logincallback = function(response){
+    console.log("Login Exitoso");
     UserService.logged(true);
-    UserService.setUser($scope.loginuser);
+    UserService.setUser($scope.loginuser.username);
+    $scope.reset();
+    //$window.location.href = '/';
+
   };
 
-  $scope.logoutcallback = function(response){
-    UserService.logged(false);
-    $scope.reset();
-    UserService.user($scope.user);
-  }
-
   $scope.errorHandler = function(error){
+    console.log("Something Failed")
     $scope.reset();
   };
 
@@ -202,5 +231,12 @@ controllers.controller('LoginController', function($scope, UserService){
   $scope.loginAsAdmin = function(){
     UserService.loginAsAdmin($scope.loginuseradmin).then($scope.loginadmincallback, $scope.erroradminHandler)
   };
+  $scope.loginSuccesfully = function () {
+      return UserService.islogged();
+  }
+
+});
+
+controllers.controller('HomeOfferController', function($scope){
 
 });
