@@ -218,9 +218,29 @@ controllers.controller('LoginController', function($scope, $window, UserService)
   $scope.loginSuccesfully = function () {
       return UserService.islogged();
   };
-
 });
 
 controllers.controller('HomeOfferController', function($scope){
 
+});
+
+controllers.controller('ProfileController', function($scope, UserService){
+  $scope.address = "";
+  $scope.records = [];
+
+  $scope.getProfile = function(){
+    UserService.getProfile(UserService.getUser()).then($scope.callbackProfile, $scope.errorHandler);
+  };
+
+  $scope.callbackProfile = function(data){
+    console.log("profile loaded");
+    $scope.address = data.address;
+    $scope.records = data.records;
+  };
+
+  $scope.errorHandler = function(error){
+    console.log("profile error");
+  };
+
+  $scope.getProfile();
 });
