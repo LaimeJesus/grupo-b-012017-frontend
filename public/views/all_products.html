@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="productImage">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">{{'products.comprar' | translate}} {{prod.name}} {{prod.brand}}</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">{{'products.buy' | translate}} {{prod.name}} {{prod.brand}}</button>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">{{'products.comprar' | translate}} {{selectedProduct.name}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{'products.buy' | translate}} {{selectedProduct.name}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

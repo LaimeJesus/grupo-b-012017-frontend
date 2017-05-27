@@ -1,37 +1,47 @@
-'use strict';
-
-/**
- * @ngdoc function
- * @name aloloco-app.controller:LoginController
- * @description
- * # loginController
- * Controller of the aloloco-app
- */
-angular.module('aloloco-app')
-  .controller('ProductListController', [
+controllers.controller('ProductListController', [
   '$scope',
+  'UserService',
   'ProductListService',
-  function($scope, ProductListService) {
-    $scope.productlists = [];
+  function($scope, UserService, ProductListService) {
+    $scope.productlists = [{"name" : "Lista 1"} , {"name" : "Lista2"} , {"name" : "Lista 3"} , {"name" : "Lista4"} , {"name" : "Lista5"} ];
     $scope.spanLog = "";
 
     //esto deberia ir al final
     //$scope.getlists();
-
-    $scope.getlists = function(user){
-      ProductListService.getlists(LoginService.getUser(), $scope.callback, $scope.errorHandler);
+    $scope.newlist = false;
+    $scope.showNewList = function(){
+      $scope.newlist = true;
+      $scope.name = "";
+    }
+    $scope.callbackGetLists = function(data) {
+      console.log("Lists Received Succesfully");
+      $scope.productlists = data.data;
+    };
+    $scope.errorHandlerGetList = function(error) {
+      console.log("Lists Received Failure");
+      console.log(error);
     };
 
-    $scope.createproductlist = function(name){
-      var list = {"user" : LoginService.getUser(), "name" : name};
-      ProductListService.createproductlist(list, $scope.callback, $scope.errorHandler);
+    $scope.getlists = function(){
+      if(UserService.islogged()){
+        ProductListService.mylists(UserService.getUser()).then($scope.callbackGetLists, $scope.errorHandlerGetList);
+      }
     };
 
-    $scope.callback = function(data) {
-      $scope.productlists = data.productlists;
+    $scope.callbackCreate = function(data) {
+      console.log("List Created Succesfully");
+      console.log(data);
+    }
+
+    $scope.errorHandlerCreate = function(error) {
+      console.log("List Creation Failed");
+      console.log(error);
+    }
+
+    $scope.createproductlist = function(){
+      if (UserService.islogged()){
+        ProductListService.create(UserService.getUser().username , $scope.newListName).then($scope.callback, $scope.errorHandler);
+      }
     };
-    $scope.errorHandler = function(error) {
-      $scope.spanLog = error.descripcion;
-      $scope.loginFailure = true;
-    };
-} ]);
+
+}]);

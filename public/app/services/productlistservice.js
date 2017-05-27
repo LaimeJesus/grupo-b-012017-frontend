@@ -1,24 +1,42 @@
-angular.module('aloloco-app').service('ProductListService', function($http, myURL) {
-  this.getlists = function(jsonObject, callback, errorHandler) {
-    $http({
-      url : myURL + "/productlists/mylists",
-      method : "GET",
-      data : jsonObject,
-      headers : {
-        'Content-Type' : 'application/x-www-form-urlencoded'
-      }
-    }).success(callback).error(errorHandler);
-  };
+services.factory('ProductListService', function($http) {
+      var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
+      var ProductListAPI = {};
 
-  this.createproductlist = function(jsonObject, callback, errorHandler) {
-    $http({
-      url : myURL + "/productlists/create",
-      method : "POST",
-      data : jsonObject,
-      headers : {
-        'Content-Type' : 'application/x-www-form-urlencoded'
+      ProductListAPI.mylists = function(username) {
+        return $http({
+          method: 'GET',
+          params: {
+            username : username
+          },
+          url: urlbase + 'productlist/mylists',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
       }
-    }).success(callback).error(errorHandler);
-  };
+      ProductListAPI.create = function(username , listname) {
+        return $http({
+          method: 'POST',
+          data: {
+            username : username,
+            name : listname
+          },
+          url: urlbase + 'productlist/create',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+      }
+      ProductListAPI.selectproduct = function(userlistprodquantity) {
+        return $http({
+          method: 'POST',
+          data: userlistprodquantity,
+          url: urlbase + 'productlist/selectproduct',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+      }
 
-});
+      return ProductListAPI;
+    });

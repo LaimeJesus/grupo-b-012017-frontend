@@ -136,7 +136,7 @@ controllers.controller('ProductListController', [
       console.log(error);
     };
 
-    $scope.getlists = function(){
+    $scope.mylists = function(){
       if(UserService.islogged()){
         ProductListService.mylists(UserService.getUser()).then($scope.callbackGetLists, $scope.errorHandlerGetList);
       }
@@ -157,6 +157,8 @@ controllers.controller('ProductListController', [
         ProductListService.create(UserService.getUser().username , $scope.newListName).then($scope.callback, $scope.errorHandler);
       }
     };
+
+    $scope.mylists();
 
 }]);
 
@@ -202,7 +204,6 @@ controllers.controller('LoginController', function($scope, $window, UserService)
     UserService.setUser($scope.loginuser.username);
     $scope.reset();
     //$window.location.href = '/';
-
   };
 
   $scope.errorHandler = function(error){
@@ -214,26 +215,9 @@ controllers.controller('LoginController', function($scope, $window, UserService)
     UserService.login($scope.loginuser).then($scope.logincallback, $scope.errorHandler);
   };
 
-  $scope.logout = function(){
-    UserService.logout($scope.user).then($scope.logoutcallback, $scope.errorHandler);
-  };
-
-  $scope.loginadmincallback = function(data){
-    UserService.loggedAsAdmin(true);
-    $scope.resetadmin();
-    UserService.user(data.user);
-  };
-
-  $scope.erroradminHandler = function(error){
-    $scope.resetadmin();
-  };
-
-  $scope.loginAsAdmin = function(){
-    UserService.loginAsAdmin($scope.loginuseradmin).then($scope.loginadmincallback, $scope.erroradminHandler)
-  };
   $scope.loginSuccesfully = function () {
       return UserService.islogged();
-  }
+  };
 
 });
 
