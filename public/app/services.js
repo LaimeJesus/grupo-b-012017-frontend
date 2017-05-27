@@ -105,6 +105,20 @@ services.factory('UserService', function($http) {
       });
     }
 
+    UserAPI.getProfile = function(user){
+      return $http({
+        method: 'GET',
+        url: urlbase + 'user/myprofile',
+        params: {
+          username : user.username
+        },
+        headers: {
+          "Accept": "application/json;odata=verbose",
+          'Content-Type': 'application/json'
+        }
+      })
+    }
+
     return UserAPI;
   });
 
