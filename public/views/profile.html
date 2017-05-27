@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+      <h2>RECORDS</h2>
+      <div data-ng-repeat="record in records" class="col-md-3">
+        <div class="productImage">
+          <button type="button separated" class="btn btn-primary bigOneButton">
+            <h3>{{record.listname}}</h3>
+            <h3>{{record.date}}</h3>
+          </button>
+        </div>
+      </div>
+      <h2>Address</h2>
+      <h3>{{address}}</h3>
+  </div>
+</div>
