@@ -116,17 +116,11 @@ controllers.controller('ProductListController', [
   '$scope',
   'UserService',
   'ProductListService',
-  function($scope, UserService, ProductListService) {
+  'ShopService',
+  function($scope, UserService, ProductListService, ShopService) {
     $scope.productlists = [{"name" : "Lista 1"} , {"name" : "Lista2"} , {"name" : "Lista 3"} , {"name" : "Lista4"} , {"name" : "Lista5"} ];
     $scope.spanLog = "";
 
-    //esto deberia ir al final
-    //$scope.getlists();
-    $scope.newlist = false;
-    $scope.showNewList = function(){
-      $scope.newlist = true;
-      $scope.name = "";
-    }
     $scope.callbackGetLists = function(data) {
       console.log("Lists Received Succesfully");
       $scope.productlists = data.data;
@@ -159,6 +153,33 @@ controllers.controller('ProductListController', [
     };
 
     $scope.mylists();
+
+
+    // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED
+
+    $scope.current = null;
+
+    $scope.callbackReady = function(data){
+      $scope.showInterval($scope.current, data.time);
+    };
+
+    $scope.canUseReady = function(){
+      return $scope.current == null;
+    }
+
+    $scope.errorReady = function(error){
+      console.log("failed ready")
+      $scope.current = null;
+    }
+
+    $scope.ready = function(listname){
+      $scope.current = listname;
+      ShopService.ready(UserService.getUser().username, listname).then($scope.callbackReady, $scope.errorReady);
+    };
+    $scope.waitingTime = function(listname){
+      ShopService.waitingTime(UserService.getUser().username, listname).then($scope.callbackWaitingTime, $scope.errorWaitingTime);
+    }
+
 
 }]);
 
@@ -229,7 +250,7 @@ controllers.controller('ProfileController', function($scope, UserService){
   $scope.records = [];
 
   $scope.getProfile = function(){
-    UserService.getProfile(UserService.getUser()).then($scope.callbackProfile, $scope.errorHandler);
+    // UserService.getProfile(UserService.getUser()).then($scope.callbackProfile, $scope.errorHandler);
   };
 
   $scope.callbackProfile = function(data){
