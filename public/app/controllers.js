@@ -1,32 +1,32 @@
 var controllers = angular.module('aloloco-app.controllers', []);
 
-controllers.controller('MainController',function($scope, UserService){
-  $scope.user = UserService.getUser();
-  $scope.logged = UserService.islogged();
+controllers.controller('MainController', function ($scope, UserService) {
+    $scope.user = UserService.getUser();
+    $scope.logged = UserService.islogged();
 
-  $scope.someoneLogged = function () {
-      return UserService.islogged();
-  }
+    $scope.someoneLogged = function () {
+        return UserService.islogged();
+    };
 
-  $scope.callbackLogout = function (data) {
-      console.log("Logout Exitoso");
-      UserService.logged(false);
-      console.log(UserService.islogged());
-      UserService.setUser({});
-      console.log(UserService.getUser());
-  }
+    $scope.callbackLogout = function (data) {
+        console.log("Logout Exitoso");
+        UserService.logged(false);
+        console.log(UserService.islogged());
+        UserService.setUser({});
+        console.log(UserService.getUser());
+    };
 
-  $scope.errorHandlerLogout = function (error) {
-      console.log("Logout Fallo");
-  }
+    $scope.errorHandlerLogout = function (error) {
+        console.log("Logout Fallo");
+    };
 
-  $scope.logout = function () {
-      UserService.logout(UserService.getUser()).then($scope.callbackLogout() , $scope.errorHandlerLogout());
-  }
+    $scope.logout = function () {
+        UserService.logout(UserService.getUser()).then($scope.callbackLogout(), $scope.errorHandlerLogout());
+    };
 
 });
 
-controllers.controller('ProductController', function ($scope, ProductService , UserService , ProductListService) {
+controllers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService) {
 
     $scope.products = [];
 
@@ -39,7 +39,7 @@ controllers.controller('ProductController', function ($scope, ProductService , U
 
     $scope.selectedList = {"name": "Choose a List"};
 
-    $scope.callback = function(data){
+    $scope.callback = function (data) {
         console.log(data);
         $scope.products = data.data;
         for (var i=0 ; i<data.data.length ; i++){
@@ -241,8 +241,55 @@ controllers.controller('LoginController', function($scope, $window, UserService)
   };
 });
 
-controllers.controller('HomeOfferController', function($scope){
-
+controllers.controller('HomeOfferController', function($scope , OfferService){
+    
+    $scope.offer = {};
+    $scope.offer.startDate = "";
+    $scope.offer.endDate = "";
+    $scope.offer.discount = "";
+    $scope.offer.type = "";
+    $scope.offer.category = "";
+    $scope.allCategories = [];
+    
+    $scope.isCategory = function() {
+        return $scope.offer.type === "Category";
+    };
+    
+    $scope.isCrossing = function() {
+        return $scope.offer.type === "Crossing";
+    };
+    
+    $scope.isCombination = function() {
+        return $scope.offer.type === "Combination";
+    };
+    
+    $scope.callbackAllCategories = function(data) {
+        console.log("All Categories received succesfully");
+        console.log(data);
+        $scope.allCategories = data.data;
+    };
+    
+    $scope.errorHandlerAllCategories = function(error) {
+        console.log("All Categories something failed");
+        console.log(error);
+    }
+    
+    $scope.getAllCategories = function() {
+        if ($scope.allCategories !== []) {
+            OfferService.getAllCategories().then($scope.callbackAllCategories , $scope.errorHandlerAllCategories);   
+        }
+    };
+    
+    $scope.createOffer = function(){
+        console.log($scope.offer.startDate);
+        console.log($scope.offer.endDate);
+        console.log($scope.offer.discount);
+        console.log($scope.offer.type);
+        console.log($scope.offer.category);
+    };
+    
+    $scope.getAllCategories();
+    
 });
 
 controllers.controller('ProfileController', function($scope, UserService){

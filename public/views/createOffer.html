@@ -1,0 +1,84 @@
+<div class="container-fluid">
+    <div class="row justify-content-center bg-inverse" style="padding: 15px">
+        <div class="col-md-8 col-md-offset-2">
+            <form ng-submit="createOffer()">
+                
+                <div class="form-group">
+                    <label class="btn-outline-success"><h2>Initial Date</h2></label>
+                    <input id="myPickr1" value="Choose a Range" class="form-control" ng-model="offer.startDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="btn-outline-success"><h2>Final Date</h2></label>
+                    <input id="myPickr2" value="Choose a Range" class="form-control" ng-model="offer.endDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="btn-outline-success"><h2>Discount Percentage</h2></label>
+                    <input id="mySlider" data-slider-id='ex1Slider' type="text" data-slider-min="5" data-slider-max="95" data-slider-step="5" data-slider-value="5" class="form-control" ng-model="offer.discount" required/>
+                    <span id="ex6CurrentSliderValLabel" class="ourGreen">   Discount : <span id="ex6SliderVal" class="ourGreen">{{offer.discount}}</span> <span>%</span></span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="btn-outline-success"><h2>Offer Type</h2></label>
+                    <select class="form-control" ng-model="offer.type" required>
+                        <option class="selected">Select a type</option>
+                        <option>Category</option>
+                        <option>Crossing</option>
+                        <option>Combination</option>
+                    </select>
+                </div>
+                
+                <div class="form-group hide" ng-if="isCategory()">
+                    <label class="btn-outline-success"><h2>Choose a Category</h2></label>
+                    <select class="form-control" ng-model="offer.category" required>
+                      <option ng-repeat="category in allCategories" value="{{category.name}}">{{category.name}}</option>
+                    </select>
+                </div>
+                
+                <div class="form-group hide" ng-if="isCrossing()">
+                    <label class="btn-outline-success"><h2>Choose a Crossing</h2></label>
+                    <select class="form-control" ng-model="offer.category">
+                      <option>Dairy</option>
+                      <option>Baked</option>
+                    </select>
+                </div>
+                
+                <div class="form-group hide" ng-if="isCombination()">
+                    <label class="btn-outline-success"><h2>Choose a Combination</h2></label>
+                    <select class="form-control" ng-model="offer.category">
+                      <option>Dairy</option>
+                      <option>Baked</option>
+                    </select>
+                </div>
+                
+                
+                <input type="submit" class="btn btn-success" value="Register" />
+                <button class="btn btn-primary" type="button" >{{'general.cancel' | translate}}</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    $("#myPickr1").flatpickr({
+        dateFormat: 'm/d/Y H:i',
+        enableTime: true,
+        enableSeconds: false
+    });
+    
+    $("#myPickr2").flatpickr({
+        dateFormat: 'm/d/Y H:i',
+        enableTime: true,
+        enableSeconds: false
+    });
+    
+    $("#mySlider").slider({
+        tooltip: 'always'
+    });
+    $("#mySlider").on("slide", function(slideEvt) {
+        $("#ex6SliderVal").text(slideEvt.value);
+    });
+    
+</script>
