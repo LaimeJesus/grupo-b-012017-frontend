@@ -35,6 +35,10 @@ var app = angular.module('aloloco-app', [
            templateUrl: '../views/homeOffer.html',
            controller: 'HomeOfferController',
        })
+       .when('/createOffer',{
+           templateUrl: '../views/createOffer.html',
+           controller: 'HomeOfferController',
+       })
        .otherwise({
          redirectTo: '/'
        });

@@ -150,3 +150,18 @@ services.factory('ProductListService', function($http) {
 
       return ProductListAPI;
     });
+
+services.factory('OfferService', function($http) {
+    var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
+    var OfferServiceAPI = {};
+    
+    OfferServiceAPI.getAllCategories = function() {
+        return $http({
+            method: 'GET',
+            url: urlbase + 'offer/categories'
+        })   
+    };
+    
+    return OfferServiceAPI;
+
+});
