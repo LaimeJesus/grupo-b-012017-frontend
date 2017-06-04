@@ -68,7 +68,7 @@
         <div class="modal-content">
 
             <div class="modal-header btn-primary">
-                <h5 class="modal-title"> {{selecteProductList.name}} </h5>
+                <h5 class="modal-title"> {{selectedProductList.name}} </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -87,15 +87,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr data-ng-repeat="selection in selecteProductList.selections">
-                                <td>{{selection.name}}</td>
-                                <td>{{selection.pubDate | date:'shortTime'}}</td>
-                                <td>{{selection.totalAmount | currency}}</td>
+                            <tr data-ng-repeat="selectedProduct in selectedProductList.allProducts">
+                                <td>{{selectedProduct.product.name}}</td>
+                                <td>{{selectedProduct.quantity}}</td>
+                                <td>{{selectedProduct.price.integer | date:'shortTime'}}</td>
+                                <td>{{selectedProduct.totalAmount | currency}}</td>
                                 <td>
                                     <button type="button" class="btn btn-success floatRight">
                                         <span class="glyphicon glyphicon-search">Update</span>
                                     </button>
-                                    <button type="button" class="btn btn-info floatRight" href="/delivery">
+                                    <button type="button" class="btn btn-info floatRight" data-ng-click="deleteSelectedProduct(selectedProductList.id, selectedProduct.id)">
                                         <span class="glyphicon glyphicon-search">Delete</span>
                                     </button>
                                 </td>

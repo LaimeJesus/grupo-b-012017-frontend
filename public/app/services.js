@@ -224,14 +224,15 @@ services.factory('ProductListService', ['$http','urlbase', function($http, urlba
           url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts',
           data: selectedproduct,
           headers: {
-            'Content-Type':'applications/json'
+            'Accept': 'application/json;odata=verbose',
+            'Content-Type':'application/json'
           }
         });
       }
       ProductListAPI.updateSelectedProduct = function(userId, listId, selectedproductId, selectedproduct){
         return $http({
           method: 'PUT',
-          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts'+selectedproductId,
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts/'+selectedproductId,
           data: {
             productId: selectedproduct.productId,
             quantity: selectedproduct.quantity
@@ -244,13 +245,13 @@ services.factory('ProductListService', ['$http','urlbase', function($http, urlba
       ProductListAPI.getSelectedProduct = function(userId, listId, selectedproductId){
         return $http({
           method: 'GET',
-          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts'+selectedproductId,
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts/'+selectedproductId,
         });
       }
       ProductListAPI.deleteSelectedProduct = function(userId, listId, selectedproductId){
         return $http({
           method: 'DELETE',
-          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts'+selectedproductId,
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts/'+selectedproductId,
         });
       }
       return ProductListAPI;

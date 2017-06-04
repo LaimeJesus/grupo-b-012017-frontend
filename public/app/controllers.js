@@ -102,14 +102,16 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
     };
 
     $scope.addProductToList = function() {
-      console.log($scope.selectedList);
+      console.log(UserService.getId());
       console.log($scope.selectedList.id);
+      console.log($scope.quantity);
+      console.log($scope.selectedProduct.id);
       ProductListService.createSelectedProduct(
           UserService.getId(),
           $scope.selectedList.id,
           {
-            "productId" : $scope.selectedProduct.id,
-            "quantity" : $scope.quantity
+            quantity : $scope.quantity,
+            productId : $scope.selectedProduct.id
           }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
 
@@ -125,7 +127,7 @@ controllers.controller('ProductListController', [
   function($scope, UserService, ProductListService, ShopService) {
     $scope.productlists = [];
     $scope.spanLog = "";
-    $scope.selecteProductList = {};
+    $scope.selectedProductList = {};
     $scope.newListName = "";
 
     $scope.callbackGetLists = function(response) {
@@ -163,7 +165,7 @@ controllers.controller('ProductListController', [
     $scope.callbackListDetail = function (response) {
         console.log("Lista obtenida correctamente");
         console.log(response);
-        $scope.selecteProductList = response.data;
+        $scope.selectedProductList = response.data;
     }
 
     $scope.errorHandlerListDetail = function () {
@@ -171,7 +173,19 @@ controllers.controller('ProductListController', [
     }
 
     $scope.listDetail = function (listId) {
-        ProductListService.selections(UserService.getId(), listId).then( $scope.callbackListDetail , $scope.errorHandlerListDetail );
+        ProductListService.getList(UserService.getId(), listId).then( $scope.callbackListDetail , $scope.errorHandlerListDetail );
+    }
+
+    $scope.callbackDeleteSelectedProduct = function(data){
+      console.log("Selected product borrada");
+    }
+
+    $scope.errorHandlerDeleteSelectedProduct = function(error){
+      console.log("Selected product no borrada");
+    }
+
+    $scope.deleteSelectedProduct = function(listId, selectedProductId){
+      ProductListService.deleteSelectedProduct(UserService.getId(), listId, selectedProductId).then( $scope.callbackDeleteSelectedProduct , $scope.errorHandlerDeleteSelectedProduct );
     }
 
     // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED

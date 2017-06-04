@@ -53,8 +53,9 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label">List</label>
                     <div class="col-10">
-                        <select class="bigSelector form-control" ng-model="selectedList">
-                            <option ng-repeat="list in userLists" value="{{list}}">{{list.name}}</option>
+                        <select class="bigSelector form-control" ng-model="selectedList" ng-options="list.name for list in userLists">
+                          <option>Select</option>
+                            <!-- <option ng-repeat="list in userLists" value="{{list}}">{{list.name}}</option> -->
                         </select>
                     </div>
                 </div>
