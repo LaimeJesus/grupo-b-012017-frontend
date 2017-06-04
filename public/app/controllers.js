@@ -88,7 +88,7 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
 
     $scope.getLists = function () {
         if(UserService.islogged()){
-            ProductListService.mylists(UserService.getUser()).then( $scope.callbackGetLists() , $scope.errorHandlerGetList() )
+            ProductListService.mylists(UserService.getUser()).then( $scope.callbackGetLists , $scope.errorHandlerGetList )
         }
     };
 
@@ -101,15 +101,16 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
     };
 
     $scope.addProductToList = function() {
-        ProductService.addProductToList(
-            $scope.selectedProduct.id,
-            $scope.selectedList.name,
-            $scope.callbackAddProductToList,
-            $scope.errorHandlerAddProductToList
-        )
+        ProductListService.selectproduct(
+            UserService.getUser(),
+            $scope.selectedList,
+            $scope.selectedProduct.name,
+            $scope.selectedProduct.brand,
+            $scope.quantity).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList );
     };
 
     $scope.getProducts();
+    $scope.getLists()
 });
 
 controllers.controller('ProductListController', [
@@ -118,12 +119,15 @@ controllers.controller('ProductListController', [
   'ProductListService',
   'ShopService',
   function($scope, UserService, ProductListService, ShopService) {
-    $scope.productlists = [{"name" : "Lista 1"} , {"name" : "Lista2"} , {"name" : "Lista 3"} , {"name" : "Lista4"} , {"name" : "Lista5"} ];
+    $scope.productlists = [];
     $scope.spanLog = "";
+    $scope.selecteProductList = {};
+    $scope.newListName = {};
 
-    $scope.callbackGetLists = function(data) {
+    $scope.callbackGetLists = function(response) {
       console.log("Lists Received Succesfully");
-      $scope.productlists = data.data;
+      console.log(response);
+      $scope.productlists = response.data;
     };
     $scope.errorHandlerGetList = function(error) {
       console.log("Lists Received Failure");
@@ -132,13 +136,13 @@ controllers.controller('ProductListController', [
 
     $scope.mylists = function(){
       if(UserService.islogged()){
-        ProductListService.mylists(UserService.getUser()).then($scope.callbackGetLists, $scope.errorHandlerGetList);
+        ProductListService.mylists(UserService.getId()).then($scope.callbackGetLists, $scope.errorHandlerGetList);
       }
     };
 
-    $scope.callbackCreate = function(data) {
+    $scope.callbackCreate = function(response) {
       console.log("List Created Succesfully");
-      console.log(data);
+      console.log(response.data);
     }
 
     $scope.errorHandlerCreate = function(error) {
@@ -148,12 +152,23 @@ controllers.controller('ProductListController', [
 
     $scope.createproductlist = function(){
       if (UserService.islogged()){
-        ProductListService.create(UserService.getUser().username , $scope.newListName).then($scope.callback, $scope.errorHandler);
+        ProductListService.create(UserService.getId() , $scope.newListName).then($scope.callbackCreate, $scope.errorHandlerCreate);
       }
     };
 
-    $scope.mylists();
+    $scope.callbackListDetail = function (response) {
+        console.log("Lista obtenida correctamente");
+        console.log(response);
+        $scope.selecteProductList = response.data;
+    }
 
+    $scope.errorHandlerListDetail = function () {
+        console.log("Lista obtenida erroneamente");
+    }
+
+    $scope.listDetail = function (listId) {
+        ProductListService.selections(UserService.getId(), listId).then( $scope.callbackListDetail , $scope.errorHandlerListDetail );
+    }
 
     // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED
 
@@ -180,6 +195,8 @@ controllers.controller('ProductListController', [
       ShopService.waitingTime(UserService.getUser().username, listname).then($scope.callbackWaitingTime, $scope.errorWaitingTime);
     }
 
+
+    $scope.mylists();
 
 }]);
 
@@ -221,8 +238,9 @@ controllers.controller('LoginController', function($scope, $window, UserService)
 
   $scope.logincallback = function(response){
     console.log("Login Exitoso");
+    UserService.setId(response.data.id);
     UserService.logged(true);
-    UserService.setUser($scope.loginuser.username);
+    UserService.setUser(response.data.username);
     $scope.reset();
     //$window.location.href = '/';
   };
@@ -250,7 +268,9 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
     $scope.offer.type = "";
     $scope.offer.category = "";
     $scope.allCategories = [];
-    
+
+    $scope.offers = [];
+
     $scope.isCategory = function() {
         return $scope.offer.type === "Category";
     };
@@ -262,6 +282,21 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
     $scope.isCombination = function() {
         return $scope.offer.type === "Combination";
     };
+
+    $scope.getType = function (offer) {
+        if (offer.category !== undefined){
+            console.log("Category");
+            return "Category";
+        } else {
+            if (offer.minQuantity !== undefined){
+                console.log("Crossing");
+                return "Crossing";
+            } else {
+                console.log("Combination");
+                return "Combination";
+            }
+        }
+    }
     
     $scope.callbackAllCategories = function(data) {
         console.log("All Categories received succesfully");
@@ -272,23 +307,49 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
     $scope.errorHandlerAllCategories = function(error) {
         console.log("All Categories something failed");
         console.log(error);
-    }
+    };
     
     $scope.getAllCategories = function() {
         if ($scope.allCategories !== []) {
             OfferService.getAllCategories().then($scope.callbackAllCategories , $scope.errorHandlerAllCategories);   
         }
     };
-    
-    $scope.createOffer = function(){
+
+    $scope.callbackNewOffer = function (response) {
+        console.log("Category Offer created succesfully");
+        console.log(response);
+    }
+
+    $scope.errorHandlerNewOffer = function(error) {
+        console.log("Category Offer created failed");
+        console.log(error);
+    };
+
+    $scope.createnewoffer = function(){
         console.log($scope.offer.startDate);
         console.log($scope.offer.endDate);
         console.log($scope.offer.discount);
         console.log($scope.offer.type);
         console.log($scope.offer.category);
+
+        OfferService.newCategoryOffer($scope.offer).then( $scope.callbackNewOffer ,$scope.createnewoffer );
     };
+
+    $scope.callbackAllOffers = function (response) {
+        console.log(response);
+        $scope.offers = response.data;
+    };
+
+    $scope.errorHandlerAllOffers = function (error) {
+        console.log(error);
+    };
+
+    $scope.allOffers = function () {
+        OfferService.getAllOffers().then($scope.callbackAllOffers , $scope.errorHandlerAllOffers);
+    }
     
     $scope.getAllCategories();
+    $scope.allOffers();
     
 });
 
@@ -311,4 +372,10 @@ controllers.controller('ProfileController', function($scope, UserService){
   };
 
   $scope.getProfile();
+});
+
+controllers.controller('DeliveryController', function($scope, UserService){
+
+    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
 });

@@ -171,3 +171,9 @@ img {
 .ourGreen {
     color: #5cb85c;
 }
+
+.floatRight {
+  float: right !important;
+}
+
+.angular-google-map-container { height: 400px; }

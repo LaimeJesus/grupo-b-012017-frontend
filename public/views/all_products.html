@@ -7,7 +7,12 @@
                 </div>
             </div>
             <div class="productImage">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">{{'products.buy' | translate}} {{prod.name}} {{prod.brand}}</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">
+                    <label ng-if="someoneLogged()">
+                        {{'products.buy' | translate}}
+                    </label>
+                    {{prod.name}} {{prod.brand}}
+                </button>
             </div>
         </div>
     </div>
@@ -24,21 +29,39 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <div class="row marginLeft40">
-                        <label>{{'products.name' | translate}} : {{selectedProduct.name}}</label>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">{{'products.name' | translate}}</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="{{selectedProduct.name}}">
+                        </div>
                     </div>
-                    <div class="row marginLeft40">
-                        <label>{{'products.price' | translate}} : {{selectedProduct.price}}</label>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">{{'products.price' | translate}}</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="{{selectedProduct.price | currency}}">
+                        </div>
                     </div>
-                    <div class="row marginLeft40">
-                        <label>{{'products.category' | translate}} : {{selectedProduct.category}}</label>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">{{'products.category' | translate}}</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="{{selectedProduct.category}}" >
+                        </div>
                     </div>
                 <div class="row marginLeft40">
                     <a><img ng-src={{selectedProduct.imageUrl}} alt={{selectedProduct.name}} class="img-thumbnail"></a>
                 </div>
-                <div class="row marginLeft40">
-                    <div class="productImage">
-                        <select class="bigSelector" ng-model="selectedList" ng-options="list.name for list in userLists"></select>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">List</label>
+                    <div class="col-10">
+                        <select class="bigSelector form-control" ng-model="selectedList">
+                            <option ng-repeat="list in userLists" value="{{list.name}}">{{list.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">Quantity</label>
+                    <div class="col-10">
+                        <input class="form-control" type="number" value="1" ng-model="quantity">
                     </div>
                 </div>
             </div>

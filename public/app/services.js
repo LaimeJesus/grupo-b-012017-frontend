@@ -46,10 +46,12 @@ services.factory('UserService', function($http) {
 
     var username = {};
     var logged = false;
+    var userId = {};
 
     UserAPI.reset = function(){
       username.username = "";
       logged = false;
+      userId = {};
     }
 
     UserAPI.setUser = function(newuser){
@@ -58,7 +60,12 @@ services.factory('UserService', function($http) {
     UserAPI.getUser = function(){
       return username;
     }
-
+    UserAPI.getId = function () {
+        return userId;
+    }
+    UserAPI.setId = function (id) {
+        userId = id;
+    }
     UserAPI.logged = function(bool){
       logged = bool;
     }
@@ -70,7 +77,7 @@ services.factory('UserService', function($http) {
     UserAPI.login = function(user) {
       return $http({
         method: 'POST',
-        url: urlbase + 'user/login',
+        url: urlbase + 'users/login',
         data: user,
         headers: {
           "Accept": "application/json;odata=verbose",
@@ -126,35 +133,45 @@ services.factory('ProductListService', function($http) {
       var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
       var ProductListAPI = {};
 
-      ProductListAPI.mylists = function(username) {
+      ProductListAPI.mylists = function(userId) {
         return $http({
           method: 'GET',
-          params: {
-            username : username
-          },
-          url: urlbase + 'productlist/mylists',
+          url: urlbase + 'users/'+ userId + '/productlists',
           headers: {
             'Content-Type': 'application/json'
           }
         });
       }
-      ProductListAPI.create = function(username , listname) {
+      ProductListAPI.create = function(userId , listname) {
+        return $http({
+          method: 'POST',
+          url: urlbase + 'users/'+ userId + '/productlists/',
+          data: {
+              name : listname
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+      }
+      ProductListAPI.selectproduct = function(username, listname, prodName, prodBrand, quantity) {
         return $http({
           method: 'POST',
           data: {
-            username : username,
-            name : listname
+              "user" : {
+                  "username" : username
+              },
+              "productlist" : {
+                  "name" : listname
+              },
+              "product" : {
+                  "id" : "",
+                  "name" : prodName,
+                  "brand" : prodBrand,
+                  "imageUrl" : ""
+              },
+              "quantity" : quantity
           },
-          url: urlbase + 'productlist/create',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      }
-      ProductListAPI.selectproduct = function(userlistprodquantity) {
-        return $http({
-          method: 'POST',
-          data: userlistprodquantity,
           url: urlbase + 'productlist/selectproduct',
           headers: {
             'Content-Type': 'application/json'
@@ -162,10 +179,17 @@ services.factory('ProductListService', function($http) {
         });
       }
 
+      ProductListAPI.selections = function (userId , listId) {
+          return $http({
+              method: 'GET',
+              url : urlbase + 'users/'+ userId +'/productlists/' + listId
+          })
+      }
+
       return ProductListAPI;
     });
 
-services.factory('ShopService', functin($http){
+services.factory('ShopService', function($http){
   var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
   var ShopAPI = {};
   ShopAPI.waitingTime = function(username, listname){
@@ -202,6 +226,21 @@ services.factory('OfferService', function($http) {
         return $http({
             method: 'GET',
             url: urlbase + 'offer/categories'
+        })
+    };
+
+    OfferServiceAPI.newCategoryOffer = function(data) {
+        return $http({
+            method: 'POST',
+            data: data,
+            url: urlbase + 'offers/category'
+        })
+    };
+
+    OfferServiceAPI.getAllOffers = function() {
+        return $http({
+            method: 'GET',
+            url: urlbase + 'offers/'
         })
     };
 
