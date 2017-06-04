@@ -6,13 +6,6 @@ services.constant('urlbase', 'http://localhost:8080/rest/');
 services.factory('ProductService', ['$http', 'urlbase', function($http, urlbase) {
     var ProductAPI = {};
 
-    ProductAPI.getProducts = function() {
-      return $http({
-        method: 'GET',
-        url: urlbase + 'product/all'
-      });
-    }
-
     ProductAPI.getDetail = function(name, brand) {
       return $http({
         method: 'GET',
@@ -34,6 +27,26 @@ services.factory('ProductService', ['$http', 'urlbase', function($http, urlbase)
             quantity : cant
         },
         url: urlbase + 'productList/selectProduct'
+      });
+    }
+    ///////////////////////////////////////////////////////////////////////////
+    ProductAPI.getProducts = function() {
+      return $http({
+        method: 'GET',
+        url: urlbase + 'products/'
+      });
+    }
+    ProductAPI.deleteProducts = function() {
+      return $http({
+        method: 'DELETE',
+        url: urlbase + 'products/'
+      });
+    }
+
+    ProductAPI.getProductById = function(id){
+      return $http({
+        method: 'GET',
+        url: urlbase + 'products/' + id
       });
     }
 
@@ -72,7 +85,6 @@ services.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     UserAPI.islogged = function(){
       return logged;
     }
-
 
     UserAPI.login = function(user) {
       return $http({
@@ -141,18 +153,6 @@ services.factory('ProductListService', ['$http','urlbase', function($http, urlba
           }
         });
       }
-      ProductListAPI.create = function(userId , listname) {
-        return $http({
-          method: 'POST',
-          url: urlbase + 'users/'+ userId + '/productlists/',
-          data: {
-              name : listname
-          },
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      }
       ProductListAPI.selectproduct = function(username, listname, prodName, prodBrand, quantity) {
         return $http({
           method: 'POST',
@@ -182,9 +182,77 @@ services.factory('ProductListService', ['$http','urlbase', function($http, urlba
           return $http({
               method: 'GET',
               url : urlbase + 'users/'+ userId +'/productlists/' + listId
-          })
+          });
+      }
+      //////////////////////////////////////////////////////////////////////////
+      ProductListAPI.create = function(userId , listname) {
+        return $http({
+          method: 'POST',
+          url: urlbase + 'users/'+ userId + '/productlists/',
+          data: {
+              name : listname
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
       }
 
+      ProductListAPI.getList = function(userId, listId){
+        return $http({
+          method: 'GET',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId
+        });
+      }
+      ProductListAPI.deleteList = function(userId, listId){
+        return $http({
+          method: 'DELETE',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId
+        });
+      }
+      //////////////////////////////////////////////////////////////////////////
+      ProductListAPI.getSelectedProducts = function(userId, listId){
+        return $http({
+          method: 'GET',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts'
+        });
+      }
+
+      ProductListAPI.createSelectedProduct = function(userId, listId, selectedproduct){
+        return $http({
+          method:'POST',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts',
+          data: selectedproduct,
+          headers: {
+            'Content-Type':'applications/json'
+          }
+        });
+      }
+      ProductListAPI.updateSelectedProduct = function(userId, listId, selectedproductId, selectedproduct){
+        return $http({
+          method: 'PUT',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts'+selectedproductId,
+          data: {
+            productId: selectedproduct.productId,
+            quantity: selectedproduct.quantity
+          },
+          headers: {
+            'Content-Type':'applications/json'
+          }
+        });
+      }
+      ProductListAPI.getSelectedProduct = function(userId, listId, selectedproductId){
+        return $http({
+          method: 'GET',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts'+selectedproductId,
+        });
+      }
+      ProductListAPI.deleteSelectedProduct = function(userId, listId, selectedproductId){
+        return $http({
+          method: 'DELETE',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts'+selectedproductId,
+        });
+      }
       return ProductListAPI;
     }]);
 
