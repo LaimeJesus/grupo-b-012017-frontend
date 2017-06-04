@@ -343,13 +343,12 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
         console.log(error);
     };
 
-    $scope.createnewoffer = function(){
+    $scope.createnewoffer = function() {
         console.log($scope.offer.startDate);
         console.log($scope.offer.endDate);
         console.log($scope.offer.discount);
         console.log($scope.offer.type);
         console.log($scope.offer.category);
-
         OfferService.newCategoryOffer($scope.offer).then($scope.callbackNewOffer, $scope.errorHandlerNewOffer);
     };
 
@@ -392,8 +391,56 @@ controllers.controller('ProfileController', function($scope, UserService){
   $scope.getProfile();
 });
 
-controllers.controller('DeliveryController', function($scope, UserService){
+controllers.controller('DeliveryController', function($scope){
 
-    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+    $scope.initialize = function () {
+        var map;
+        function initMap() {
+            var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+
+            var unqui = {
+                lat: -34.70637,
+                lng: -58.2772431
+            };
+            var addressLucas = {
+                lat: -34.783098,
+                lng: -58.216737
+            };
+
+            var request = {
+                origin: addressLucas,
+                destination: unqui,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: unqui,
+                zoom: 11
+            });
+
+            var marker = new google.maps.Marker({
+                position: unqui,
+                map: map,
+                title: 'Universidad Nacional de Quilmes'
+            });
+            var marker = new google.maps.Marker({
+                position: addressLucas,
+                map: map,
+                title: 'Casa de Sandi'
+            });
+
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    directionsDisplay.setMap(map);
+                } else {
+                    alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+                }
+            });
+        }
+    };
+
+    $scope.initialize();
 
 });

@@ -13,6 +13,7 @@ var app = angular.module('aloloco-app', [
     'ngResource',
     'pascalprecht.translate',
     'tmh.dynamicLocale'
+
 ]).config(function ($routeProvider, $locationProvider) {
      $routeProvider
        .when('/', {

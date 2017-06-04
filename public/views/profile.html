@@ -1,15 +1,55 @@
 <div class="container-fluid">
   <div class="row">
-      <h2>RECORDS</h2>
-      <div data-ng-repeat="record in records" class="col-md-3">
-        <div class="productImage">
-          <button type="button separated" class="btn btn-primary bigOneButton">
-            <h3>{{record.listname}}</h3>
-            <h3>{{record.date}}</h3>
-          </button>
-        </div>
+
+      <div class="col-md-4 col-xs-12 bg-inverse">
+          <div class="">
+              <div>
+                  <a><img ng-src="../images/no-image-available.png" alt="asd" class="img-thumbnail squareImage"></a>
+              </div>
+              <div class="">
+                  <span class="ourGreen"> Name </span> <span class="ourGreen"> Lucas</span>
+              </div>
+              <div class="">
+                  <span class="ourGreen"> Lastname </span> <span class="ourGreen"> Sandoval </span>
+              </div>
+              <div class="">
+                  <span class="ourGreen"> Username </span> <span class="ourGreen"> LucasSandoval </span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-divider"></div>
+              <div>
+                  <div class="btn-group dropup">
+                      <button type="button" class="btn btn-sm btn-outline-success dropdown-toggle ourGreen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Options
+                      </button>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item ourGreen" href="#">Change Password</a>
+                          <a class="dropdown-item ourGreen" href="#">Change Profile Image</a>
+                          <a class="dropdown-item ourGreen" href="#">Be Awesome</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-      <h2>Address</h2>
-      <h3>{{address}}</h3>
+
+      <div class="col-md-8 col-xs-12">
+          <div class="">
+              <table class="table table-hover table-inverse">
+                  <thead>
+                  <tr>
+                      <th class="ourGreen">List Name</th>
+                      <th class="ourGreen">Payment Date</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr data-ng-repeat="offer in offers" ng-click="offerDetail(offer.id)" data-toggle="modal" data-target="#detailProductList">
+                      <th scope="row"></th>
+                      <td ng-bind="getType(offer)"></td>
+                      <td>{{offer.discountRate}}</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
   </div>
 </div>
