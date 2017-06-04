@@ -1,8 +1,10 @@
 
 var services = angular.module('aloloco-app.services', []);
 
-services.factory('ProductService', function($http) {
-    var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
+services.constant('url', 'http://localhost:8080/rest/');
+
+services.factory('ProductService', ['$http', 'url', function($http, url) {
+    var urlbase = url;
     var ProductAPI = {};
 
     ProductAPI.getProducts = function() {
@@ -32,16 +34,16 @@ services.factory('ProductService', function($http) {
             product : idProd,
             quantity : cant
         },
-        url: 'http://localhost:8080/grupo-b-012017/rest/productList/selectProduct'
+        url: urlbase + 'productList/selectProduct'
       });
     }
 
     return ProductAPI;
-  });
+  }]);
 
 
-services.factory('UserService', function($http) {
-    var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
+services.factory('UserService', ['$http','url', function($http, url) {
+    var urlbase = url;
     var UserAPI = {};
 
     var username = {};
@@ -127,10 +129,10 @@ services.factory('UserService', function($http) {
     }
 
     return UserAPI;
-  });
+  }]);
 
-services.factory('ProductListService', function($http) {
-      var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
+services.factory('ProductListService', ['$http','url', function($http, url) {
+      var urlbase = url;
       var ProductListAPI = {};
 
       ProductListAPI.mylists = function(userId) {
@@ -187,10 +189,10 @@ services.factory('ProductListService', function($http) {
       }
 
       return ProductListAPI;
-    });
+    }]);
 
-services.factory('ShopService', function($http){
-  var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
+services.factory('ShopService', ['$http','url', function($http, url){
+  var urlbase = url;
   var ShopAPI = {};
   ShopAPI.waitingTime = function(username, listname){
     return $http({
@@ -216,10 +218,10 @@ services.factory('ShopService', function($http){
     });
   }
   return ShopAPI;
-})
+}]);
 
-services.factory('OfferService', function($http) {
-    var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
+services.factory('OfferService', ['$http','url', function($http, url) {
+    var urlbase = url;
     var OfferServiceAPI = {};
 
     OfferServiceAPI.getAllCategories = function() {
@@ -246,4 +248,4 @@ services.factory('OfferService', function($http) {
 
     return OfferServiceAPI;
 
-});
+}]);
