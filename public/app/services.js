@@ -1,10 +1,9 @@
 
 var services = angular.module('aloloco-app.services', []);
 
-services.constant('url', 'http://localhost:8080/rest/');
+services.constant('urlbase', 'http://localhost:8080/rest/');
 
-services.factory('ProductService', ['$http', 'url', function($http, url) {
-    var urlbase = url;
+services.factory('ProductService', ['$http', 'urlbase', function($http, urlbase) {
     var ProductAPI = {};
 
     ProductAPI.getProducts = function() {
@@ -42,8 +41,7 @@ services.factory('ProductService', ['$http', 'url', function($http, url) {
   }]);
 
 
-services.factory('UserService', ['$http','url', function($http, url) {
-    var urlbase = url;
+services.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     var UserAPI = {};
 
     var username = {};
@@ -131,8 +129,7 @@ services.factory('UserService', ['$http','url', function($http, url) {
     return UserAPI;
   }]);
 
-services.factory('ProductListService', ['$http','url', function($http, url) {
-      var urlbase = url;
+services.factory('ProductListService', ['$http','urlbase', function($http, urlbase) {
       var ProductListAPI = {};
 
       ProductListAPI.mylists = function(userId) {
@@ -191,8 +188,7 @@ services.factory('ProductListService', ['$http','url', function($http, url) {
       return ProductListAPI;
     }]);
 
-services.factory('ShopService', ['$http','url', function($http, url){
-  var urlbase = url;
+services.factory('ShopService', ['$http','urlbase', function($http, urlbase){
   var ShopAPI = {};
   ShopAPI.waitingTime = function(username, listname){
     return $http({
@@ -220,8 +216,7 @@ services.factory('ShopService', ['$http','url', function($http, url){
   return ShopAPI;
 }]);
 
-services.factory('OfferService', ['$http','url', function($http, url) {
-    var urlbase = url;
+services.factory('OfferService', ['$http','urlbase', function($http, urlbase) {
     var OfferServiceAPI = {};
 
     OfferServiceAPI.getAllCategories = function() {
