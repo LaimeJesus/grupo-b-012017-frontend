@@ -88,12 +88,13 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
 
     $scope.getLists = function () {
         if(UserService.islogged()){
-            ProductListService.mylists(UserService.getUser()).then( $scope.callbackGetLists , $scope.errorHandlerGetList )
+            ProductListService.mylists(UserService.getId()).then( $scope.callbackGetLists , $scope.errorHandlerGetList )
         }
     };
 
     $scope.callbackAddProductToList = function(data) {
         console.log("La wea");
+        console.log(data);
     };
 
     $scope.errorHandlerAddProductToList = function(error) {
@@ -101,12 +102,15 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
     };
 
     $scope.addProductToList = function() {
-        ProductListService.selectproduct(
-            UserService.getUser(),
-            $scope.selectedList,
-            $scope.selectedProduct.name,
-            $scope.selectedProduct.brand,
-            $scope.quantity).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList );
+      console.log($scope.selectedList);
+      console.log($scope.selectedList.id);
+      ProductListService.createSelectedProduct(
+          UserService.getId(),
+          $scope.selectedList.id,
+          {
+            "productId" : $scope.selectedProduct.id,
+            "quantity" : $scope.quantity
+          }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
 
     $scope.getProducts();
@@ -122,7 +126,7 @@ controllers.controller('ProductListController', [
     $scope.productlists = [];
     $scope.spanLog = "";
     $scope.selecteProductList = {};
-    $scope.newListName = {};
+    $scope.newListName = "";
 
     $scope.callbackGetLists = function(response) {
       console.log("Lists Received Succesfully");
@@ -260,7 +264,7 @@ controllers.controller('LoginController', function($scope, $window, UserService)
 });
 
 controllers.controller('HomeOfferController', function($scope , OfferService){
-    
+
     $scope.offer = {};
     $scope.offer.startDate = "";
     $scope.offer.endDate = "";
@@ -274,11 +278,11 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
     $scope.isCategory = function() {
         return $scope.offer.type === "Category";
     };
-    
+
     $scope.isCrossing = function() {
         return $scope.offer.type === "Crossing";
     };
-    
+
     $scope.isCombination = function() {
         return $scope.offer.type === "Combination";
     };
@@ -297,21 +301,21 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
             }
         }
     }
-    
+
     $scope.callbackAllCategories = function(data) {
         console.log("All Categories received succesfully");
         console.log(data);
         $scope.allCategories = data.data;
     };
-    
+
     $scope.errorHandlerAllCategories = function(error) {
         console.log("All Categories something failed");
         console.log(error);
     };
-    
+
     $scope.getAllCategories = function() {
         if ($scope.allCategories !== []) {
-            OfferService.getAllCategories().then($scope.callbackAllCategories , $scope.errorHandlerAllCategories);   
+            OfferService.getAllCategories().then($scope.callbackAllCategories , $scope.errorHandlerAllCategories);
         }
     };
 
@@ -332,7 +336,7 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
         console.log($scope.offer.type);
         console.log($scope.offer.category);
 
-        OfferService.newCategoryOffer($scope.offer).then( $scope.callbackNewOffer ,$scope.createnewoffer );
+        OfferService.newCategoryOffer($scope.offer).then($scope.callbackNewOffer, $scope.errorHandlerNewOffer);
     };
 
     $scope.callbackAllOffers = function (response) {
@@ -347,10 +351,10 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
     $scope.allOffers = function () {
         OfferService.getAllOffers().then($scope.callbackAllOffers , $scope.errorHandlerAllOffers);
     }
-    
+
     $scope.getAllCategories();
     $scope.allOffers();
-    
+
 });
 
 controllers.controller('ProfileController', function($scope, UserService){
