@@ -189,30 +189,30 @@ controllers.controller('ProductListController', [
     }
 
     // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED
-
-    $scope.current = null;
-
     $scope.callbackReady = function(data){
-      $scope.showInterval($scope.current, data.time);
-    };
-
-    $scope.canUseReady = function(){
-      return $scope.current == null;
+      // $scope.showInterval($scope.current, data.time);
+      console.log(data);
     }
 
     $scope.errorReady = function(error){
-      console.log("failed ready")
-      $scope.current = null;
+      console.log(error);
     }
 
-    $scope.ready = function(listname){
-      $scope.current = listname;
-      ShopService.ready(UserService.getUser().username, listname).then($scope.callbackReady, $scope.errorReady);
-    };
-    $scope.waitingTime = function(listname){
-      ShopService.waitingTime(UserService.getUser().username, listname).then($scope.callbackWaitingTime, $scope.errorWaitingTime);
+    $scope.ready = function(listId){
+      ProductListService.ready(UserService.getId(), listId).then($scope.callbackReady, $scope.errorReady);
     }
 
+    $scope.callbackWaitingTime = function(data){
+      console.log(data);
+    }
+
+    $scope.errorWaitingTime = function(error){
+      console.log(error);
+    }
+
+    $scope.waitingTime = function(listId){
+      ProductListService.waitingTime(UserService.getId(), listId).then($scope.callbackWaitingTime, $scope.errorWaitingTime);
+    }
 
     $scope.mylists();
 

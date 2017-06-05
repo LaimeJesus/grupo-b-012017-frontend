@@ -254,6 +254,19 @@ services.factory('ProductListService', ['$http','urlbase', function($http, urlba
           url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts/'+selectedproductId,
         });
       }
+
+      ProductListAPI.ready = function(userId, listId){
+        return $http({
+          method: 'GET',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'ready'
+        });
+      }
+      ProductListAPI.waitingtime = function(userId, listId){
+        return $http({
+          method: 'GET',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'waitingtime'
+        });
+      }
       return ProductListAPI;
     }]);
 
