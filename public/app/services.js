@@ -1,7 +1,7 @@
 
 var services = angular.module('aloloco-app.services', []);
 
-services.constant('urlbase', 'http://localhost:8080/rest/');
+services.constant('urlbase', 'http://localhost:8080/grupo-b-012017/rest/');
 
 services.factory('ProductService', ['$http', 'urlbase', function($http, urlbase) {
     var ProductAPI = {};
@@ -124,13 +124,10 @@ services.factory('UserService', ['$http','urlbase', function($http, urlbase) {
       });
     }
 
-    UserAPI.getProfile = function(user){
+    UserAPI.getProfile = function(userId){
       return $http({
         method: 'GET',
-        url: urlbase + 'user/myprofile',
-        params: {
-          username : user.username
-        },
+        url: urlbase + 'users/' + userId,
         headers: {
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'

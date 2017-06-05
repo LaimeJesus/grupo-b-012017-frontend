@@ -7,13 +7,10 @@
                   <a><img ng-src="../images/no-image-available.png" alt="asd" class="img-thumbnail squareImage"></a>
               </div>
               <div class="">
-                  <span class="ourGreen"> Name </span> <span class="ourGreen"> Lucas</span>
+                  <span class="ourGreen"> Email: </span> <span class="ourGreen"> {{profile.email}} </span>
               </div>
               <div class="">
-                  <span class="ourGreen"> Lastname </span> <span class="ourGreen"> Sandoval </span>
-              </div>
-              <div class="">
-                  <span class="ourGreen"> Username </span> <span class="ourGreen"> LucasSandoval </span>
+                  <span class="ourGreen"> Username: </span> <span class="ourGreen"> {{profile.username}} </span>
               </div>
               <div class="dropdown-divider"></div>
               <div class="dropdown-divider"></div>
@@ -42,10 +39,10 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr data-ng-repeat="offer in offers" ng-click="offerDetail(offer.id)" data-toggle="modal" data-target="#detailProductList">
+                  <tr data-ng-repeat="purchase in records" data-toggle="modal" data-target="#detailProductList">
                       <th scope="row"></th>
-                      <td ng-bind="getType(offer)"></td>
-                      <td>{{offer.discountRate}}</td>
+                      <td> {{purchase.productList.name}} </td>
+                      <td> {{purchase.purchaseDate}} </td>
                   </tr>
                   </tbody>
               </table>

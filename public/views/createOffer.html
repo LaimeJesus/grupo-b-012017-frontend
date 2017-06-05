@@ -11,7 +11,7 @@
                 
                 <div class="form-group">
                     <label class="btn-outline-success"><h2>Final Date</h2></label>
-                    <input id="myPickr2" name="endDate" value="Choose a Range" class="form-control" ng-model="offer.endDate" ng-required="true">
+                    <input id="myPickr2" name="endDate" value="Choose a Range" class="form-control" ng-model="offer.endDate" required>
                     <label style="color:red" ng-show="createOffer.endDate.$error.required">This element is required</label>
                 </div>
                 
@@ -25,7 +25,6 @@
                 <div class="form-group">
                     <label class="btn-outline-success"><h2>Offer Type</h2></label>
                     <select class="form-control" name="type" ng-model="offer.type" required>
-                        <option class="selected">Select a type</option>
                         <option>Category</option>
                         <option>Crossing</option>
                         <option>Combination</option>
@@ -77,8 +76,7 @@
     $("#myPickr2").flatpickr({
         dateFormat: 'm/d/Y H:i',
         enableTime: true,
-        enableSeconds: false,
-        minDate: $("#myPickr1").val()
+        enableSeconds: false
     });
 
     $("#mySlider").on("slide", function(slideEvt) {

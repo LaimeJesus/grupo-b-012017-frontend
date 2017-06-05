@@ -7,8 +7,10 @@
             <div class="offerBack">
 
                 <div class="list-group ">
-                    <button type="button" class="list-group-item list-group-item-action list-group-item-info">All</button>
-                    <button type="button" class="list-group-item list-group-item-action list-group-item-info">Category</button>
+                    <button type="button" class="list-group-item list-group-item-action list-group-item-info">
+                        All
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action list-group-item-info" ng-click="filterByCategory()">Category</button>
                     <button type="button" class="list-group-item list-group-item-action list-group-item-info">Crossing</button>
                     <button type="button" class="list-group-item list-group-item-action list-group-item-info">Combination</button>
                 </div>
@@ -27,11 +29,10 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="offer in offers" ng-click="offerDetail(offer.id)" data-toggle="modal" data-target="#detailProductList">
-                    <th scope="row"></th>
                     <td ng-bind="getType(offer)"></td>
-                    <td>{{offer.discountRate}}</td>
-                    <td>{{list.pubDate | date:'shortTime'}}</td>
-                    <td>{{list.totalAmount.integer}}.{{list.totalAmount.decimal}}</td>
+                    <td>{{offer.discount}}</td>
+                    <td>{{getDate(offer.start) | date:'MM/dd/yyyy'}}</td>
+                    <td>{{getDate(offer.end) | date:'MM/dd/yyyy'}}</td>
                 </tr>
                 </tbody>
             </table>
