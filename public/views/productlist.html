@@ -1,4 +1,5 @@
 <div class="container-fluid">
+    <div class="spinner" ng-show="loading"></div>
     <div class="row">
         <table class="table table-hover table-inverse">
             <thead>
@@ -11,17 +12,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="list in productlists" ng-click="listDetail(list.id)" data-toggle="modal" data-target="#detailProductList">
+            <tr data-ng-repeat="list in productlists">
                 <th scope="row"></th>
-                <td>{{list.name}}</td>
+                <td ng-click="listDetail(list.id)" data-toggle="modal" data-target="#detailProductList">{{list.name}}</td>
                 <td>{{list.pubDate | date:'shortTime'}}</td>
                 <td>{{list.totalAmount.integer}}.{{list.totalAmount.decimal}}</td>
                 <td>
                     <button type="button" class="btn btn-success floatRight" data-ng-click="ready(list.id)">
                         <span class="glyphicon glyphicon-search"></span> Ready
                     </button>
-                    <button type="button" class="btn btn-info floatRight" href="/delivery">
-                        <span class="glyphicon glyphicon-search"></span> Delivery
+                    <button type="button" class="btn btn-info floatRight">
+                        <a class="glyphicon glyphicon-search" href="delivery" >Delivery</a>
                     </button>
                 </td>
             </tr>

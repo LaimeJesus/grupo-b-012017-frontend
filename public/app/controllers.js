@@ -129,6 +129,9 @@ controllers.controller('ProductListController', [
     $scope.spanLog = "";
     $scope.selectedProductList = {};
     $scope.newListName = "";
+    $scope.loading = false;
+
+    
 
     $scope.callbackGetLists = function(response) {
       console.log("Lists Received Succesfully");
@@ -157,9 +160,13 @@ controllers.controller('ProductListController', [
     }
 
     $scope.createproductlist = function(){
+      $scope.loading = true;
+
       if (UserService.islogged()){
         ProductListService.create(UserService.getId() , $scope.newListName).then($scope.callbackCreate, $scope.errorHandlerCreate);
       }
+
+      $scope.loading = false;
     };
 
     $scope.callbackListDetail = function (response) {
@@ -328,6 +335,12 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
         }
     }
 
+    $scope.getDate = function (date) {
+        console.log("Fecha de entrada : ");
+        console.log(date);
+        return date.month + '/' + date.day + '/' + date.year;
+    }
+
     $scope.callbackAllCategories = function(data) {
         console.log("All Categories received succesfully");
         console.log(data);
@@ -355,14 +368,51 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
         console.log(error);
     };
 
-    $scope.createnewoffer = function(){
+    $scope.createnewoffer = function() {
         console.log($scope.offer.startDate);
         console.log($scope.offer.endDate);
         console.log($scope.offer.discount);
         console.log($scope.offer.type);
         console.log($scope.offer.category);
 
-        OfferService.newCategoryOffer($scope.offer).then($scope.callbackNewOffer, $scope.errorHandlerNewOffer);
+        var values = $scope.offer.startDate.split(" ");
+        var fecha =values[0];
+        var hora = values[1];
+        var fechaCortada = fecha.split("/");
+        var mes = fechaCortada[0];
+        var dia = fechaCortada[1];
+        var año = fechaCortada[2];
+        var horaCortada = hora.split(":");
+        var hora = horaCortada[0];
+        var min = horaCortada[1];
+        var values1 = $scope.offer.endDate.split(" ");
+        var fecha1 =values1[0];
+        var hora1 = values1[1];
+        var fechaCortada1 = fecha1.split("/");
+        var mes1 = fechaCortada1[0];
+        var dia1 = fechaCortada1[1];
+        var año1 = fechaCortada1[2];
+        var horaCortada1 = hora1.split(":");
+        var hora1 = horaCortada1[0];
+        var min1 = horaCortada1[1];
+
+        if ($scope.getType($scope.offer) === 'Category') {
+            var data = {
+                "category" : $scope.offer.category,
+                "start" : {
+                    "day" : dia,
+                    "month" : mes,
+                    "year" : año
+                },
+                "end" : {
+                    "day" : dia1,
+                    "month" : mes1,
+                    "year" : año1
+                },
+                "discount" : $scope.offer.discount
+            }
+            OfferService.newCategoryOffer(data).then($scope.callbackNewOffer, $scope.errorHandlerNewOffer);
+        }
     };
 
     $scope.callbackAllOffers = function (response) {
@@ -386,26 +436,79 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
 controllers.controller('ProfileController', function($scope, UserService){
   $scope.address = "";
   $scope.records = [];
+  $scope.profile = {};
+  $scope.purchase = {};
 
-  $scope.getProfile = function(){
-    // UserService.getProfile(UserService.getUser()).then($scope.callbackProfile, $scope.errorHandler);
-  };
-
-  $scope.callbackProfile = function(data){
+  $scope.callbackProfile = function(response){
     console.log("profile loaded");
-    $scope.address = data.address;
-    $scope.records = data.records;
+    $scope.address = response.data.profile.address;
+    $scope.profile = response.data;
+    $scope.records = response.data.profile.purchaseRecords;
   };
 
   $scope.errorHandler = function(error){
     console.log("profile error");
   };
 
+  $scope.getProfile = function(){
+      UserService.getProfile(UserService.getId()).then($scope.callbackProfile, $scope.errorHandler);
+  };
+
   $scope.getProfile();
+
+
 });
 
-controllers.controller('DeliveryController', function($scope, UserService){
+controllers.controller('DeliveryController', function($scope){
 
-    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+    $scope.initialize = function () {
+        var map;
+        function initMap() {
+            var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+
+            var unqui = {
+                lat: -34.70637,
+                lng: -58.2772431
+            };
+            var addressLucas = {
+                lat: -34.783098,
+                lng: -58.216737
+            };
+
+            var request = {
+                origin: addressLucas,
+                destination: unqui,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: unqui,
+                zoom: 11
+            });
+
+            var marker = new google.maps.Marker({
+                position: unqui,
+                map: map,
+                title: 'Universidad Nacional de Quilmes'
+            });
+            var marker = new google.maps.Marker({
+                position: addressLucas,
+                map: map,
+                title: 'Casa de Sandi'
+            });
+
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    directionsDisplay.setMap(map);
+                } else {
+                    alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+                }
+            });
+        }
+    };
+
+    $scope.initialize();
 
 });
