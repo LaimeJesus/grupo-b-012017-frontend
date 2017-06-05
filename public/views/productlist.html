@@ -17,7 +17,7 @@
                 <td>{{list.pubDate | date:'shortTime'}}</td>
                 <td>{{list.totalAmount.integer}}.{{list.totalAmount.decimal}}</td>
                 <td>
-                    <button type="button" class="btn btn-success floatRight">
+                    <button type="button" class="btn btn-success floatRight" data-ng-click="ready(list.id)">
                         <span class="glyphicon glyphicon-search"></span> Ready
                     </button>
                     <button type="button" class="btn btn-info floatRight" href="/delivery">
@@ -89,11 +89,16 @@
                             <tbody>
                             <tr data-ng-repeat="selectedProduct in selectedProductList.allProducts">
                                 <td>{{selectedProduct.product.name}}</td>
-                                <td>{{selectedProduct.quantity}}</td>
-                                <td>{{selectedProduct.price.integer | date:'shortTime'}}</td>
-                                <td>{{selectedProduct.totalAmount | currency}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success floatRight">
+                                  <div class="form-group row">
+                                      <input class="form-control" type="number" value="{{selectedProduct.quantity}}" ng-model="selectedProduct.quantity" min="1" max="{{selectedProduct.stock}}">
+                                  </div>
+                                </td>
+                                <!-- <td>{{selectedProduct.price.integer | date:'shortTime'}}</td> -->
+                                <!-- <td>{{selectedProduct.product.price.integer | currency}}</td> -->
+                                <td>{{selectedProduct.product.price.integer}}.{{selectedProduct.product.price.decimal}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-success floatRight" data-ng-click="updateSelectedProduct(selectedProductList.id, selectedProduct.id, selectedProduct)">
                                         <span class="glyphicon glyphicon-search">Update</span>
                                     </button>
                                     <button type="button" class="btn btn-info floatRight" data-ng-click="deleteSelectedProduct(selectedProductList.id, selectedProduct.id)">

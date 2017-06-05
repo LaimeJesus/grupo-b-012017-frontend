@@ -258,13 +258,13 @@ services.factory('ProductListService', ['$http','urlbase', function($http, urlba
       ProductListAPI.ready = function(userId, listId){
         return $http({
           method: 'GET',
-          url: urlbase + 'users/'+userId+'/productlists/'+listId+'ready'
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/ready'
         });
       }
       ProductListAPI.waitingtime = function(userId, listId){
         return $http({
           method: 'GET',
-          url: urlbase + 'users/'+userId+'/productlists/'+listId+'waitingtime'
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/waitingtime'
         });
       }
       return ProductListAPI;

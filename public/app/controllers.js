@@ -177,15 +177,27 @@ controllers.controller('ProductListController', [
     }
 
     $scope.callbackDeleteSelectedProduct = function(data){
-      console.log("Selected product borrada");
+      console.log("Selected product borrado");
     }
 
     $scope.errorHandlerDeleteSelectedProduct = function(error){
-      console.log("Selected product no borrada");
+      console.log("Selected product no borrado");
     }
 
     $scope.deleteSelectedProduct = function(listId, selectedProductId){
       ProductListService.deleteSelectedProduct(UserService.getId(), listId, selectedProductId).then( $scope.callbackDeleteSelectedProduct , $scope.errorHandlerDeleteSelectedProduct );
+    }
+
+    $scope.callbackUpdateSelectedProduct = function(data){
+      console.log("Selected product actualizado");
+    }
+
+    $scope.errorHandlerUpdateSelectedProduct = function(error){
+      console.log("Selected product no actualizado");
+    }
+
+    $scope.updateSelectedProduct = function(listId, selectedProductId, selectedProduct){
+      ProductListService.updateSelectedProduct(UserService.getId(), listId, selectedProductId, {quantity:selectedProduct.quantity, productId:selectedProduct.id}).then( $scope.callbackUpdateSelectedProduct , $scope.errorHandlerUpdateSelectedProduct );
     }
 
     // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED
