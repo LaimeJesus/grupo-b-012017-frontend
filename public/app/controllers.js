@@ -31,13 +31,9 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
     $scope.products = [];
 
     $scope.selectedProduct = {};
-
-    $scope.userLists = [
-        {"name" : "list1" },
-        {"name" : "list2" }
-    ];
-
-    $scope.selectedList = {"name": "Choose a List"};
+    $scope.selected = {};
+    $scope.selected.quantity = 1;
+    $scope.selected.selectedList = {"name": "Choose a List"};
 
     $scope.callback = function (data) {
         console.log(data);
@@ -92,25 +88,27 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
         }
     };
 
+    $scope.resetSelectedProduct = function(){
+      $scope.selected.selectedList = {"name": "Choose a List"};
+      $scope.selected.quantity = 1;
+    };
+
     $scope.callbackAddProductToList = function(data) {
-        console.log("La wea");
-        console.log(data);
+        console.log("PRODUCT ADDED TO LIST");
+        $scope.resetSelectedProduct();
     };
 
     $scope.errorHandlerAddProductToList = function(error) {
-        console.log("Penca");
+        console.log("PRODUCT NOT ADDED TO LIST");
+        $scope.resetSelectedProduct();
     };
 
     $scope.addProductToList = function() {
-      console.log(UserService.getId());
-      console.log($scope.selectedList.id);
-      console.log($scope.quantity);
-      console.log($scope.selectedProduct.id);
       ProductListService.createSelectedProduct(
           UserService.getId(),
-          $scope.selectedList.id,
+          $scope.selected.selectedList.id,
           {
-            quantity : $scope.quantity,
+            quantity : $scope.selected.quantity,
             productId : $scope.selectedProduct.id
           }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
@@ -131,7 +129,7 @@ controllers.controller('ProductListController', [
     $scope.newListName = "";
     $scope.loading = false;
 
-    
+
 
     $scope.callbackGetLists = function(response) {
       console.log("Lists Received Succesfully");
