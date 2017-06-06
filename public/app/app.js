@@ -9,6 +9,7 @@
 var app = angular.module('aloloco-app', [
     'aloloco-app.controllers',
     'aloloco-app.services',
+    'aloloco-app.mycontrollers',
     'ngRoute',
     'ngResource',
     'pascalprecht.translate',

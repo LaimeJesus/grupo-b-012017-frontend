@@ -1,7 +1,7 @@
 
 var services = angular.module('aloloco-app.services', []);
 
-services.constant('urlbase', 'http://localhost:8080/grupo-b-012017/rest/');
+services.constant('urlbase', 'http://localhost:8080/rest/');
 
 services.factory('ProductService', ['$http', 'urlbase', function($http, urlbase) {
     var ProductAPI = {};

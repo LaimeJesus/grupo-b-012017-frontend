@@ -1,32 +1,6 @@
-var controllers = angular.module('aloloco-app.controllers', []);
+var controllers = angular.module('aloloco-app.controllers', ['angularSpinners']);
 
-controllers.controller('MainController', function ($scope, UserService) {
-    $scope.user = UserService.getUser();
-    $scope.logged = UserService.islogged();
-
-    $scope.someoneLogged = function () {
-        return UserService.islogged();
-    };
-
-    $scope.callbackLogout = function (data) {
-        console.log("Logout Exitoso");
-        UserService.logged(false);
-        console.log(UserService.islogged());
-        UserService.setUser({});
-        console.log(UserService.getUser());
-    };
-
-    $scope.errorHandlerLogout = function (error) {
-        console.log("Logout Fallo");
-    };
-
-    $scope.logout = function () {
-        UserService.logout(UserService.getUser()).then($scope.callbackLogout(), $scope.errorHandlerLogout());
-    };
-
-});
-
-controllers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService) {
+controllers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService) {
 
     $scope.products = [];
 
@@ -47,30 +21,32 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
             $scope.products[i].imageUrl = "../images/no-image-available.png"
           }
         }
+        spinnerService.hide('generalSpinner');
     };
     $scope.errorHandler = function(error){
         console.log(error);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.getProducts = function(){
+        spinnerService.show('generalSpinner');
         ProductService.getProducts().then($scope.callback, $scope.errorHandler);
-    };
-
-    $scope.getProduct = function(id) {
-        ProductService.getProduct(id , $scope.callbackGetProduct , $scope.errorHandlerGetProduct);
     };
 
     $scope.callbackGetDetal = function(data) {
         console.log("Detalle obtenido exitosamente");
         console.log(data);
         $scope.selectedProduct = data.data;
+        spinnerService.hide('generalSpinner');
     };
     $scope.errorHandlerGetDetail = function(error) {
         console.log("Detalle no obtenido, algo fallo");
         $scope.spanLog = error.descripcion;
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.getDetail = function(name,brand){
+        spinnerService.show('generalSpinner');
         console.log("Pedi detalle");
         ProductService.getDetail(name,brand).then($scope.callbackGetDetal,$scope.errorHandlerGetDetail);
     };
@@ -79,52 +55,51 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
         console.log("Listas obtenidas exitosamente");
         console.log(data);
         $scope.userLists = data.data;
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerGetList = function(error) {
         console.log("Listas no obtenidas, algo fallo");
         console.log(error);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.getLists = function () {
+        spinnerService.show('generalSpinner');
         if(UserService.islogged()){
             ProductListService.mylists(UserService.getId()).then( $scope.callbackGetLists , $scope.errorHandlerGetList )
         }
     };
 
     $scope.callbackAddProductToList = function(data) {
-        console.log("La wea");
         console.log(data);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerAddProductToList = function(error) {
-        console.log("Penca");
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.addProductToList = function() {
-      console.log(UserService.getId());
-      console.log($scope.selectedList.id);
-      console.log($scope.quantity);
-      console.log($scope.selectedProduct.id);
-      ProductListService.createSelectedProduct(
-          UserService.getId(),
-          $scope.selectedList.id,
-          {
-            quantity : $scope.quantity,
-            productId : $scope.selectedProduct.id
-          }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
+        spinnerService.show('generalSpinner');
+        console.log(UserService.getId());
+        console.log($scope.selectedList.id);
+        console.log($scope.quantity);
+        console.log($scope.selectedProduct.id);
+        ProductListService.createSelectedProduct(
+            UserService.getId(),
+            $scope.selectedList.id,
+            {
+                quantity : $scope.quantity,
+                productId : $scope.selectedProduct.id
+            }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
 
     $scope.getProducts();
     $scope.getLists()
 });
 
-controllers.controller('ProductListController', [
-  '$scope',
-  'UserService',
-  'ProductListService',
-  'ShopService',
-  function($scope, UserService, ProductListService, ShopService) {
+controllers.controller('ProductListController', function($scope, $route, $location, UserService, ProductListService, ShopService, spinnerService) {
     $scope.productlists = [];
     $scope.spanLog = "";
     $scope.selectedProductList = {};
@@ -134,76 +109,92 @@ controllers.controller('ProductListController', [
     
 
     $scope.callbackGetLists = function(response) {
-      console.log("Lists Received Succesfully");
-      console.log(response);
-      $scope.productlists = response.data;
+        console.log("Lists Received Succesfully");
+        console.log(response);
+        $scope.productlists = response.data;
+        spinnerService.hide('generalSpinner');
     };
     $scope.errorHandlerGetList = function(error) {
-      console.log("Lists Received Failure");
-      console.log(error);
+        console.log("Lists Received Failure");
+        console.log(error);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.mylists = function(){
-      if(UserService.islogged()){
-        ProductListService.mylists(UserService.getId()).then($scope.callbackGetLists, $scope.errorHandlerGetList);
-      }
+        spinnerService.show('generalSpinner');
+        if(UserService.islogged()){
+            ProductListService.mylists(UserService.getId()).then($scope.callbackGetLists, $scope.errorHandlerGetList);
+        }
     };
 
     $scope.callbackCreate = function(response) {
-      console.log("List Created Succesfully");
-      console.log(response.data);
+        console.log("List Created Succesfully");
+        console.log(response.data);
+        spinnerService.hide('generalSpinner');
+        $('#modalNewProductList').modal('hide');
+        $route.reload();
     }
 
     $scope.errorHandlerCreate = function(error) {
-      console.log("List Creation Failed");
-      console.log(error);
+        console.log("List Creation Failed");
+        console.log(error);
+        spinnerService.hide('generalSpinner');
+        $('#modalNewProductList').modal('hide');
+        $route.reload();
     }
 
     $scope.createproductlist = function(){
-      $scope.loading = true;
+      spinnerService.show('generalSpinner');
 
       if (UserService.islogged()){
         ProductListService.create(UserService.getId() , $scope.newListName).then($scope.callbackCreate, $scope.errorHandlerCreate);
       }
-
-      $scope.loading = false;
     };
 
     $scope.callbackListDetail = function (response) {
         console.log("Lista obtenida correctamente");
         console.log(response);
         $scope.selectedProductList = response.data;
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.errorHandlerListDetail = function () {
         console.log("Lista obtenida erroneamente");
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.listDetail = function (listId) {
+        spinnerService.show('generalSpinner');
         ProductListService.getList(UserService.getId(), listId).then( $scope.callbackListDetail , $scope.errorHandlerListDetail );
     }
 
     $scope.callbackDeleteSelectedProduct = function(data){
       console.log("Selected product borrado");
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.errorHandlerDeleteSelectedProduct = function(error){
       console.log("Selected product no borrado");
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.deleteSelectedProduct = function(listId, selectedProductId){
+        spinnerService.show('generalSpinner');
       ProductListService.deleteSelectedProduct(UserService.getId(), listId, selectedProductId).then( $scope.callbackDeleteSelectedProduct , $scope.errorHandlerDeleteSelectedProduct );
     }
 
     $scope.callbackUpdateSelectedProduct = function(data){
       console.log("Selected product actualizado");
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.errorHandlerUpdateSelectedProduct = function(error){
       console.log("Selected product no actualizado");
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.updateSelectedProduct = function(listId, selectedProductId, selectedProduct){
+        spinnerService.show('generalSpinner');
       ProductListService.updateSelectedProduct(UserService.getId(), listId, selectedProductId, {quantity:selectedProduct.quantity, productId:selectedProduct.id}).then( $scope.callbackUpdateSelectedProduct , $scope.errorHandlerUpdateSelectedProduct );
     }
 
@@ -211,33 +202,39 @@ controllers.controller('ProductListController', [
     $scope.callbackReady = function(data){
       // $scope.showInterval($scope.current, data.time);
       console.log(data);
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.errorReady = function(error){
       console.log(error);
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.ready = function(listId){
+        spinnerService.show('generalSpinner');
       ProductListService.ready(UserService.getId(), listId).then($scope.callbackReady, $scope.errorReady);
     }
 
     $scope.callbackWaitingTime = function(data){
       console.log(data);
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.errorWaitingTime = function(error){
       console.log(error);
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.waitingTime = function(listId){
+        spinnerService.show('generalSpinner');
       ProductListService.waitingTime(UserService.getId(), listId).then($scope.callbackWaitingTime, $scope.errorWaitingTime);
     }
 
     $scope.mylists();
 
-}]);
+});
 
-controllers.controller('SignUpController', function($scope, UserService){
+controllers.controller('SignUpController', function($scope, $location, UserService, spinnerService){
 
   $scope.signupuser = {};
   $scope.signupuser.username = "";
@@ -250,19 +247,24 @@ controllers.controller('SignUpController', function($scope, UserService){
 
   $scope.signcallback = function (response){
     $scope.reset();
+    spinnerService.hide('generalSpinner');  
+    $location.path("/");
   };
 
   $scope.errorHandler = function (error){
     $scope.reset();
+    spinnerService.hide('generalSpinner');  
+    $location.path("/");
   };
 
   $scope.signup = function (){
+    spinnerService.show('generalSpinner');  
     UserService.signup($scope.signupuser).then($scope.signcallback, $scope.errorHandler);
   };
 
 });
 
-controllers.controller('LoginController', function($scope, $window, UserService){
+controllers.controller('LoginController', function($scope, $window, UserService, spinnerService){
 
   $scope.loginuser = {};
   $scope.loginuser.username = "";
@@ -279,15 +281,17 @@ controllers.controller('LoginController', function($scope, $window, UserService)
     UserService.logged(true);
     UserService.setUser(response.data.username);
     $scope.reset();
-    //$window.location.href = '/';
+      spinnerService.hide('generalSpinner');
   };
 
   $scope.errorHandler = function(error){
     console.log("Something Failed")
     $scope.reset();
+      spinnerService.hide('generalSpinner');
   };
 
   $scope.login = function(){
+      spinnerService.show('generalSpinner');
     UserService.login($scope.loginuser).then($scope.logincallback, $scope.errorHandler);
   };
 
@@ -296,7 +300,7 @@ controllers.controller('LoginController', function($scope, $window, UserService)
   };
 });
 
-controllers.controller('HomeOfferController', function($scope , OfferService){
+controllers.controller('HomeOfferController', function($scope , OfferService, spinnerService){
 
     $scope.offer = {};
     $scope.offer.startDate = "";
@@ -345,14 +349,17 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
         console.log("All Categories received succesfully");
         console.log(data);
         $scope.allCategories = data.data;
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerAllCategories = function(error) {
         console.log("All Categories something failed");
         console.log(error);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.getAllCategories = function() {
+        spinnerService.show('generalSpinner');
         if ($scope.allCategories !== []) {
             OfferService.getAllCategories().then($scope.callbackAllCategories , $scope.errorHandlerAllCategories);
         }
@@ -361,19 +368,17 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
     $scope.callbackNewOffer = function (response) {
         console.log("Category Offer created succesfully");
         console.log(response);
+        spinnerService.hide('generalSpinner');
     }
 
     $scope.errorHandlerNewOffer = function(error) {
         console.log("Category Offer created failed");
         console.log(error);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.createnewoffer = function() {
-        console.log($scope.offer.startDate);
-        console.log($scope.offer.endDate);
-        console.log($scope.offer.discount);
-        console.log($scope.offer.type);
-        console.log($scope.offer.category);
+        spinnerService.show('generalSpinner');
 
         var values = $scope.offer.startDate.split(" ");
         var fecha =values[0];
@@ -418,13 +423,16 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
     $scope.callbackAllOffers = function (response) {
         console.log(response);
         $scope.offers = response.data;
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerAllOffers = function (error) {
         console.log(error);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.allOffers = function () {
+        spinnerService.show('generalSpinner');
         OfferService.getAllOffers().then($scope.callbackAllOffers , $scope.errorHandlerAllOffers);
     }
 
@@ -433,7 +441,7 @@ controllers.controller('HomeOfferController', function($scope , OfferService){
 
 });
 
-controllers.controller('ProfileController', function($scope, UserService){
+controllers.controller('ProfileController', function($scope, UserService, spinnerService){
   $scope.address = "";
   $scope.records = [];
   $scope.profile = {};
@@ -444,13 +452,16 @@ controllers.controller('ProfileController', function($scope, UserService){
     $scope.address = response.data.profile.address;
     $scope.profile = response.data;
     $scope.records = response.data.profile.purchaseRecords;
+      spinnerService.hide('generalSpinner');
   };
 
   $scope.errorHandler = function(error){
     console.log("profile error");
+      spinnerService.hide('generalSpinner');
   };
 
   $scope.getProfile = function(){
+      spinnerService.show('generalSpinner');
       UserService.getProfile(UserService.getId()).then($scope.callbackProfile, $scope.errorHandler);
   };
 
