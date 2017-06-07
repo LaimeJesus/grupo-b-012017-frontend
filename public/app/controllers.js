@@ -1,6 +1,6 @@
 var controllers = angular.module('aloloco-app.controllers', ['angularSpinners']);
 
-controllers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService) {
+controllers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService, PagerService) {
 
     $scope.products = [];
 
@@ -95,8 +95,18 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
           }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
 
+    $scope.pager = {};
+    $scope.setPage = function(page){
+      if(page < 1 || page > $scope.pager.totalPages){
+        return;
+      }
+      $scope.pager = PagerService.getPager($scope.products.length, page);
+      $scope.products = $scope.products.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
+    }
+
     $scope.getProducts();
-    $scope.getLists()
+    $scope.getLists();
+    $scope.setPage(1);
 });
 
 controllers.controller('ProductListController', function($scope, $route, $location, UserService, ProductListService, ShopService, spinnerService) {
