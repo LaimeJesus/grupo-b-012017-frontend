@@ -146,7 +146,7 @@ html, body {
 
 .offerBack {
   width: 150px;
-  height: 150px;
+  /*height: 150px;*/
   background-color: darkslategrey;
 }
 
@@ -177,3 +177,14 @@ img {
 }
 
 .angular-google-map-container { height: 400px; }
+
+/*.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }*/
+
+/*.pagination-page {
+  font-size: 30px;
+}*/
+
+.pagination-sm .page-link {
+  font-size: 30px !important;
+  /*font-size: 4vw !important;*/
+}

@@ -41,6 +41,20 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
         }
       });
     }
+
+    //user.email, user.username
+    UserAPI.logInWithMail = function(user){
+        return $http({
+          method: 'POST',
+          url: urlbase + 'users/loginwithmail',
+          data: user,
+          headers: {
+            "Accept": "application/json;odata=verbose",
+            'Content-Type': 'application/json'
+          }
+        });
+    }
+
     UserAPI.signup = function(user) {
       return $http({
         method: 'POST',

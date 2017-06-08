@@ -70,11 +70,14 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     };
 
     $scope.callbackAddProductToList = function(data) {
-        console.log(data);
+        console.log("PRODUCT ADDED TO LIST");
+        $scope.resetSelectedProduct();
         spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerAddProductToList = function(error) {
+        console.log("PRODUCT NOT ADDED TO LIST");
+        $scope.resetSelectedProduct();
         spinnerService.hide('generalSpinner');
     };
 
@@ -95,4 +98,22 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $scope.getProducts();
     $scope.getLists()
+
+    ///////////////////////////////////////////////////////////////////////////
+    //PAGINATION
+    ///////////////////////////////////////////////////////////////////////////
+
+      $scope.pagination = {};
+      $scope.pagination.currentPage = 1;
+      $scope.pagination.maxSize = 4;
+      $scope.pagination.itemsPerPage = 3;
+
+      // $scope.pagination.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize) + 1;
+      // $scope.pagination.numOfPages = 10;
+      // $scope.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize);
+
+      $scope.setPage = function (pageNo) {
+        $scope.pagination.currentPage = pageNo;
+      };
+
 });
