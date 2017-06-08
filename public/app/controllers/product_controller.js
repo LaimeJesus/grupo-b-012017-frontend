@@ -1,4 +1,4 @@
-controllers.controller('ProductController', function ($scope, ProductService , UserService , ProductListService) {
+mycontrollers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService) {
 
     $scope.products = [];
 
@@ -11,7 +11,7 @@ controllers.controller('ProductController', function ($scope, ProductService , U
 
     $scope.selectedList = {"name": "Choose a List"};
 
-    $scope.callback = function(data){
+    $scope.callback = function (data) {
         console.log(data);
         $scope.products = data.data;
         for (var i=0 ; i<data.data.length ; i++){
@@ -19,30 +19,32 @@ controllers.controller('ProductController', function ($scope, ProductService , U
             $scope.products[i].imageUrl = "../images/no-image-available.png"
           }
         }
+        spinnerService.hide('generalSpinner');
     };
     $scope.errorHandler = function(error){
         console.log(error);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.getProducts = function(){
+        spinnerService.show('generalSpinner');
         ProductService.getProducts().then($scope.callback, $scope.errorHandler);
-    };
-
-    $scope.getProduct = function(id) {
-        ProductService.getProduct(id , $scope.callbackGetProduct , $scope.errorHandlerGetProduct);
     };
 
     $scope.callbackGetDetal = function(data) {
         console.log("Detalle obtenido exitosamente");
         console.log(data);
         $scope.selectedProduct = data.data;
+        spinnerService.hide('generalSpinner');
     };
     $scope.errorHandlerGetDetail = function(error) {
         console.log("Detalle no obtenido, algo fallo");
         $scope.spanLog = error.descripcion;
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.getDetail = function(name,brand){
+        spinnerService.show('generalSpinner');
         console.log("Pedi detalle");
         ProductService.getDetail(name,brand).then($scope.callbackGetDetal,$scope.errorHandlerGetDetail);
     };
@@ -51,35 +53,46 @@ controllers.controller('ProductController', function ($scope, ProductService , U
         console.log("Listas obtenidas exitosamente");
         console.log(data);
         $scope.userLists = data.data;
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerGetList = function(error) {
         console.log("Listas no obtenidas, algo fallo");
         console.log(error);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.getLists = function () {
+        spinnerService.show('generalSpinner');
         if(UserService.islogged()){
-            ProductListService.mylists(UserService.getUser()).then( $scope.callbackGetLists() , $scope.errorHandlerGetList() )
+            ProductListService.mylists(UserService.getId()).then( $scope.callbackGetLists , $scope.errorHandlerGetList )
         }
     };
 
     $scope.callbackAddProductToList = function(data) {
-        console.log("La wea");
+        console.log(data);
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerAddProductToList = function(error) {
-        console.log("Penca");
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.addProductToList = function() {
-        ProductService.addProductToList(
-            $scope.selectedProduct.id,
-            $scope.selectedList.name,
-            $scope.callbackAddProductToList,
-            $scope.errorHandlerAddProductToList
-        )
+        spinnerService.show('generalSpinner');
+        console.log(UserService.getId());
+        console.log($scope.selectedList.id);
+        console.log($scope.quantity);
+        console.log($scope.selectedProduct.id);
+        ProductListService.createSelectedProduct(
+            UserService.getId(),
+            $scope.selectedList.id,
+            {
+                quantity : $scope.quantity,
+                productId : $scope.selectedProduct.id
+            }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
 
     $scope.getProducts();
+    $scope.getLists()
 });

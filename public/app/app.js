@@ -7,13 +7,13 @@
  * Main module of the application.
  */
 var app = angular.module('aloloco-app', [
-    'aloloco-app.controllers',
-    'aloloco-app.services',
+    'aloloco-app.myservices',
     'aloloco-app.mycontrollers',
     'ngRoute',
     'ngResource',
     'pascalprecht.translate',
-    'tmh.dynamicLocale'
+    'tmh.dynamicLocale',
+    'ngMap'
 
 ]).config(function ($routeProvider, $locationProvider) {
      $routeProvider

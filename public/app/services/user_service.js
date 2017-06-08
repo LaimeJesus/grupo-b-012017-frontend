@@ -1,14 +1,14 @@
-
-services.factory('UserService', function($http) {
-    var urlbase = 'http://localhost:8080/grupo-b-012017/rest/';
+myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     var UserAPI = {};
 
     var username = {};
     var logged = false;
+    var userId = {};
 
     UserAPI.reset = function(){
       username.username = "";
       logged = false;
+      userId = {};
     }
 
     UserAPI.setUser = function(newuser){
@@ -17,7 +17,12 @@ services.factory('UserService', function($http) {
     UserAPI.getUser = function(){
       return username;
     }
-
+    UserAPI.getId = function () {
+        return userId;
+    }
+    UserAPI.setId = function (id) {
+        userId = id;
+    }
     UserAPI.logged = function(bool){
       logged = bool;
     }
@@ -25,11 +30,10 @@ services.factory('UserService', function($http) {
       return logged;
     }
 
-
     UserAPI.login = function(user) {
       return $http({
         method: 'POST',
-        url: urlbase + 'user/login',
+        url: urlbase + 'users/login',
         data: user,
         headers: {
           "Accept": "application/json;odata=verbose",
@@ -64,5 +68,16 @@ services.factory('UserService', function($http) {
       });
     }
 
+    UserAPI.getProfile = function(userId){
+      return $http({
+        method: 'GET',
+        url: urlbase + 'users/' + userId,
+        headers: {
+          "Accept": "application/json;odata=verbose",
+          'Content-Type': 'application/json'
+        }
+      })
+    }
+
     return UserAPI;
-  });
+  }]);

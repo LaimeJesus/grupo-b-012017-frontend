@@ -24,7 +24,7 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
 
     $scope.logout = function () {
         spinnerService.show('generalSpinner');
-        UserService.logout(UserService.getUser()).then($scope.callbackLogout, $scope.errorHandlerLogout;
+        UserService.logout(UserService.getUser()).then($scope.callbackLogout, $scope.errorHandlerLogout);
     };
 
 });
