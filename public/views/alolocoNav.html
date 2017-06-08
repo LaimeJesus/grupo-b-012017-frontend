@@ -1,27 +1,32 @@
 <div>
-  <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
-      <div class="navbar-collapse collapse dual-collapse">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item btn-sm btn-outline-success active">
-                <a class="nav-link " href="#">Products</a>
-            </li>
-            <li class="nav-item btn-sm btn-outline-success">
-                <a class="nav-link " href="#">Offers</a>
-            </li>
-            <li class="nav-item btn-sm btn-outline-success " style="margin:auto">
-                <a class="nav-link " href="#">My Profile</a>
-            </li>
-            <li class="nav-item btn-sm btn-outline-success" style="margin:auto">
-                <a class="nav-link " href="#">Create Offer</a>
-            </li>
-        </ul>
-      </div>
-      <div class="navbar-collapse collapse dual-collapse">
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item btn-sm btn-outline-success">
-                  <a class="nav-link " href="#">Log Out</a>
-              </li>
-          </ul>
-      </div>
-  </nav>
+    <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
+        <div class="navbar-collapse collapse dual-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item btn-sm btn-outline-success">
+                    <a class="nav-link " href="/">{{'navbar.products' | translate}}</a>
+                </li>
+                <li class="nav-item btn-sm btn-outline-success">
+                    <a class="nav-link " href="/offers">{{'navbar.offers' | translate}}</a>
+                </li>
+                <li class="nav-item btn-sm btn-outline-success" data-ng-show="someoneLogged()">
+                    <a class="nav-link " href="mylists" >{{'navbar.mylists' | translate}}</a>
+                </li>
+                <li class="nav-item btn-sm btn-outline-success" data-ng-show="someoneLogged()" style="margin:auto">
+                    <a class="nav-link " href="myprofile">{{'navbar.profile' | translate}}</a>
+                </li>
+                <li class="nav-item btn-sm btn-outline-success" data-ng-hide="someoneLogged()" style="margin:auto">
+                    <a class="nav-link " href="login">{{'navbar.login' | translate}}</a>
+                </li>
+                <li class="nav-item btn-sm btn-outline-success" data-ng-hide="someoneLogged()" style="margin:auto">
+                  <a class="nav-link" href="signup">{{'navbar.signup' | translate}}</a>
+                </li>
+                <li class="nav-item btn-sm btn-outline-success" ng-click="logout()" data-ng-show="someoneLogged()" style="margin:auto">
+                  <a class="nav-link" href="#">{{'navbar.logout' | translate}}</a>
+                </li>
+                <li class="nav-item btn-sm btn-outline-success" data-ng-show="someoneLogged()" style="margin:auto">
+                  <a class="nav-link" href="createOffer">{{'navbar.createoffer' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </div>

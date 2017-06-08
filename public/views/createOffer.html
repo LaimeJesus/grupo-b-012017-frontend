@@ -2,44 +2,44 @@
     <div class="row justify-content-center bg-inverse" style="padding: 15px">
         <div class="col-md-8 col-md-offset-2">
             <form name="createOffer" ng-submit="createnewoffer()">
-                
+
                 <div class="form-group">
-                    <label class="btn-outline-success"><h2>Initial Date</h2></label>
+                    <label class="btn-outline-success"><h2>{{'offerCreation.initialDate' | translate}}</h2></label>
                     <input id="myPickr1" name="startDate" value="Choose a Range" class="form-control" ng-model="offer.startDate" required>
-                    <label style="color:red" ng-show="createOffer.startDate.$error.required">This element is required</label>
+                    <label style="color:red" ng-show="createOffer.startDate.$error.required">{{'offerCreation.required' | translate}}</label>
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="btn-outline-success"><h2>Final Date</h2></label>
+                    <label class="btn-outline-success"><h2>{{'offerCreation.finalDate' | translate}}</h2></label>
                     <input id="myPickr2" name="endDate" value="Choose a Range" class="form-control" ng-model="offer.endDate" required>
-                    <label style="color:red" ng-show="createOffer.endDate.$error.required">This element is required</label>
+                    <label style="color:red" ng-show="createOffer.endDate.$error.required">{{'offerCreation.required' | translate}}</label>
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="btn-outline-success"><h2>Discount Percentage</h2></label>
+                    <label class="btn-outline-success"><h2>{{'offerCreation.discount' | translate}}</h2></label>
                     <input id="mySlider" name="discount" data-slider-id='ex1Slider' type="text" data-slider-min="5" data-slider-max="95" data-slider-step="5" data-slider-value="5" class="form-control" ng-model="offer.discount" required/>
-                    <span id="ex6CurrentSliderValLabel" class="ourGreen">   Discount : <span id="ex6SliderVal" class="ourGreen">{{offer.discount}}</span> <span>%</span></span>
-                    <label style="color:red" ng-show="createOffer.discount.$error.required">This element is required</label>
+                    <span id="ex6CurrentSliderValLabel" class="ourGreen">   {{'offerCreation.discountMessage' | translate}}<span id="ex6SliderVal" class="ourGreen">{{offer.discount}}</span> <span>%</span></span>
+                    <label style="color:red" ng-show="createOffer.discount.$error.required">{{'offerCreation.required' | translate}}</label>
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="btn-outline-success"><h2>Offer Type</h2></label>
+                    <label class="btn-outline-success"><h2>{{'offerCreation.offerType' | translate}}</h2></label>
                     <select class="form-control" name="type" ng-model="offer.type" required>
-                        <option>Category</option>
-                        <option>Crossing</option>
-                        <option>Combination</option>
+                        <option>{{'offerCreation.category' | translate}}</option>
+                        <option>{{'offerCreation.crossing' | translate}}</option>
+                        <option>{{'offerCreation.combination' | translate}}</option>
                     </select>
-                    <label style="color:red" ng-show="createOffer.type.$error.required">This element is required</label>
+                    <label style="color:red" ng-show="createOffer.type.$error.required">{{'offerCreation.required' | translate}}</label>
                 </div>
-                
+
                 <div class="form-group hide" ng-if="isCategory()">
-                    <label class="btn-outline-success"><h2>Choose a Category</h2></label>
+                    <label class="btn-outline-success"><h2>{{'offerCreation.chooseCategory' | translate}}</h2></label>
                     <select class="form-control" name="category" ng-model="offer.category" required>
                       <option ng-repeat="category in allCategories" value="{{category.name}}">{{category.name}}</option>
                     </select>
-                    <label style="color:red" ng-show="createOffer.category.$error.required">This element is required</label>
+                    <label style="color:red" ng-show="createOffer.category.$error.required">{{'offerCreation.required' | translate}}</label>
                 </div>
-                
+
                 <div class="form-group hide" ng-if="isCrossing()">
                     <label class="btn-outline-success"><h2>Choose a Crossing</h2></label>
                     <select class="form-control" ng-model="offer.category">
@@ -47,7 +47,7 @@
                       <option>Baked</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group hide" ng-if="isCombination()">
                     <label class="btn-outline-success"><h2>Choose a Combination</h2></label>
                     <select class="form-control" ng-model="offer.category">
@@ -55,8 +55,8 @@
                       <option>Baked</option>
                     </select>
                 </div>
-                
-                
+
+
                 <input type="submit" class="btn btn-success" ng-disabled="createOffer.$invalid" value="Register">
                 <button class="btn btn-primary" type="button" >{{'general.cancel' | translate}}</button>
             </form>
@@ -65,14 +65,14 @@
 </div>
 
 <script>
-    
+
     $("#myPickr1").flatpickr({
         dateFormat: 'm/d/Y H:i',
         enableTime: true,
         enableSeconds: false,
         minDate: "today"
     });
-    
+
     $("#myPickr2").flatpickr({
         dateFormat: 'm/d/Y H:i',
         enableTime: true,
@@ -84,5 +84,5 @@
     }).slider({
         tooltip: 'always'
     });
-    
+
 </script>

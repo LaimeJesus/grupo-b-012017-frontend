@@ -1,4 +1,4 @@
-mycontrollers.controller('LoginController', function($scope, $window, UserService, spinnerService){
+mycontrollers.controller('LoginController', function($scope, $window, $location, UserService, spinnerService){
 
   $scope.loginuser = {};
   $scope.loginuser.username = "";
@@ -9,12 +9,17 @@ mycontrollers.controller('LoginController', function($scope, $window, UserServic
       $scope.loginuser.password = "";
   };
 
+  $scope.saveUserData = function(data) {
+    UserService.setId(data.id);
+    UserService.logged(true);
+    UserService.setUser(data.username);
+  };
+
   $scope.logincallback = function(response){
       console.log("Login Exitoso");
-      UserService.setId(response.data.id);
-      UserService.logged(true);
-      UserService.setUser(response.data.username);
+      $scope.saveUserData(response.data);
       $scope.reset();
+      $location.path('/');
       spinnerService.hide('generalSpinner');
   };
 

@@ -11,6 +11,14 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $scope.selectedList = {"name": "Choose a List"};
 
+    $scope.someoneLogged = function () {
+        return UserService.islogged();
+    };
+
+    $scope.nooneLogged = function () {
+      return !$scope.someoneLogged();
+    }
+
     $scope.callback = function (data) {
         console.log(data);
         $scope.products = data.data;

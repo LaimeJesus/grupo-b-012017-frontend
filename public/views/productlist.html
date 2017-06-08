@@ -5,10 +5,10 @@
             <thead>
             <tr>
                 <th></th>
-                <th>List Name</th>
-                <th>Date of Creation</th>
-                <th>Total Amount</th>
-                <th>Options</th>
+                <th>{{'productlist.listname' | translate}}</th>
+                <th>{{'productlist.creationDate' | translate}}</th>
+                <th>{{'productlist.totalAmount' | translate}}</th>
+                <th>{{'productlist.options' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -19,10 +19,10 @@
                 <td>{{list.totalAmount.integer}}.{{list.totalAmount.decimal}}</td>
                 <td>
                     <button type="button" class="btn btn-success floatRight" data-ng-click="ready(list.id)">
-                        <span class="glyphicon glyphicon-search"></span> Ready
+                        <span class="glyphicon glyphicon-search"></span> {{'productlist.ready' | translate}}
                     </button>
                     <button type="button" class="btn btn-info floatRight" ng-click="goDelivery()">
-                        <a class="glyphicon glyphicon-search" >Delivery</a>
+                        <a class="glyphicon glyphicon-search" >{{'productlist.delivery' | translate}}</a>
                     </button>
                 </td>
             </tr>
@@ -81,10 +81,10 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Amount</th>
-                                <th>Options</th>
+                                <th>{{'productlist.product' | translate}}</th>
+                                <th>{{'products.quantity' | translate}}</th>
+                                <th>{{'products.price' | translate}}</th>
+                                <th>{{'productlist.options' | translate}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -100,10 +100,10 @@
                                 <td>{{selectedProduct.product.price.integer}}.{{selectedProduct.product.price.decimal}}</td>
                                 <td>
                                     <button type="button" class="btn btn-success floatRight" data-ng-click="updateSelectedProduct(selectedProductList.id, selectedProduct.id, selectedProduct)">
-                                        <span class="glyphicon glyphicon-search">Update</span>
+                                        <span class="glyphicon glyphicon-search">{{'productlist.update' | translate}}</span>
                                     </button>
                                     <button type="button" class="btn btn-info floatRight" data-ng-click="deleteSelectedProduct(selectedProductList.id, selectedProduct.id)">
-                                        <span class="glyphicon glyphicon-search">Delete</span>
+                                        <span class="glyphicon glyphicon-search">{{'productlist.delete' | translate}}</span>
                                     </button>
                                 </td>
                             </tr>

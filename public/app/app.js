@@ -67,7 +67,9 @@ var app = angular.module('aloloco-app', [
          "logout" : "Cerrar Sesion",
          "products" : "Productos",
          "mylists" : "Mis Listas",
-         "profile" : "Mi Perfil"
+         "profile" : "Mi Perfil",
+         "createoffer" : "Crear Oferta",
+         "offers" : "Ofertas"
        },
         "general" : {
          "cancel" : "Cancelar"
@@ -77,18 +79,44 @@ var app = angular.module('aloloco-app', [
            "buy" : "Comprar",
            "price" : "Precio",
            "category" : "Categoria",
-           "addtolist" : "Agregar a la lista"
+           "addtolist" : "Agregar a la lista",
+           "list" : "Lista",
+           "quantity" : "Cantidad"
         },
         "productlist" : {
           "createlist" : "Crear una lista nueva",
           "listname" : "Nombre de la lista",
+          "creationDate" : "Fecha de creacion",
+          "totalAmount" : "Saldo total",
+          "options" : "Opciones",
+          "ready" : "Listo",
+          "delivery" : "Envio a domicilio",
+          "product" : "Producto",
+          "update" : "Actualizar",
+          "delete" : "Eliminar",
           "create" : "Crear ahora",
           "repeatedname" : "Por favor no repitas nombres"
         },
         "user" : {
           "username" : "Nombre de usuario",
           "password" : "Contrasena",
-          "createaccount" : "Nuevo aqui? Create una cuenta"
+          "createaccount" : "Nuevo aqui? Create una cuenta",
+          "email" : "Correo electronico",
+          "changePassword" : "Cambiar Contraseña",
+          "changeProfileImage" : "Cambiar Imagen de Perfil",
+          "paymentDate" : "Fecha de Pago"
+        },
+        "offerCreation" : {
+          "initialDate" : "Fecha inicial",
+          "finalDate" : "Fecha final",
+          "discount" : "Porcentaje de descuento",
+          "discountMessage" : "Descuento: ",
+          "offerType" : "Tipo de oferta",
+          "category" : "Oferta por categoria",
+          "crossing" : "Oferta tipo 2x1",
+          "combination" : "Oferta por combinacion",
+          "chooseCategory" : "Seleccione una categoria",
+          "required" : "Este elemento es requerido"
         }
       }
      );
@@ -102,7 +130,9 @@ var app = angular.module('aloloco-app', [
            "logout" : "Log Out",
            "products" : "Products",
            "mylists" : "My Lists",
-           "profile" : "My Profile"
+           "profile" : "My Profile",
+           "createoffer" : "Create Offer",
+           "offers" : "Offers"
        },
         "products" : {
            "name" : "Name",
@@ -110,10 +140,20 @@ var app = angular.module('aloloco-app', [
            "price" : "Price",
            "category" : "Category",
            "addtolist" : "Add to list",
+           "list" : "List",
+           "quantity" : "Quantity"
          },
          "productlist" : {
            "createlist" : "Create New List",
            "listname" : "List name",
+           "creationDate" : "Creation Date",
+           "totalAmount" : "Total Amount",
+           "options" : "Options",
+           "ready" : "Ready",
+           "delivery" : "Ask for delivery",
+           "product" : "Product",
+           "update" : "Update",
+           "delete" : "Delete",
            "create" : "Create now",
            "repeatedname" : "Please, dont repeat names. We trust in you"
          },
@@ -123,7 +163,23 @@ var app = angular.module('aloloco-app', [
          "user" : {
            "username" : "Username",
            "password" : "Password",
-           "createaccount" : "New here? Create Account"
+           "createaccount" : "New here? Create Account",
+           "email" : "Email",
+           "changePassword" : "Change Password",
+           "changeProfileImage" : "Change profile image",
+           "paymentDate" : "Payment Date"
+         },
+         "offerCreation" : {
+           "initialDate" : "Initial Date",
+           "finalDate" : "Final Date",
+           "discount" : "Discount",
+           "discountMessage" : "Discount: ",
+           "offerType" : "Offer type",
+           "category" : "Category Offer",
+           "crossing" : "Crossing Offer",
+           "combination" : "Combination Offer",
+           "chooseCategory" : "Choose a category",
+           "required" : "This element is required"
          }
        }
      );

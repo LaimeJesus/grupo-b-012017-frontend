@@ -50,71 +50,23 @@
   </head>
     <base href="/">
 
-   <body data-ng-app="aloloco-app">
-      <div class="container-fluid">
-        <div class="whiteSpaceTop"></div>
-          <div class="fixed-top">
-              <div>
-                <!-- example 2 - using auto margins -->
-                <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
-                    <div class="navbar-collapse collapse dual-collapse">
-                      <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{'navbar.search' | translate}}</button>
-                      </form>
-                    </div>
-                    <spinner
-                             name="generalSpinner"
-                             show="false"
-                             img-src="../images/ajax-loader.gif">
-                    </spinner>
-                    <a class="navbar-brand d-flex mx-auto" href="#">{{'navbar.title' | translate}}</a>
-                </nav>
+    <body data-ng-app="aloloco-app">
+        <div class="container-fluid">
+            <div class="whiteSpaceTop"></div>
+            <div class="fixed-top" ng-controller="MainController">
+                <div ng-include src="'views/alolocoTop.html'"></div>
+                <div ng-include src="'views/alolocoNav.html'"></div>
             </div>
-        <div>
-            <div>
-              <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
-                  <div class="navbar-collapse collapse dual-collapse" ng-controller="MainController">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item btn-sm btn-outline-success">
-                            <a class="nav-link " href="/">{{'navbar.products' | translate}}</a>
-                        </li>
-                        <li class="nav-item btn-sm btn-outline-success">
-                            <a class="nav-link " href="/offers">Offers</a>
-                        </li>
-                        <li class="nav-item btn-sm btn-outline-success" data-ng-show="someoneLogged()">
-                            <a class="nav-link " href="mylists" >{{'navbar.mylists' | translate}}</a>
-                        </li>
-                        <li class="nav-item btn-sm btn-outline-success" data-ng-show="someoneLogged()" style="margin:auto">
-                            <a class="nav-link " href="myprofile">{{'navbar.profile' | translate}}</a>
-                        </li>
-                        <li class="nav-item btn-sm btn-outline-success" data-ng-hide="someoneLogged()" style="margin:auto">
-                            <a class="nav-link " href="login">{{'navbar.login' | translate}}</a>
-                        </li>
-                        <li class="nav-item btn-sm btn-outline-success" data-ng-hide="someoneLogged()" style="margin:auto">
-                          <a class="nav-link" href="signup">{{'navbar.signup' | translate}}</a>
-                        </li>
-                        <li class="nav-item btn-sm btn-outline-success" ng-click="logout()" data-ng-show="someoneLogged()" style="margin:auto">
-                          <a class="nav-link" href="#">{{'navbar.logout' | translate}}</a>
-                        </li>
-                        <li class="nav-item btn-sm btn-outline-success" data-ng-show="someoneLogged()" style="margin:auto">
-                          <a class="nav-link" href="createOffer">Create Offer</a>
-                        </li>
-                    </ul>
-                  </div>
-              </nav>
-            </div>
-        </div>
-      </div>
-        <div ng-view>
-        </div>
+
+
+            <div ng-view></div>
 
         <div class="whiteSpaceBottom"></div>
 
         <footer>
-          <div class="footer site-footer fixed-bottom">
-            <h6 class=""> Laime Jesus & Sandoval Lucas Enterprise - 2017  </h6>
-          </div>
+            <div class="footer site-footer fixed-bottom">
+                <h6 class=""> Laime Jesus & Sandoval Lucas Enterprise - 2017  </h6>
+            </div>
         </footer>
 
       </div>
@@ -135,5 +87,6 @@
     <script src="app/controllers/login_controller.js"></script>
     <script src="app/controllers/sign_up_controller.js"></script>
     <script src="app/controllers/profile_controller.js"></script>
-   </body>
+    </body>
+
 </html>
