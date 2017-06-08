@@ -1,6 +1,6 @@
-var controllers = angular.module('aloloco-app.controllers', ['angularSpinners']);
+var controllers = angular.module('aloloco-app.controllers', ['angularSpinners', 'ui.bootstrap']);
 
-controllers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService, PagerService) {
+controllers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService) {
 
     $scope.products = [];
 
@@ -95,18 +95,26 @@ controllers.controller('ProductController', function ($scope, ProductService, Us
           }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
 
-    $scope.pager = {};
-    $scope.setPage = function(page){
-      if(page < 1 || page > $scope.pager.totalPages){
-        return;
-      }
-      $scope.pager = PagerService.getPager($scope.products.length, page);
-      $scope.products = $scope.products.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
-    }
-
     $scope.getProducts();
     $scope.getLists();
-    $scope.setPage(1);
+
+///////////////////////////////////////////////////////////////////////////
+//PAGINATION
+///////////////////////////////////////////////////////////////////////////
+
+  $scope.pagination = {};
+  $scope.pagination.currentPage = 1;
+  $scope.pagination.maxSize = 4;
+  $scope.pagination.itemsPerPage = 3;
+
+  // $scope.pagination.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize) + 1;
+  // $scope.pagination.numOfPages = 10;
+  // $scope.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize);
+
+  $scope.setPage = function (pageNo) {
+    $scope.pagination.currentPage = pageNo;
+  };
+
 });
 
 controllers.controller('ProductListController', function($scope, $route, $location, UserService, ProductListService, ShopService, spinnerService) {

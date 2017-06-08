@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div data-ng-repeat="prod in products" class="col-md-3 col-xs-6" class="productImage">
+        <div data-ng-repeat="prod in products.slice(((pagination.currentPage-1)*pagination.maxSize),(pagination.currentPage*pagination.maxSize))" class="col-md-3 col-xs-6" class="productImage">
             <div class="productImage">
                 <div>
                     <a><img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-thumbnail squareImage"></a>
@@ -15,23 +15,16 @@
                 </button>
             </div>
         </div>
-        <ul ng-if="pager.pages.length" class="pagination">
-          <li ng-class="{disabled:pager.currentPage === 1}">
-              <a ng-click="setPage(1)">First</a>
-          </li>
-          <li ng-class="{disabled:pager.currentPage === 1}">
-              <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
-          </li>
-          <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
-              <a ng-click="setPage(page)">{{page}}</a>
-          </li>
-          <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-              <a ng-click="setPage(pager.currentPage + 1)">Next</a>
-          </li>
-          <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-            <a ng-click="setPage(pager.totalPages)">Last</a>
-          </li>
-        </ul>
+    </div>
+    <div class="pagination">
+      <ul uib-pagination
+      class="pagination-sm"
+      total-items="products.length"
+      ng-model="pagination.currentPage"
+      items-per-page="pagination.itemsPerPage"
+      max-size="pagination.maxSize"
+      boundary-links="true"
+      rotate="false"></ul>
     </div>
 </div>
 
