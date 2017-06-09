@@ -156,7 +156,7 @@ var app = angular.module('aloloco-app', [
            "options" : "Options",
            "ready" : "Ready",
            "shop" : "Buy",
-           "delivery" : "Ask for delivery",
+           "delivery" : "Delivery",
            "product" : "Product",
            "update" : "Update",
            "delete" : "Delete",

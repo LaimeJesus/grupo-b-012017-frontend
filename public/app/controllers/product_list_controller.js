@@ -2,7 +2,8 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     $scope.productlists = [];
     $scope.spanLog = "";
     $scope.selectedProductList = {};
-    $scope.newListName = "";
+    $scope.newList = {};
+    $scope.newList.name = "";
     $scope.loading = false;
 
     $scope.goDelivery = function () {
@@ -29,25 +30,24 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     };
 
     $scope.callbackCreate = function(response) {
-      // $('#modalNewProductList').modal('hide');
         console.log("List Created Succesfully");
         console.log(response.data);
         spinnerService.hide('generalSpinner');
-        $route.reload();
+        $scope.newList.name = "";
+        $scope.productlists.push(response.data);
     }
 
     $scope.errorHandlerCreate = function(error) {
-      // $('#modalNewProductList').modal('hide');
         console.log("List Creation Failed");
         console.log(error);
+        $scope.newList.name = "";
         spinnerService.hide('generalSpinner');
-        $route.reload();
     }
 
     $scope.createproductlist = function(){
       spinnerService.show('generalSpinner');
       if (UserService.islogged()){
-        ProductListService.create(UserService.getId() , $scope.newListName).then($scope.callbackCreate, $scope.errorHandlerCreate);
+        ProductListService.create(UserService.getId() , $scope.newList.name).then($scope.callbackCreate, $scope.errorHandlerCreate);
       }
     };
 
