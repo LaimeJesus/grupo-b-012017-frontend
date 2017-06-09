@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <table class="table table-hover table-inverse">
@@ -21,4 +21,27 @@
             </table>
         </div>
     </div>
+</div> -->
+
+<div class="container-fluid">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>{{'offerCreation.offerType' | translate}}</th>
+                        <th>{{'offerCreation.discount' | translate}}</th>
+                        <th>{{'offerCreation.initialDate' | translate}}</th>
+                        <th>{{'offerCreation.finalDate' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="offer in offers" ng-click="offerDetail(offer.id)" data-toggle="modal" data-target="#detailProductList">
+                        <td ng-bind="getType(offer)"></td>
+                        <td>{{offer.discount}}</td>
+                        <td>{{getDate(offer.start) | date:'MM/dd/yyyy'}}</td>
+                        <td>{{getDate(offer.end) | date:'MM/dd/yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+      </div>
 </div>

@@ -29,24 +29,23 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     };
 
     $scope.callbackCreate = function(response) {
+      // $('#modalNewProductList').modal('hide');
         console.log("List Created Succesfully");
         console.log(response.data);
         spinnerService.hide('generalSpinner');
-        $('#modalNewProductList').modal('hide');
         $route.reload();
     }
 
     $scope.errorHandlerCreate = function(error) {
+      // $('#modalNewProductList').modal('hide');
         console.log("List Creation Failed");
         console.log(error);
         spinnerService.hide('generalSpinner');
-        $('#modalNewProductList').modal('hide');
         $route.reload();
     }
 
     $scope.createproductlist = function(){
       spinnerService.show('generalSpinner');
-
       if (UserService.islogged()){
         ProductListService.create(UserService.getId() , $scope.newListName).then($scope.callbackCreate, $scope.errorHandlerCreate);
       }

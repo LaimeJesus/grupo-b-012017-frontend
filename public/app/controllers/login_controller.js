@@ -1,8 +1,10 @@
-mycontrollers.controller('LoginController', function($scope, $window, $location, UserService, spinnerService){
+mycontrollers.controller('LoginController', function($scope, $window, $location, UserService, spinnerService, $timeout){
 
   $scope.loginuser = {};
   $scope.loginuser.username = "";
   $scope.loginuser.password = "";
+
+  $scope.loginError = false;
 
   $scope.reset = function (){
       $scope.loginuser.username = "";
@@ -24,7 +26,9 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
   };
 
   $scope.errorHandler = function(error){
-      console.log("Something Failed")
+      console.log("Something Failed");
+      $scope.loginError = true;
+      $timeout(function () { $scope.loginError = false; }, 3000);
       $scope.reset();
       spinnerService.hide('generalSpinner');
   };
@@ -61,15 +65,13 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
             // user.username = profile.ig;
             user.username = profile.U3;
             UserService.logInWithMail(user).then($scope.logincallback, $scope.errorHandlerLogWithMail);
-          });
+          },
+          function(error){
+            console.log("cancel log with gmail");
+          }
+        );
+        spinnerService.hide('generalSpinner');
       };
   });
-  // window.onSignIn = function(googleUser) {
-  //   var profile = googleUser.getBasicProfile();
-  //   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  //   console.log('Name: ' + profile.getName());
-  //   console.log('Image URL: ' + profile.getImageUrl());
-  //   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  // }
 
 });

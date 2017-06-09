@@ -18,7 +18,7 @@ var app = angular.module('aloloco-app', [
 ]).config(function ($routeProvider, $locationProvider) {
      $routeProvider
        .when('/', {
-         templateUrl: '../views/all_products.html',
+         templateUrl: '../views/newproducts.html',
          controller: 'ProductController',
        })
        .when('/signup',{
@@ -72,7 +72,10 @@ var app = angular.module('aloloco-app', [
          "offers" : "Ofertas"
        },
         "general" : {
-         "cancel" : "Cancelar"
+         "cancel" : "Cancelar",
+         "home" : "Principal",
+         "or" : "o",
+         "loginerror" : "algo fallo"
        },
          "products" : {
            "name" : "Nombre",
@@ -105,7 +108,8 @@ var app = angular.module('aloloco-app', [
           "email" : "Correo electronico",
           "changePassword" : "Cambiar Contraseña",
           "changeProfileImage" : "Cambiar Imagen de Perfil",
-          "paymentDate" : "Fecha de Pago"
+          "paymentDate" : "Fecha de Pago",
+          "address" : "Direccion"
         },
         "offerCreation" : {
           "initialDate" : "Fecha inicial",
@@ -160,7 +164,10 @@ var app = angular.module('aloloco-app', [
            "repeatedname" : "Please, dont repeat names. We trust in you"
          },
          "general" : {
-           "cancel" : "Cancel"
+           "cancel" : "Cancel",
+           "home" : "Home",
+           "or" : "or",
+           "loginerror" : "something failed"
          },
          "user" : {
            "username" : "Username",
@@ -169,7 +176,8 @@ var app = angular.module('aloloco-app', [
            "email" : "Email",
            "changePassword" : "Change Password",
            "changeProfileImage" : "Change profile image",
-           "paymentDate" : "Payment Date"
+           "paymentDate" : "Payment Date",
+           "address" : "Address"
          },
          "offerCreation" : {
            "initialDate" : "Initial Date",

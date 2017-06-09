@@ -65,7 +65,7 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     UserAPI.signup = function(user) {
       return $http({
         method: 'POST',
-        url: urlbase + 'user/signup',
+        url: urlbase + 'users/signup',
         data: user,
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -78,7 +78,7 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
         console.log("Usuario : " + username);
       return $http({
         method: 'POST',
-        url: urlbase + 'user/logout',
+        url: urlbase + 'users/logout',
         data: {
             username : username
         },
