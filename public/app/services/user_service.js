@@ -42,6 +42,13 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
       });
     }
 
+    UserAPI.googleSignOut = function(){
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+
     //user.email, user.username
     UserAPI.logInWithMail = function(user){
         return $http({
@@ -90,7 +97,7 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'
         }
-      })
+      });
     }
 
     return UserAPI;

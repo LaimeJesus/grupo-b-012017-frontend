@@ -41,6 +41,7 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
   $scope.errorHandlerLogWithMail = function(error){
     console.log("can not log with mail");
     console.log(error);
+    UserService.googleSignOut();
     spinnerService.hide('generalSpinner');
   };
 
@@ -57,7 +58,8 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
             var profile = googleUser.getBasicProfile();
             var user = {};
             user.email = profile.U3;
-            user.username = profile.ig;
+            // user.username = profile.ig;
+            user.username = profile.U3;
             UserService.logInWithMail(user).then($scope.logincallback, $scope.errorHandlerLogWithMail);
           });
       };

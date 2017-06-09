@@ -95,7 +95,7 @@ myservices.factory('ProductListService', ['$http','urlbase', function($http, url
             quantity: selectedproduct.quantity
           },
           headers: {
-            'Content-Type':'applications/json'
+            'Content-Type':'application/json'
           }
         });
       }
@@ -109,6 +109,16 @@ myservices.factory('ProductListService', ['$http','urlbase', function($http, url
         return $http({
           method: 'DELETE',
           url: urlbase + 'users/'+userId+'/productlists/'+listId+'/selectedproducts/'+selectedproductId,
+        });
+      }
+
+      ProductListAPI.shop = function(userId, listId){
+        return $http({
+          method: 'POST',
+          url: urlbase + 'users/'+userId+'/productlists/'+listId+'/shop',
+          headers: {
+            'Content-Type':'application/json'
+          }
         });
       }
 
