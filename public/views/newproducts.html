@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="row">
+    <div data-ng-repeat="prod in products.slice(((pagination.currentPage-1)*pagination.maxSize),(pagination.currentPage*pagination.maxSize))" class="col-xs-6 col-sm-4 col-md-2">
+      <div class="center-block">
+        <div class="productImage">
+          <!--  class="squareImage"-->
+          <a><img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-responsive img-thumbnail"></a>
+        </div>
+        <div class="productImage">
+          <button ng-if="someoneLogged()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">
+              <label>{{'products.buy' | translate}} {{prod.name}} {{prod.brand}}</label>
+          </button>
+          <button ng-if="nooneLogged()" type="button" class="btn btn-primary">
+              <label>{{prod.name}} {{prod.brand}}</label>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <ul uib-pagination
+    class="pagination-sm"
+    total-items="products.length"
+    ng-model="pagination.currentPage"
+    items-per-page="pagination.itemsPerPage"
+    max-size="pagination.maxSize"
+    boundary-links="true"
+    rotate="false"></ul>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header btn-primary">
+                <h5 class="modal-title" id="exampleModalLabel">{{'products.buy' | translate}} {{selectedProduct.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">{{'products.name' | translate}}</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="{{selectedProduct.name}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">{{'products.price' | translate}}</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="{{selectedProduct.price | currency}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">{{'products.category' | translate}}</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="{{selectedProduct.category}}" >
+                        </div>
+                    </div>
+                <div class="row marginLeft40">
+                    <a><img ng-src={{selectedProduct.imageUrl}} alt={{selectedProduct.name}} class="img-thumbnail"></a>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">{{'products.list' | translate}}</label>
+                    <div class="col-10">
+                        <select class="bigSelector form-control" ng-model="selected.selectedList" ng-options="list.name for list in userLists">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">{{'products.quantity' | translate}}</label>
+                    <div class="col-10">
+                        <input class="form-control" type="number" value="1" ng-model="selected.quantity" min="1" max="selectedProduct.stock">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'products.cancel' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addProductToList()" >{{'products.addtolist' | translate}}</button>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

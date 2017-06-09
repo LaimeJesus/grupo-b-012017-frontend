@@ -23,10 +23,7 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
     };
 
     $scope.logout = function () {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          console.log('User signed out.');
-        });
+        UserService.googleSignOut();
         spinnerService.show('generalSpinner');
         UserService.logout(UserService.getUser()).then($scope.callbackLogout, $scope.errorHandlerLogout);
     };

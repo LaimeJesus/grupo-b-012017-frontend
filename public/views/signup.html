@@ -1,24 +1,74 @@
-<div class="container-fluid">
-    <div class="row justify-content-center bg-inverse" style="padding: 15px">
-        <div class="col-md-8 col-md-offset-2">
-            <form ng-submit="signup()">
-                <div class="form-group">
-                      <label class="btn-outline-success"><h2>{{'user.username' | translate}}</h2></label>
-                    <input type="text" name="username" class="form-control" ng-model="signupuser.username" placeholder="Username" required>
-                <div class="form-group">
-                    <label class="btn-outline-success"><h2>{{'user.password' | translate}}</h2></label>
-                    <input type="password" name="password1" class="form-control" ng-model="signupuser.password" placeholder="Password">
-                </div>
-                <!--
-                <div class="form-group">
-                        <label class="btn-outline-success"><h2>Repeat password</h2></label>
-                        <input type="password" name="password2" class="form-control" ng-model="signupuser.password" placeholder="Repeat Password">
-                    </div>
-                    -->
-                    <input type="submit" class="btn btn-success" value="Register" />
-                    <button class="btn btn-primary" type="button" >{{'general.cancel' | translate}}</button>
-                </form>
-            </div>
-        </div>
+<!-- <div class="container-fluid omb_login">
+<form class="form-horizontal" ng-submit="signup()">
+  <div class="form-group">
+      <label for="username" class="col-sm-2 control-label">{{'user.username' | translate}}</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" placeholder="{{'user.username' | translate}}" ng-model="signupuser.username" required>
+      </div>
+  </div>
+  <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">{{'user.email' | translate}}</label>
+    <div class="col-sm-6">
+      <input type="email" class="form-control" placeholder="{{'user.email' | translate}}" ng-model="signupuser.email">
     </div>
+  </div>
+  <div class="form-group">
+    <label for="password" class="col-sm-2 control-label">{{'user.password' | translate}}</label>
+    <div class="col-sm-6">
+      <input type="password" class="form-control" placeholder="{{'user.password' | translate}}" ng-model="signupuser.password" required>
+    </div>
+  </div>
+    <div class="form-group">
+    <label for="address" class="col-sm-2 control-label">{{'user.address' | translate}}</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" placeholder="{{'user.address' | translate}}" ng-model="signupuser.address">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-success" value="Register" />
+      <button class="btn btn-primary" type="button" ng-click="toproducts()">{{'general.cancel' | translate}}</button>
+    </div>
+  </div>
+</form>
+</div> -->
+
+<div class="container">
+  <div class="omb_login">
+    <h3 class="omb_authTitle">{{'navbar.signup' | translate}} {{'navbar.title' | translate}}</h3>
+    <div class="row omb_row-sm-offset-3">
+      <div class="col-xs-12 col-sm-6">
+          <form class="omb_loginForm" ng-submit="signup()">
+
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <input type="text" class="form-control" placeholder="{{'user.username' | translate}}" ng-model="signupuser.username" required>
+          </div>
+          <span class="help-block"></span>
+
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+            <input type="password" class="form-control" placeholder="{{'user.password' | translate}}" ng-model="signupuser.password" required>
+          </div>
+          <span class="help-block"></span>
+
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+            <input type="email" class="form-control" placeholder="{{'user.email' | translate}}" ng-model="signupuser.email">
+          </div>
+          <span class="help-block"></span>
+
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
+            <input type="text" class="form-control" placeholder="{{'user.address' | translate}}" ng-model="signupuser.address">
+          </div>
+          <span class="help-block"></span>
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit">{{'navbar.signup' | translate}}</button>
+        </form>
+        <a class="nav-link" href="/">{{'general.home' | translate}}</a>
+      </div>
+
+    </div>
+  </div>
 </div>

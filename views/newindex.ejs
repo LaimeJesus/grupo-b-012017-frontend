@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+        <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+        <script src="https://unpkg.com/flatpickr"></script>
+        <link rel="stylesheet" href="js/bootstrap-slider.min.css">
+        <script src="js/bootstrap-slider.min.js"></script>
+        <script src="js/angular-route.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.js" type="text/javascript"></script>
+
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/loading.css">
+        <link rel="stylesheet" type="text/css" href="css/loginstyles.css">
+
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+        <!-- <script src="js/angular-locale_es-us.js" type="text/javascript"></script> -->
+        <script src="js/angular-translate.min.js" type="text/javascript"></script>
+        <script src="js/tmhDynamicLocale.min.js" type="text/javascript"></script>
+        <script src="js/angular-spinners.min.js" type="text/javascript"></script>
+        <script src="js/ng-map.min.js" type="text/javascript"></script>
+        <script src="js/ui-bootstrap-tpls-2.5.0.min.js" type="text/javascript"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <base href="/">
+  <body data-ng-app="aloloco-app">
+    <!--  class="navbar navbar-default navbar-fixed-top"-->
+    <nav class="navbar navbar-default" ng-controller="MainController">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">A lo loco</a>
+          <spinner
+                 name="generalSpinner"
+                 show="false"
+                 img-src="../images/ajax-loader.gif">
+          </spinner>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <form class="navbar-form navbar-left">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">{{'navbar.products' | translate}}</a></li>
+            <li><a href="offers">{{'navbar.offers' | translate}}</a></li>
+            <li data-ng-show="someoneLogged()"><a href="createOffer">{{'navbar.createoffer' | translate}}</a></li>
+            <li data-ng-hide="someoneLogged()"><a href="login">{{'navbar.login' | translate}}</a></li>
+            <li data-ng-hide="someoneLogged()"><a href="signup">{{'navbar.signup' | translate}}</a></li>
+            <li class="dropdown" data-ng-show="someoneLogged()">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li data-ng-show="someoneLogged()"><a href="myprofile">{{'navbar.profile' | translate}}</a></li>
+                <li data-ng-show="someoneLogged()"><a href="mylists">{{'navbar.mylists' | translate}}</a></li>
+                <li role="separator" class="divider"></li>
+                <li ng-click="logout()" data-ng-show="someoneLogged()"><a href="#">{{'navbar.logout' | translate}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <hr />
+
+    <div ng-view></div>
+
+    <script src="app/app.js"></script>
+    <script src="app/services/services.js"></script>
+    <script src="app/services/offer_service.js"></script>
+    <script src="app/services/product_list_service.js"></script>
+    <script src="app/services/product_service.js"></script>
+    <script src="app/services/shop_service.js"></script>
+    <script src="app/services/user_service.js"></script>
+    <script src="app/controllers/controllers.js"></script>
+    <script src="app/controllers/main_controller.js"></script>
+    <script src="app/controllers/product_controller.js"></script>
+    <script src="app/controllers/product_list_controller.js"></script>
+    <script src="app/controllers/delivery_controller.js"></script>
+    <script src="app/controllers/home_offer_controller.js"></script>
+    <script src="app/controllers/login_controller.js"></script>
+    <script src="app/controllers/sign_up_controller.js"></script>
+    <script src="app/controllers/profile_controller.js"></script>
+  </body>
+</html>

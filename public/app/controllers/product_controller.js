@@ -113,8 +113,8 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
       $scope.pagination = {};
       $scope.pagination.currentPage = 1;
-      $scope.pagination.maxSize = 4;
-      $scope.pagination.itemsPerPage = 3;
+      $scope.pagination.maxSize = 5;
+      $scope.pagination.itemsPerPage = 5;
 
       // $scope.pagination.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize) + 1;
       // $scope.pagination.numOfPages = 10;

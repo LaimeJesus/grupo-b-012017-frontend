@@ -2,12 +2,20 @@ mycontrollers.controller('SignUpController', function($scope, $location, UserSer
 
   $scope.signupuser = {};
   $scope.signupuser.username = "";
+  $scope.signupuser.email = "";
   $scope.signupuser.password = "";
+  $scope.signupuser.address = "";
 
   $scope.reset = function (){
     $scope.signupuser.username = "";
+    $scope.signupuser.email = "";
     $scope.signupuser.password = "";
+    $scope.signupuser.address = "";
   };
+
+  $scope.toproducts = function(){
+    $location.path("/");
+  }
 
   $scope.signcallback = function (response){
     $scope.reset();

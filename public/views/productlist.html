@@ -1,7 +1,8 @@
 <div class="container-fluid">
     <div class="spinner" ng-show="loading"></div>
     <div class="row">
-        <table class="table table-hover table-inverse">
+      <div class="table-responsive">
+        <table class="table table-hover table-inverse table-striped">
             <thead>
             <tr>
                 <th></th>
@@ -18,17 +19,24 @@
                 <td>{{list.pubDate | date:'shortTime'}}</td>
                 <td>{{list.totalAmount.integer}}.{{list.totalAmount.decimal}}</td>
                 <td>
-                    <button type="button" class="btn btn-success floatRight" data-ng-click="ready(list.id)">
-                        <span class="glyphicon glyphicon-search"></span> {{'productlist.ready' | translate}}
+                    <button type="button" class="btn btn-danger floatRight" data-ng-show="shopping.canBuy" data-ng-click="shop(list.id)">
+                        <span><i class="fa fa-shopping-cart" aria-hidden="true"></i></span> {{'productlist.shop' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-success floatRight" data-ng-disabled="shopping.listId !== null" data-ng-click="ready(list.id)">
+                        <span><i class="fa fa-shopping-cart" aria-hidden="true"></i></span> {{'productlist.ready' | translate}}
                     </button>
                     <button type="button" class="btn btn-info floatRight" ng-click="goDelivery()">
-                        <a class="glyphicon glyphicon-search" >{{'productlist.delivery' | translate}}</a>
+                        <span><i class="fa fa-truck" aria-hidden="true"></i></span> {{'productlist.delivery' | translate}}
                     </button>
                 </td>
             </tr>
             </tbody>
         </table>
+      </div>
     </div>
+
+    <span class="help-block"></span>
+
     <div class="row">
         <div>
             <button type="button" class="btn btn-success separated" data-toggle="modal" data-target="#modalNewProductList">{{'productlist.createlist' | translate}}</button>
@@ -50,14 +58,14 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>{{'productlist.listname' | translate}}</label>
-                    <input type="text" class="form-control" ng-model="newListName" aria-describedby="emailHelp" placeholder="Enter new name">
+                    <input type="text" class="form-control" ng-model="newList.name" aria-describedby="emailHelp" placeholder="Enter new name">
                     <small id="emailHelp" class="form-text text-muted">{{'productlist.repeatedname' | translate}} </small>
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'general.cancel' | translate}}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="createproductlist()" >{{'productlist.create' | translate}}</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.cancel' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="createproductlist()">{{'productlist.create' | translate}}</button>
             </div>
 
         </div>

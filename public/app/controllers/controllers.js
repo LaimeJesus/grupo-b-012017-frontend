@@ -1,1 +1,1 @@
-var mycontrollers = angular.module('aloloco-app.mycontrollers', ['angularSpinners' , 'ui.bootstrap']);
+var mycontrollers = angular.module('aloloco-app.mycontrollers', ['angularSpinners', 'ui.bootstrap']);
