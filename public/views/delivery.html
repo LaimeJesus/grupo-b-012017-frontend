@@ -21,17 +21,14 @@
     <div class="form-group">
 
       <label> Use my Address:
-        <input type="checkbox" ng-model="useMyAddress">
+        <input type="checkbox" ng-model="jsonaddress.canUse" ng-click="lookupaddress(userAddress)">
+        <!-- <button type="button" class="btn btn-success" ng-click="searchAddress(userAddress)">Route with own direction</button> -->
       </label>
 
-      <div data-ng-show="myAddressSelected()">
-          <label ng-model="userAddress"></label>
-      </div>
-
-      <div data-ng-hide="myAddressSelected()">
+      <div data-ng-hide="jsonaddress.canUse">
         <label for="exampleInputEmail1"><h2>Select address</h2></label>
         <input class="form-control" id="exampleInputEmail1" data-ng-model="myAddress" placeholder="{{ 'products.name' | translate }}" />
-        <button type="button" class="btn btn-default" ng-click="searchAddress()">Route</button>
+        <button type="button" class="btn btn-default" ng-click="searchAddress(myAddress)">Route</button>
       </div>
 
 

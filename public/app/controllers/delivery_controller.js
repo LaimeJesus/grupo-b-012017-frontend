@@ -2,6 +2,7 @@ mycontrollers.controller('DeliveryController', function($scope , UserService){
 
     $scope.userAddress = UserService.getAddress();
     $scope.validForm = false;
+
     $scope.myAddress = "";
     $scope.map = {};
     $scope.currentDistance = 0;
@@ -12,6 +13,9 @@ mycontrollers.controller('DeliveryController', function($scope , UserService){
         center: $scope.uluru
     });
     $scope.useMyAddress = false;
+
+    $scope.jsonaddress = {};
+    $scope.jsonaddress.canUse = false;
 
     $scope.supermarketMarker = new google.maps.Marker({
         position: $scope.uluru,
@@ -31,12 +35,19 @@ mycontrollers.controller('DeliveryController', function($scope , UserService){
         return $scope.validForm || $scope.useMyAddress;
     }
 
-    $scope.searchAddress = function () {
+    $scope.lookupaddress = function(somaddress){
+      if($scope.jsonaddress.canUse){
+        $scope.searchAddress(somaddress);
+      } else{
+        $scope.userMarker.setMap(null);
+      }
+    }
+
+    $scope.searchAddress = function (someaddress) {
 
         var geocoder = new google.maps.Geocoder();
-
         geocoder.geocode(
-            {'address': $scope.myAddress},
+            {'address': someaddress},
 
             function (results, status) {
 
