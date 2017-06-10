@@ -5,29 +5,43 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     var logged = false;
     var userId = {};
 
+    var user = {
+        "username" : "",
+        "logged" : false,
+        "userId" : "",
+        "address" : ""
+    };
+
+
     UserAPI.reset = function(){
-      username.username = "";
-      logged = false;
-      userId = {};
+      user = {};
     }
 
     UserAPI.setUser = function(newuser){
-      username = newuser;
+      user.username = newuser;
     }
     UserAPI.getUser = function(){
-      return username;
+      return user.username;
     }
     UserAPI.getId = function () {
-        return userId;
+        return user.userId;
     }
     UserAPI.setId = function (id) {
-        userId = id;
+        user.userId = id;
     }
     UserAPI.logged = function(bool){
-      logged = bool;
+      user.logged = bool;
     }
     UserAPI.islogged = function(){
-      return logged;
+      return user.logged;
+    }
+
+    UserAPI.getAddress = function () {
+        return user.address;
+    }
+
+    UserAPI.setAddress = function (newAddress) {
+        user.address = newAddress;
     }
 
     UserAPI.login = function(user) {

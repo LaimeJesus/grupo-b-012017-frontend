@@ -16,12 +16,28 @@
 
 </div>
 
-<form name="formAddress" ng-submit="searchAddress()">
-  <div class="form-group">
+<form name="formAddress" ng-submit="hacerAlgo()">
+  <div class="container-fluid">
+    <div class="form-group">
 
-    <label for="exampleInputEmail1"><h2>Select address</h2></label>
-    <input class="form-control" id="exampleInputEmail1" ng-model="myAddress.value" placeholder="{{ 'products.name' | translate }}">
+      <label> Use my Address:
+        <input type="checkbox" ng-model="useMyAddress">
+      </label>
 
-    <button type="submit" class="btn btn-default">Submit</button>
+      <div data-ng-show="myAddressSelected()">
+          <label ng-model="userAddress"></label>
+      </div>
+
+      <div data-ng-hide="myAddressSelected()">
+        <label for="exampleInputEmail1"><h2>Select address</h2></label>
+        <input class="form-control" id="exampleInputEmail1" data-ng-model="myAddress" placeholder="{{ 'products.name' | translate }}" />
+        <button type="button" class="btn btn-default" ng-click="searchAddress()">Route</button>
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="submit" ng-disabled="deliveryReady()" class="btn btn-default">Submit</button>
+      </div>
+    </div>
   </div>
 </form>
