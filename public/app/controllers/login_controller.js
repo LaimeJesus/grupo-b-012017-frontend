@@ -2,7 +2,8 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
 
   $scope.loginuser = {};
   $scope.loginuser.username = "";
-  $scope.loginuser.password = "";
+  $scope.loginuser.password = {};
+  $scope.loginuser.password.password = "";
 
   $scope.loginError = false;
 

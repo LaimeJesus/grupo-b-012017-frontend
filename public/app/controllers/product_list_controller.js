@@ -99,9 +99,10 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     }
 
     // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED
-    $scope.callbackReady = function(data){
-      $scope.countdown(data.duration.imillis);
-      console.log(data);
+    $scope.callbackReady = function(response){
+      console.log(response);
+      console.log("CALLBACK READY");
+      $scope.countdown(response.data.milliseconds);
       spinnerService.hide('generalSpinner');
     }
 
@@ -116,16 +117,29 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     $scope.shopping.listId = null;
     $scope.shopping.seconds = 0;
 
+    $scope.callbackPuedeComprar = function(){
+      console.log("puede comprar");
+      $scope.shopping.canBuy = true;
+      // $scope.shopping.listId = null;
+      spinnerService.hide('generalSpinner');
+    }
+
+    $scope.errorPuedeComprar = function(){
+      console.log("no puede comprar");
+      $scope.shopping.canBuy = false;
+      $scope.shopping.listId = null;
+      spinnerService.hide('generalSpinner');
+    }
+
     $scope.countdown = function(miliseconds){
       $scope.shopping.seconds = Math.ceil(miliseconds / 1000);
+      console.log("waiting" + $scope.shopping.seconds);
       var defer = $q.defer();
-      defer.promise.then(function() {
-        console.log("puede comprar");
-        $scope.shopping.canBuy = true;
-        $scope.shopping.listId = null;
-      });
+      defer.promise.then($scope.callbackPuedeComprar, $scope.errorPuedeComprar);
       var timer = setInterval(function() {
         $scope.$apply();
+        console.log($scope.shopping.seconds);
+        console.log("..");
         if ($scope.shopping.seconds === 0) {
               clearInterval(timer);
               defer.resolve();
@@ -144,11 +158,13 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
       console.log("lista comprada");
       $scope.shopping.canBuy = false;
       $scope.shopping.listId = null;
+      spinnerService.hide('generalSpinner');
     }
     $scope.errorShop = function(error){
       console.log("lista no comprada");
       $scope.shopping.canBuy = false;
       $scope.shopping.listId = null;
+      spinnerService.hide('generalSpinner');
     }
 
     $scope.shop = function(listId){

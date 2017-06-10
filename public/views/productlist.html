@@ -19,7 +19,7 @@
                 <td>{{list.pubDate | date:'shortTime'}}</td>
                 <td>{{list.totalAmount.integer}}.{{list.totalAmount.decimal}}</td>
                 <td>
-                    <button type="button" class="btn btn-danger floatRight" data-ng-show="shopping.canBuy" data-ng-click="shop(list.id)">
+                    <button type="button" class="btn btn-danger floatRight" data-ng-show="shopping.canBuy" data-ng-disabled="shopping.listId !== list.id" data-ng-click="shop(list.id)">
                         <span><i class="fa fa-shopping-cart" aria-hidden="true"></i></span> {{'productlist.shop' | translate}}
                     </button>
                     <button type="button" class="btn btn-success floatRight" data-ng-disabled="shopping.listId !== null" data-ng-click="ready(list.id)">
@@ -86,7 +86,8 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <table class="table">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-inverse table-striped">
                             <thead>
                             <tr>
                                 <th>{{'productlist.product' | translate}}</th>
@@ -107,16 +108,17 @@
                                 <!-- <td>{{selectedProduct.product.price.integer | currency}}</td> -->
                                 <td>{{selectedProduct.product.price.integer}}.{{selectedProduct.product.price.decimal}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success floatRight" data-ng-click="updateSelectedProduct(selectedProductList.id, selectedProduct.id, selectedProduct)">
+                                    <button type="button" class="btn btn-success floatRight" data-dismiss="modal" data-ng-click="updateSelectedProduct(selectedProductList.id, selectedProduct.id, selectedProduct)">
                                         <span class="glyphicon glyphicon-search">{{'productlist.update' | translate}}</span>
                                     </button>
-                                    <button type="button" class="btn btn-info floatRight" data-ng-click="deleteSelectedProduct(selectedProductList.id, selectedProduct.id)">
+                                    <button type="button" class="btn btn-info floatRight" data-dismiss="modal" data-ng-click="deleteSelectedProduct(selectedProductList.id, selectedProduct.id)">
                                         <span class="glyphicon glyphicon-search">{{'productlist.delete' | translate}}</span>
                                     </button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+                      </div>
                     </div>
                 </div>
             </div>

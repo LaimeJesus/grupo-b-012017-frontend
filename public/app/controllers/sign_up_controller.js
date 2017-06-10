@@ -3,14 +3,20 @@ mycontrollers.controller('SignUpController', function($scope, $location, UserSer
   $scope.signupuser = {};
   $scope.signupuser.username = "";
   $scope.signupuser.email = "";
-  $scope.signupuser.password = "";
-  $scope.signupuser.address = "";
+  $scope.signupuser.password = {};
+  $scope.signupuser.password.password = "";
+  $scope.signupuser.profile = {};
+  $scope.signupuser.profile.address = {};
+  $scope.signupuser.profile.address.address = "";
 
   $scope.reset = function (){
     $scope.signupuser.username = "";
     $scope.signupuser.email = "";
-    $scope.signupuser.password = "";
-    $scope.signupuser.address = "";
+    $scope.signupuser.password = {};
+    $scope.signupuser.password.password = "";
+    $scope.signupuser.profile = {};
+    $scope.signupuser.profile.address = {};
+    $scope.signupuser.profile.address.address = "";
   };
 
   $scope.toproducts = function(){

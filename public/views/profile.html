@@ -31,7 +31,9 @@
 
       <div class="col-md-8 col-xs-12">
           <div class="">
-              <table class="table table-hover table-inverse">
+              <!-- <table class="table table-hover table-inverse"> -->
+              <div class="table-responsive">
+                <table class="table table-hover table-inverse table-striped">
                   <thead>
                   <tr>
                       <th class="ourGreen">{{'productlist.listname' | translate}}</th>
@@ -41,11 +43,12 @@
                   <tbody>
                   <tr data-ng-repeat="purchase in records" data-toggle="modal" data-target="#detailProductList">
                       <th scope="row"></th>
-                      <td> {{purchase.productList.name}} </td>
-                      <td> {{purchase.purchaseDate}} </td>
+                      <td> {{purchase.purchaselist.name}} </td>
+                      <td> {{purchase.purchasedate}} </td>
                   </tr>
                   </tbody>
               </table>
+            </div>
           </div>
       </div>
   </div>

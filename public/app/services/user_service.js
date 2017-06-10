@@ -74,14 +74,11 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
         }
       });
     }
-    UserAPI.logout = function(username) {
-        console.log("Usuario : " + username);
+    UserAPI.logout = function(id) {
       return $http({
         method: 'POST',
         url: urlbase + 'users/logout',
-        data: {
-            username : username
-        },
+        data: id,
         headers: {
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'

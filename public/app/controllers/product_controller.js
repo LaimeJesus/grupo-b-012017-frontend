@@ -3,13 +3,10 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     $scope.products = [];
 
     $scope.selectedProduct = {};
-
-    $scope.userLists = [
-        {"name" : "list1" },
-        {"name" : "list2" }
-    ];
-
-    $scope.selectedList = {"name": "Choose a List"};
+    $scope.userLists = [];
+    $scope.selected = {};
+    $scope.selected.selectedList = {"name": "Choose a List"};
+    $scope.selected.quantity = 1;
 
     $scope.someoneLogged = function () {
         return UserService.islogged();
@@ -77,6 +74,11 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
         }
     };
 
+    $scope.resetSelectedProduct = function(){
+      $scope.selected.selectedList = {"name": "Choose a List"};
+      $scope.selected.quantity = 1;
+    };
+
     $scope.callbackAddProductToList = function(data) {
         console.log("PRODUCT ADDED TO LIST");
         $scope.resetSelectedProduct();
@@ -91,15 +93,11 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $scope.addProductToList = function() {
         spinnerService.show('generalSpinner');
-        console.log(UserService.getId());
-        console.log($scope.selectedList.id);
-        console.log($scope.quantity);
-        console.log($scope.selectedProduct.id);
         ProductListService.createSelectedProduct(
             UserService.getId(),
-            $scope.selectedList.id,
+            $scope.selected.selectedList.id,
             {
-                quantity : $scope.quantity,
+                quantity : $scope.selected.quantity,
                 productId : $scope.selectedProduct.id
             }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
