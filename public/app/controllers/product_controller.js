@@ -36,7 +36,7 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
         ProductService.getProducts().then($scope.callback, $scope.errorHandler);
     };
 
-    $scope.callbackGetDetal = function(data) {
+    $scope.callbackGetDetail = function(data) {
         console.log("Detalle obtenido exitosamente");
         console.log(data);
         $scope.selectedProduct = data.data;
@@ -48,10 +48,10 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
         spinnerService.hide('generalSpinner');
     };
 
-    $scope.getDetail = function(name,brand){
+    $scope.getDetail = function(id){
         spinnerService.show('generalSpinner');
         console.log("Pedi detalle");
-        ProductService.getDetail(name,brand).then($scope.callbackGetDetal,$scope.errorHandlerGetDetail);
+        ProductService.getDetail(id).then($scope.callbackGetDetail,$scope.errorHandlerGetDetail);
     };
 
     $scope.callbackGetLists = function (data) {

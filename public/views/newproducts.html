@@ -7,7 +7,7 @@
           <a><img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-responsive img-thumbnail"></a>
         </div>
         <div class="productImage">
-          <button ng-if="someoneLogged()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.name,prod.brand)">
+          <button ng-if="someoneLogged()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.id)">
               <label>{{'products.buy' | translate}} {{prod.name}} {{prod.brand}}</label>
           </button>
           <button ng-if="nooneLogged()" type="button" class="btn btn-primary">

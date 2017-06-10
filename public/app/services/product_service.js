@@ -1,14 +1,10 @@
 myservices.factory('ProductService', ['$http', 'urlbase', function($http, urlbase) {
     var ProductAPI = {};
 
-    ProductAPI.getDetail = function(name, brand) {
+    ProductAPI.getDetail = function(id) {
       return $http({
         method: 'GET',
-        params: {
-          name: name,
-          brand: brand
-        },
-        url: urlbase + 'product/detail'
+        url: urlbase + 'products/' + id
       });
     }
 
