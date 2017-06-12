@@ -1,8 +1,7 @@
 <div class="container-fluid">
-  <div class="row">
+  <!-- <div class="row">
     <div data-ng-repeat="prod in products.slice(((pagination.currentPage-1)*pagination.maxSize),(pagination.currentPage*pagination.maxSize))" class="col-md-2 col-sm-4 col-xs-6">
         <div class="productImage">
-          <!--  class="squareImage"-->
           <a><img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-responsive img-thumbnail"></a>
         </div>
         <div class="productImage">
@@ -14,7 +13,34 @@
           </button>
       </div>
     </div>
+  </div> -->
+  <div class="row">
+    <div data-ng-repeat="prod in products.slice(((pagination.currentPage-1)*pagination.maxSize),(pagination.currentPage*pagination.maxSize))" class="col-md-2 col-sm-4 col-xs-6 thumbnail">
+        <a><img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-responsive"></a>
+        <div class="caption">
+          <button ng-if="someoneLogged()" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.id)">
+              <label>{{'products.buy' | translate}} {{prod.name}} {{prod.brand}}</label>
+          </button>
+          <button ng-if="nooneLogged()" type="button" class="btn btn-primary btn-block">
+              <label>{{prod.name}} {{prod.brand}}</label>
+          </button>
+        </div>
+      </div>
   </div>
+
+<!-- <div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="..." alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+</div> -->
+
   <div class="text-center">
     <ul uib-pagination
     class="pagination-sm"
@@ -37,8 +63,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div>
-                    <div class="form-group row">
+                <!-- <div>
+                     <div class="form-group row">
                         <label class="col-2 col-form-label">{{'products.name' | translate}}</label>
                         <div class="col-10">
                             <input class="form-control" type="text" value="{{selectedProduct.name}}">
@@ -72,9 +98,54 @@
                         <input class="form-control" type="number" value="1" ng-model="selected.quantity" min="1" max="selectedProduct.stock">
                     </div>
                 </div>
+            </div> -->
+            <!-- text-overflow -->
+          <div>
+            <!-- <div class="form-group"> -->
+              <dl class="dl-horizontal">
+              <dt>{{'products.name' | translate}}</dt>
+              <dd>{{selectedProduct.name}}</dd>
+              </dl>
+            <!-- </div> -->
+            <!-- <div class="form-group"> -->
+              <dl class="dl-horizontal">
+                <dt>{{'products.price' | translate}}</dt>
+                <dd>{{selectedProduct.price}}</dd>
+              </dl>
+            <!-- </div> -->
+            <!-- <div class="form-group"> -->
+              <dl class="dl-horizontal">
+                <dt>{{'products.category' | translate}}</dt>
+                <dd>{{selectedProduct.category}}</dd>
+              </dl>
+            <!-- </div> -->
+
+            <hr>
+
+            <div>
+                <a><img ng-src={{selectedProduct.imageUrl}} alt={{selectedProduct.name}} class="img-responsive center-block img-thumbnail"></a>
             </div>
+
+            <span class="help-block"></span>
+            <hr>
+
+            <div class="form-group">
+              <dl class="dl-horizontal">
+                <dt>{{'products.list' | translate}}</dt>
+                <dd><select class="form-control" ng-model="selected.selectedList" ng-options="list.name for list in userLists"></select></dd>
+              </dl>
+            </div>
+            <span class="help-block"></span>
+
+            <div class="form-group">
+              <dl class="dl-horizontal">
+                <dt>{{'products.quantity' | translate}}</dt>
+                <dd><input class="form-control input-group" type="number" value="1" ng-model="selected.quantity" min="1" max="selectedProduct.stock"></dd>
+              </dl>
+            </div>
+          </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'products.cancel' | translate}}</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">{{'general.cancel' | translate}}</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addProductToList()" >{{'products.addtolist' | translate}}</button>
             </div>
         </div>

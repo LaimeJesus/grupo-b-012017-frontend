@@ -5,7 +5,7 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     $scope.selectedProduct = {};
     $scope.userLists = [];
     $scope.selected = {};
-    $scope.selected.selectedList = {"name": "Choose a List"};
+    $scope.selected.selectedList = {};
     $scope.selected.quantity = 1;
 
     $scope.someoneLogged = function () {
@@ -58,6 +58,7 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
         console.log("Listas obtenidas exitosamente");
         console.log(data);
         $scope.userLists = data.data;
+        $scope.selected.selectedList = $scope.userLists[0];
         spinnerService.hide('generalSpinner');
     };
 
@@ -75,7 +76,7 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     };
 
     $scope.resetSelectedProduct = function(){
-      $scope.selected.selectedList = {"name": "Choose a List"};
+      $scope.selected.selectedList = {};
       $scope.selected.quantity = 1;
     };
 
