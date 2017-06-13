@@ -102,74 +102,49 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     $scope.callbackReady = function(response){
       console.log(response);
       console.log("CALLBACK READY");
-      $scope.countdown(response.data.milliseconds);
+      $scope.startCountdown(response.data.milliseconds);
       spinnerService.hide('generalSpinner');
     }
 
     $scope.errorReady = function(error){
       console.log(error);
       spinnerService.hide('generalSpinner');
-      $scope.shopping.listId = null;
+      ShopService.setId(null);
     }
 
-    $scope.shopping = {};
-    $scope.shopping.canBuy = false;
-    $scope.shopping.listId = null;
-    $scope.shopping.seconds = 0;
-
-    $scope.callbackPuedeComprar = function(){
-      console.log("puede comprar");
-      $scope.shopping.canBuy = true;
-      // $scope.shopping.listId = null;
-      spinnerService.hide('generalSpinner');
-    }
-
-    $scope.errorPuedeComprar = function(){
-      console.log("no puede comprar");
-      $scope.shopping.canBuy = false;
-      $scope.shopping.listId = null;
-      spinnerService.hide('generalSpinner');
-    }
-
-    $scope.countdown = function(miliseconds){
-      $scope.shopping.seconds = Math.ceil(miliseconds / 1000);
-      console.log("waiting" + $scope.shopping.seconds);
-      var defer = $q.defer();
-      defer.promise.then($scope.callbackPuedeComprar, $scope.errorPuedeComprar);
-      var timer = setInterval(function() {
-        $scope.$apply();
-        console.log($scope.shopping.seconds);
-        console.log("..");
-        if ($scope.shopping.seconds === 0) {
-              clearInterval(timer);
-              defer.resolve();
-          }
-          $scope.shopping.seconds--;
-      }, 1000);
+    $scope.startCountdown = function(ms){
+      ShopService.countdown(ms, $scope.callbackPuedeComprar, $scope.errorPuedeComprar);
     }
 
     $scope.ready = function(listId){
       spinnerService.show('generalSpinner');
-      $scope.shopping.listId = listId;
+      ShopService.setId(listId);
       ProductListService.ready(UserService.getId(), listId).then($scope.callbackReady, $scope.errorReady);
     }
 
     $scope.callbackShop = function(data){
       console.log("lista comprada");
-      $scope.shopping.canBuy = false;
-      $scope.shopping.listId = null;
+      ShopService.resetTimer();
       spinnerService.hide('generalSpinner');
     }
     $scope.errorShop = function(error){
       console.log("lista no comprada");
-      $scope.shopping.canBuy = false;
-      $scope.shopping.listId = null;
+      ShopService.resetTimer();
       spinnerService.hide('generalSpinner');
     }
 
     $scope.shop = function(listId){
       spinnerService.show('generalSpinner');
       ProductListService.shop(UserService.getId(), listId).then($scope.callbackShop, $scope.errorShop);
+    }
+    $scope.someoneShopping = function(listId){
+      return ShopService.getListId() !== listId;
+    }
+    $scope.someoneReady = function(){
+      return ShopService.getListId() !== null;
+    }
+    $scope.someoneCanBuy = function(){
+      return ShopService.getCanBuy();
     }
 
     $scope.callbackWaitingTime = function(data){

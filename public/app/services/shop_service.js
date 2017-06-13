@@ -1,27 +1,33 @@
-myservices.factory('ShopService', ['$http','urlbase', function($http, urlbase){
+myservices.factory('ShopService', ['$http','urlbase','$rootScope', function($http, urlbase, $rootScope){
   var ShopAPI = {};
-  ShopAPI.waitingTime = function(username, listname){
-    return $http({
-      method: 'GET',
-      params: {
-        username : username,
-        listname : listname
-      },
-      url: urlbase + 'shop/waitingtime'
-    });
+
+  var shopping = {};
+  shopping.canBuy = false;
+  shopping.listId = null;
+
+  ShopAPI.getCanBuy = function(){
+    return shopping.canBuy;
+  };
+
+  ShopAPI.getListId = function(){
+    return shopping.listId;
+  };
+
+  ShopAPI.getShopping = function(){
+    return shopping;
+  };
+  ShopAPI.setCanBuy = function(bool){
+    shopping.canBuy = bool;
   }
-  ShopAPI.ready = function(username, listname){
-    return $http({
-      method: 'POST',
-      data: {
-        username : username,
-        listname : listname
-      },
-      url: urlbase + 'shop/ready',
-      headers : {
-        "Content-Type" : 'application/json'
-      }
-    });
-  }
+  ShopAPI.resetTimer = function(){
+    shopping.canBuy = false;
+    shopping.listId = null;
+  };
+  ShopAPI.setId = function(id){
+    shopping.listId = id;
+  };
+  ShopAPI.countdown = function(miliseconds, callback, error){
+    $rootScope.$broadcast('start', miliseconds);
+  };
   return ShopAPI;
 }]);
