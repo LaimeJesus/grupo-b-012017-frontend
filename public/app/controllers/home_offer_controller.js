@@ -4,22 +4,22 @@ mycontrollers.controller('HomeOfferController', function($scope , OfferService, 
     $scope.offer.startDate = "";
     $scope.offer.endDate = "";
     $scope.offer.discount = "";
-    $scope.offer.type = "";
+    $scope.offer.type = "Category Offer";
     $scope.offer.category = "";
-    $scope.allCategories = [];
 
+    $scope.allCategories = [];
     $scope.offers = [];
 
     $scope.isCategory = function() {
-        return $scope.offer.type === "Category";
+        return $scope.offer.type === "Category Offer";
     };
 
     $scope.isCrossing = function() {
-        return $scope.offer.type === "Crossing";
+        return $scope.offer.type === "Crossing Offer";
     };
 
     $scope.isCombination = function() {
-        return $scope.offer.type === "Combination";
+        return $scope.offer.type === "Combination Offer";
     };
 
     $scope.getType = function (offer) {
@@ -58,20 +58,31 @@ mycontrollers.controller('HomeOfferController', function($scope , OfferService, 
 
     $scope.getAllCategories = function() {
         spinnerService.show('generalSpinner');
-        if ($scope.allCategories !== []) {
+        if ($scope.allCategories.length == 0) {
             OfferService.getAllCategories().then($scope.callbackAllCategories , $scope.errorHandlerAllCategories);
         }
+    };
+
+    $scope.resetCreateOffer = function(){
+      $scope.offer = {};
+      $scope.offer.startDate = "";
+      $scope.offer.endDate = "";
+      $scope.offer.discount = "";
+      $scope.offer.type = "Category Offer";
+      $scope.offer.category = "";
     };
 
     $scope.callbackNewOffer = function (response) {
         console.log("Category Offer created succesfully");
         console.log(response);
+        $scope.resetCreateOffer();
         spinnerService.hide('generalSpinner');
     }
 
     $scope.errorHandlerNewOffer = function(error) {
         console.log("Category Offer created failed");
         console.log(error);
+        $scope.resetCreateOffer();
         spinnerService.hide('generalSpinner');
     };
 

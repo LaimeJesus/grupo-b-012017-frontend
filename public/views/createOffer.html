@@ -6,20 +6,20 @@
                 <div class="form-group">
                     <label class="btn-outline-success"><h2>{{'offerCreation.initialDate' | translate}}</h2></label>
                     <input id="myPickr1" name="startDate" value="Choose a Range" class="form-control" ng-model="offer.startDate" required>
-                    <label style="color:red" ng-show="createOffer.startDate.$error.required">{{'offerCreation.required' | translate}}</label>
+                    <!-- <label style="color:red" ng-show="createOffer.startDate.$error.required">{{'offerCreation.required' | translate}}</label> -->
                 </div>
 
                 <div class="form-group">
                     <label class="btn-outline-success"><h2>{{'offerCreation.finalDate' | translate}}</h2></label>
                     <input id="myPickr2" name="endDate" value="Choose a Range" class="form-control" ng-model="offer.endDate" required>
-                    <label style="color:red" ng-show="createOffer.endDate.$error.required">{{'offerCreation.required' | translate}}</label>
+                    <!-- <label style="color:red" ng-show="createOffer.endDate.$error.required">{{'offerCreation.required' | translate}}</label> -->
                 </div>
 
                 <div class="form-group">
                     <label class="btn-outline-success"><h2>{{'offerCreation.discount' | translate}}</h2></label>
                     <input id="mySlider" name="discount" data-slider-id='ex1Slider' type="text" data-slider-min="5" data-slider-max="95" data-slider-step="5" data-slider-value="5" class="form-control" ng-model="offer.discount" required/>
                     <span id="ex6CurrentSliderValLabel" class="ourGreen">   {{'offerCreation.discountMessage' | translate}}<span id="ex6SliderVal" class="ourGreen">{{offer.discount}}</span> <span>%</span></span>
-                    <label style="color:red" ng-show="createOffer.discount.$error.required">{{'offerCreation.required' | translate}}</label>
+                    <!-- <label style="color:red" ng-show="createOffer.discount.$error.required">{{'offerCreation.required' | translate}}</label> -->
                 </div>
 
                 <div class="form-group">
@@ -29,18 +29,18 @@
                         <option>{{'offerCreation.crossing' | translate}}</option>
                         <option>{{'offerCreation.combination' | translate}}</option>
                     </select>
-                    <label style="color:red" ng-show="createOffer.type.$error.required">{{'offerCreation.required' | translate}}</label>
+                    <!-- <label style="color:red" ng-show="createOffer.type.$error.required">{{'offerCreation.required' | translate}}</label> -->
                 </div>
 
-                <div class="form-group hide" ng-if="isCategory()">
+                <div class="form-group" ng-show="isCategory()">
                     <label class="btn-outline-success"><h2>{{'offerCreation.chooseCategory' | translate}}</h2></label>
                     <select class="form-control" name="category" ng-model="offer.category" required>
                       <option ng-repeat="category in allCategories" value="{{category.name}}">{{category.name}}</option>
                     </select>
-                    <label style="color:red" ng-show="createOffer.category.$error.required">{{'offerCreation.required' | translate}}</label>
+                    <!-- <label style="color:red" ng-show="createOffer.category.$error.required">{{'offerCreation.required' | translate}}</label> -->
                 </div>
 
-                <div class="form-group hide" ng-if="isCrossing()">
+                <div class="form-group" ng-show="isCrossing()">
                     <label class="btn-outline-success"><h2>Choose a Crossing</h2></label>
                     <select class="form-control" ng-model="offer.category">
                       <option>Dairy</option>
@@ -48,7 +48,7 @@
                     </select>
                 </div>
 
-                <div class="form-group hide" ng-if="isCombination()">
+                <div class="form-group" ng-show="isCombination()">
                     <label class="btn-outline-success"><h2>Choose a Combination</h2></label>
                     <select class="form-control" ng-model="offer.category">
                       <option>Dairy</option>

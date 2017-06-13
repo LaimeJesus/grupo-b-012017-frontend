@@ -4,7 +4,7 @@ myservices.factory('OfferService', ['$http','urlbase', function($http, urlbase) 
     OfferServiceAPI.getAllCategories = function() {
         return $http({
             method: 'GET',
-            url: urlbase + 'offer/categories'
+            url: urlbase + 'offers/categories'
         })
     };
 
