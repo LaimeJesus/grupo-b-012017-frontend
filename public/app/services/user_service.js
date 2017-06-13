@@ -100,10 +100,10 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
       });
     }
 
-    UserAPI.getProfile = function(userId){
+    UserAPI.getUser = function(id){
       return $http({
         method: 'GET',
-        url: urlbase + 'users/' + userId,
+        url: urlbase + 'users/' + id,
         headers: {
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'

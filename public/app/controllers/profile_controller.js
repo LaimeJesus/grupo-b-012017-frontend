@@ -1,13 +1,11 @@
 mycontrollers.controller('ProfileController', function($scope, UserService, spinnerService){
-  $scope.address = "";
   $scope.records = [];
   $scope.profile = {};
-  $scope.purchase = {};
+  $scope.profile.address = "";
 
   $scope.callbackProfile = function(response){
     console.log("profile loaded");
     console.log(response.data);
-    $scope.address = response.data.profile.address;
     $scope.profile = response.data;
     $scope.records = $scope.toDate(response.data.profile.purchaseRecords);
     // $scope.records = response.data.profile.purchaseRecords;
@@ -17,7 +15,6 @@ mycontrollers.controller('ProfileController', function($scope, UserService, spin
   $scope.toDate = function(records){
     var res = [];
     for(var i=0; i<records.length; i++){
-
       var newrecord = {
         purchaselist : records[i].productlist,
         purchasedate : new Date(records[i].purchaseDate.year, records[i].purchaseDate.month, records[i].purchaseDate.day)
@@ -33,12 +30,12 @@ mycontrollers.controller('ProfileController', function($scope, UserService, spin
       spinnerService.hide('generalSpinner');
   };
 
-  $scope.getProfile = function(){
+  $scope.getUser = function(){
       spinnerService.show('generalSpinner');
-      UserService.getProfile(UserService.getId()).then($scope.callbackProfile, $scope.errorHandler);
+      UserService.getUser(UserService.getId()).then($scope.callbackProfile, $scope.errorHandler);
   };
 
-  $scope.getProfile();
+  $scope.getUser();
 
 
 });
