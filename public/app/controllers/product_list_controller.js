@@ -90,13 +90,34 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
 
     $scope.errorHandlerUpdateSelectedProduct = function(error){
       console.log("Selected product no actualizado");
-        spinnerService.hide('generalSpinner');
+      spinnerService.hide('generalSpinner');
     }
 
     $scope.updateSelectedProduct = function(listId, selectedProductId, selectedProduct){
         spinnerService.show('generalSpinner');
       ProductListService.updateSelectedProduct(UserService.getId(), listId, selectedProductId, {quantity:selectedProduct.quantity, productId:selectedProduct.id}).then( $scope.callbackUpdateSelectedProduct , $scope.errorHandlerUpdateSelectedProduct );
     }
+
+
+    $scope.callbackDeleteList = function(data){
+      console.log("List deleted");
+      $scope.productlists = $scope.productlists.filter(function(pl){
+        return pl.id != $scope.idtodelete;
+      });
+      $scope.idtodelete = -1;
+      spinnerService.hide('generalSpinner');
+    }
+
+    $scope.errorDeleteList = function(error){
+      console.log("List not deleted");
+      spinnerService.hide('generalSpinner');
+    }
+
+    $scope.deleteList = function(listId){
+      spinnerService.show('generalSpinner');
+      $scope.idtodelete = listId;
+      ProductListService.deleteList(UserService.getId(), listId).then($scope.callbackDeleteList, $scope.errorDeleteList);
+    };
 
     // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED
     $scope.callbackReady = function(response){
@@ -113,7 +134,11 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     }
 
     $scope.startCountdown = function(ms){
-      ShopService.countdown(ms, $scope.callbackPuedeComprar, $scope.errorPuedeComprar);
+      var json = {
+        ms : ms,
+        listId : ShopService.getListId()
+      }
+      ShopService.countdown(json, $scope.callbackPuedeComprar, $scope.errorPuedeComprar);
     }
 
     $scope.ready = function(listId){
