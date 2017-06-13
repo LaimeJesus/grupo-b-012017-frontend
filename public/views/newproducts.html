@@ -146,7 +146,7 @@
           </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-dismiss="modal">{{'general.cancel' | translate}}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addProductToList()" >{{'products.addtolist' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="userLists.length == 0" ng-click="addProductToList()" >{{'products.addtolist' | translate}}</button>
             </div>
         </div>
     </div>
