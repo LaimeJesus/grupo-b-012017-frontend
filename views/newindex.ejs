@@ -61,6 +61,20 @@
               <button type="submit" class="btn btn-default">Submit</button>
             </form>
           </ul>
+          <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+
+          <ul class="nav navbar-nav navbar-left">
+            <div class="alert alert-info collapse" role="alert" id="waiting">
+              <span>Waiting</span>
+            </div>
+          </ul>
+          <ul class="nav navbar-nav navbar-left">
+            <div class="alert alert-info collapse" role="alert" id="ready">
+                <span>Ready</span>
+            </div>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/">{{'navbar.products' | translate}}</a></li>
             <li><a href="offers">{{'navbar.offers' | translate}}</a></li>
