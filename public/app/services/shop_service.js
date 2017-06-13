@@ -26,7 +26,7 @@ myservices.factory('ShopService', ['$http','urlbase','$rootScope', function($htt
   ShopAPI.setId = function(id){
     shopping.listId = id;
   };
-  ShopAPI.countdown = function(miliseconds, callback, error){
+  ShopAPI.countdown = function(miliseconds){
     $rootScope.$broadcast('start', miliseconds);
   };
   return ShopAPI;

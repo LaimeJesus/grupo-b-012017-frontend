@@ -98,13 +98,15 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
       ProductListService.updateSelectedProduct(UserService.getId(), listId, selectedProductId, {quantity:selectedProduct.quantity, productId:selectedProduct.id}).then( $scope.callbackUpdateSelectedProduct , $scope.errorHandlerUpdateSelectedProduct );
     }
 
+    $scope.deleteFromProductlist = function(id){
+      $scope.productlists = $scope.productlists.filter(function(pl){
+        return pl.id !== id;
+      });
+    }
 
     $scope.callbackDeleteList = function(data){
       console.log("List deleted");
-      $scope.productlists = $scope.productlists.filter(function(pl){
-        return pl.id != $scope.idtodelete;
-      });
-      $scope.idtodelete = -1;
+      $scope.deleteFromProductlist($scope.idtodelete);
       spinnerService.hide('generalSpinner');
     }
 
@@ -134,11 +136,7 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     }
 
     $scope.startCountdown = function(ms){
-      var json = {
-        ms : ms,
-        listId : ShopService.getListId()
-      }
-      ShopService.countdown(json, $scope.callbackPuedeComprar, $scope.errorPuedeComprar);
+      ShopService.countdown(ms);
     }
 
     $scope.ready = function(listId){
@@ -149,6 +147,7 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
 
     $scope.callbackShop = function(data){
       console.log("lista comprada");
+      $scope.deleteList(ShopService.getListId());
       ShopService.resetTimer();
       spinnerService.hide('generalSpinner');
     }

@@ -3,9 +3,7 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
     $scope.logged = UserService.islogged();
 
     $scope.shopping = {};
-    $scope.shopping.waiting = false;
     $scope.shopping.seconds = 0;
-    $scope.shopping.ready = false;
     $scope.shopping.listId = false;
 
     $scope.someoneLogged = function () {
@@ -48,28 +46,23 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
     };
 
     $scope.showWaitingAlert = function(){
-      // $scope.shopping.waiting = true;
       $('#waiting').show();
       $timeout(function () {
-        // $scope.shopping.waiting = false;
         $('#waiting').hide();
       }, 3000);
     };
 
     $scope.showReadyAlert = function(){
-      // $scope.shopping.ready = true;
      $('#ready').show();
       $timeout(function () {
-        // $scope.shopping.ready = false;
          $('#ready').hide();
       }, 3000);
     }
 
-    $scope.$on('start', function(event, json){
-
-      var seconds = Math.ceil(json.ms / 1000);
+    $scope.$on('start', function(event, ms){
+      var seconds = Math.ceil(ms / 1000);
       $scope.shopping.seconds = seconds;
-      $scope.shopping.listId = json.listId;
+      $scope.shopping.listId = ShopService.getListId();
 
       $scope.showWaitingAlert();
 
@@ -78,8 +71,6 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
       defer.promise.then($scope.callbackPuedeComprar, $scope.errorPuedeComprar);
       var timer = setInterval(function() {
         $scope.$apply();
-        // console.log(seconds);
-        // console.log("..");
         if (seconds === 0) {
               clearInterval(timer);
               defer.resolve();
