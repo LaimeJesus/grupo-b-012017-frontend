@@ -18,7 +18,7 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
     $scope.saveUserData = function(data) {
         UserService.setId(data.id);
         UserService.logged(true);
-        UserService.setUser(data.username);
+        UserService.setUsername(data.username);
         if(typeof data.profile.address != 'undefined'){
           UserService.setAddress(data.profile.address.address);
         }else{
@@ -55,7 +55,10 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
     $scope.errorHandlerLogWithMail = function(error){
         console.log("can not log with mail");
         console.log(error);
-        UserService.googleSignOut();
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+        });
         spinnerService.hide('generalSpinner');
     };
 
@@ -72,9 +75,9 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
                     var profile = googleUser.getBasicProfile();
                     var user = {};
                     user.email = profile.U3;
-                    // user.username = profile.ig;
                     user.username = profile.U3;
-                    UserService.logInWithMail(user).then($scope.logincallback, $scope.errorHandlerLogWithMail);
+                    UserService.setIsloggedWithMail(true);
+                    UserService.logInWithMail(user).then($scope.logincallback,$scope.errorHandlerLogWithMail);
                 },
                 function(error){
                     console.log("cancel log with gmail");

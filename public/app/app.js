@@ -69,7 +69,9 @@ var app = angular.module('aloloco-app', [
          "mylists" : "Mis Listas",
          "profile" : "Mi Perfil",
          "createoffer" : "Crear Oferta",
-         "offers" : "Ofertas"
+         "offers" : "Ofertas",
+         "waiting" : "Esperando",
+         "ready" : "Listo para comprar"
        },
         "general" : {
          "cancel" : "Cancelar",
@@ -137,7 +139,9 @@ var app = angular.module('aloloco-app', [
            "mylists" : "My Lists",
            "profile" : "My Profile",
            "createoffer" : "Create Offer",
-           "offers" : "Offers"
+           "offers" : "Offers",
+           "waiting" : "Waiting",
+           "ready" : "Ready to buy"
        },
         "products" : {
            "name" : "Name",

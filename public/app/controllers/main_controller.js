@@ -1,6 +1,6 @@
 mycontrollers.controller('MainController', function ($scope, $location, UserService, spinnerService, ShopService, $q, $timeout) {
-    $scope.user = UserService.getUser();
-    $scope.logged = UserService.islogged();
+    // $scope.user = UserService.getUser();
+    // $scope.logged = UserService.islogged();
 
     $scope.shopping = {};
     $scope.shopping.seconds = 0;
@@ -12,10 +12,17 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
 
     $scope.callbackLogout = function (data) {
         console.log("Logout Exitoso");
-        UserService.logged(false);
         console.log(UserService.islogged());
-        UserService.setUser({});
-        console.log(UserService.getUser());
+        console.log(UserService.getUsername());
+
+        if(UserService.isloggedWithMail()){
+          UserService.setIsloggedWithMail(false);
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log('User signed out.');
+          });
+        }
+        UserService.reset();
         $location.path('/');
         spinnerService.show('generalSpinner');
     };
@@ -27,7 +34,6 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
     };
 
     $scope.logout = function () {
-        UserService.googleSignOut();
         spinnerService.show('generalSpinner');
         UserService.logout(UserService.getId()).then($scope.callbackLogout, $scope.errorHandlerLogout);
     };
@@ -57,7 +63,7 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
       $timeout(function () {
          $('#ready').hide();
       }, 3000);
-    }
+    };
 
     $scope.$on('start', function(event, ms){
       var seconds = Math.ceil(ms / 1000);
