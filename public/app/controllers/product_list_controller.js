@@ -85,7 +85,9 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
 
     $scope.callbackUpdateSelectedProduct = function(data){
       console.log("Selected product actualizado");
-        spinnerService.hide('generalSpinner');
+      spinnerService.hide('generalSpinner');
+      $location.path('/mylists');
+      $scope.mylists();
     }
 
     $scope.errorHandlerUpdateSelectedProduct = function(error){

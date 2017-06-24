@@ -1,4 +1,4 @@
-mycontrollers.controller('HomeOfferController', function($scope , OfferService, spinnerService, $translateProvider){
+mycontrollers.controller('HomeOfferController', function($scope , OfferService, spinnerService){
 
     $scope.offer = {};
     $scope.offer.startDate = "";

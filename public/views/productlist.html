@@ -17,7 +17,7 @@
                 <th scope="row"></th>
                 <td ng-click="listDetail(list.id)" data-toggle="modal" data-target="#detailProductList">{{list.name}}</td>
                 <td>{{list.pubDate | date:'shortTime'}}</td>
-                <td>{{list.totalAmount.integer}}.{{list.totalAmount.decimal}}</td>
+                <td>{{list.totalAmount | price}}</td>
                 <td>
                   <!-- <button type="button" class="btn btn-danger floatRight" data-ng-show="shopping.canBuy" data-ng-disabled="shopping.listId !== list.id" data-ng-click="shop(list.id)"> -->
                     <button type="button" class="btn btn-primary floatRight" data-ng-disabled="someoneShopping(list.id)" data-ng-show="someoneCanBuy()" data-ng-click="shop(list.id)">
@@ -101,7 +101,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr data-ng-repeat="selectedProduct in selectedProductList.allProducts">
+                            <tr data-ng-repeat="selectedProduct in selectedProductList.selectedProducts">
                                 <td>{{selectedProduct.product.name}}</td>
                                 <td>
                                   <div class="form-group row">
@@ -110,7 +110,7 @@
                                 </td>
                                 <!-- <td>{{selectedProduct.price.integer | date:'shortTime'}}</td> -->
                                 <!-- <td>{{selectedProduct.product.price.integer | currency}}</td> -->
-                                <td>{{selectedProduct.product.price.integer}}.{{selectedProduct.product.price.decimal}}</td>
+                                <td>{{selectedProduct.product.price | price}}</td>
                                 <td>
                                     <button type="button" class="btn btn-success floatRight" data-dismiss="modal" data-ng-click="updateSelectedProduct(selectedProductList.id, selectedProduct.id, selectedProduct)">
                                         <span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> {{'productlist.update' | translate}}

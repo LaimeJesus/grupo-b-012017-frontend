@@ -1,0 +1,1 @@
+var myfilters = angular.module('aloloco-app.myfilters', []);
