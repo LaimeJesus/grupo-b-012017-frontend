@@ -20,8 +20,9 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
         console.log(data);
         $scope.products = data.data;
         for (var i=0 ; i<data.data.length ; i++){
-          if ($scope.products[i].imageUrl == "no-image"){
-            $scope.products[i].imageUrl = "../images/no-image-available.png"
+          if ($scope.products[i].imageUrl === "no-image"){
+            // $scope.products[i].imageUrl = "../images/no-image-available.png"
+            $scope.products[i].imageUrl = "http://image.ibb.co/kaSNyQ/no_image_fixed.png";
           }
         }
         spinnerService.hide('generalSpinner');
