@@ -36,7 +36,7 @@
   <base href="/">
   <body data-ng-app="aloloco-app">
     <!--  class="navbar navbar-default navbar-fixed-top"-->
-    <nav class="navbar navbar-default" ng-controller="MainController">
+    <nav class="navbar navbar-default navbar-inverse" ng-controller="MainController">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -67,12 +67,12 @@
 
           <ul class="nav navbar-nav navbar-left">
             <div class="alert alert-info collapse" role="alert" id="waiting">
-              <span>Waiting: {{shopping.seconds}}</span>
+              <span>{{'navbar.waiting' | translate}}: {{shopping.seconds}}</span>
             </div>
           </ul>
           <ul class="nav navbar-nav navbar-left">
             <div class="alert alert-info collapse" role="alert" id="ready">
-                <span>Ready to buy</span>
+                <span>{{'navbar.ready' | translate}}</span>
             </div>
           </ul>
           <ul class="nav navbar-nav navbar-right">

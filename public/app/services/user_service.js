@@ -1,26 +1,25 @@
 myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     var UserAPI = {};
-
-    var username = {};
-    var logged = false;
-    var userId = {};
-
     var user = {
         "username" : "",
         "logged" : false,
-        "userId" : "",
-        "address" : ""
+        "userId" : null,
+        "address" : "",
+        "isloggedWithMail" : false
     };
 
-
     UserAPI.reset = function(){
-      user = {};
+      user.username = "";
+      user.logged = false;
+      user.userId = null;
+      user.address = "";
+      user.isloggedWithMail = false;
     }
 
-    UserAPI.setUser = function(newuser){
-      user.username = newuser;
+    UserAPI.setUsername = function(username){
+      user.username = username;
     }
-    UserAPI.getUser = function(){
+    UserAPI.getUsername = function(){
       return user.username;
     }
     UserAPI.getId = function () {
@@ -35,15 +34,18 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     UserAPI.islogged = function(){
       return user.logged;
     }
-
     UserAPI.getAddress = function () {
         return user.address;
     }
-
     UserAPI.setAddress = function (newAddress) {
         user.address = newAddress;
     }
-
+    UserAPI.isloggedWithMail = function(){
+      return user.isloggedWithMail;
+    }
+    UserAPI.setIsloggedWithMail = function(bool){
+      user.isloggedWithMail = bool;
+    }
     UserAPI.login = function(user) {
       return $http({
         method: 'POST',
@@ -53,13 +55,6 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'
         }
-      });
-    }
-
-    UserAPI.googleSignOut = function(){
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
       });
     }
 
@@ -91,8 +86,7 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     UserAPI.logout = function(id) {
       return $http({
         method: 'POST',
-        url: urlbase + 'users/logout',
-        data: id,
+        url: urlbase + 'users/'+ id +'/logout',
         headers: {
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'

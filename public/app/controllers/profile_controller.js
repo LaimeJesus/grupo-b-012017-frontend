@@ -8,7 +8,6 @@ mycontrollers.controller('ProfileController', function($scope, UserService, spin
     console.log(response.data);
     $scope.profile = response.data;
     $scope.records = $scope.toDate(response.data.profile.purchaseRecords);
-    // $scope.records = response.data.profile.purchaseRecords;
     spinnerService.hide('generalSpinner');
   };
 
