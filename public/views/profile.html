@@ -44,7 +44,7 @@
                   <tr data-ng-repeat="purchase in records" data-toggle="modal" data-target="#detailProductList">
                       <th scope="row"></th>
                       <td> {{purchase.purchaselist.name}} </td>
-                      <td> {{purchase.purchasedate}} </td>
+                      <td> {{purchase.purchasedate | date:'medium'}} </td>
                   </tr>
                   </tbody>
               </table>
