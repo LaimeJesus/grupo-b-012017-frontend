@@ -1,7 +1,13 @@
+<div id="successAlert" role="alert" class="alert alert-success collapse">
+  <strong>Success!</strong> All ok.
+
+  <button ng-click="reload()"> Close
+
+</div>
 <div class="container-fluid">
   <div class="row">
 
-      <div class="col-md-4 col-xs-12 bg-inverse">
+      <!-- <div class="col-md-4 col-xs-12 bg-inverse">
           <div class="">
               <div>
                   <a><img ng-src="../images/no-image-available.png" alt="asd" class="img-thumbnail squareImage"></a>
@@ -27,9 +33,47 @@
                   </div>
               </div>
           </div>
+      </div> -->
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{profile.username}}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" ng-src="{{profile.profile.url}}" class="img-circle img-responsive"> </div>
+
+            <div class=" col-md-9 col-lg-9 ">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>Email:</td>
+                    <td>{{profile.email}}</td>
+                    <th> OPTIONS</th>
+                  </tr>
+                  <tr>
+                    <td>Home Address:</td>
+                    <td>{{profile.profile.address.address}}</td>
+                    <td>
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#profileModal" >Listo</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <a href="#" class="btn btn-primary">My Sales Performance</a>
+              <a href="#" class="btn btn-primary">Team Sales Performance</a> -->
+            </div>
+          </div>
+        </div>
+         <!-- <div class="panel-footer">
+                <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                <span class="pull-right">
+                    <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                </span>
+            </div> -->
       </div>
 
-      <div class="col-md-8 col-xs-12">
+      <!-- <div class="col-md-8 col-xs-12">
           <div class="">
               <div class="table-responsive">
                 <table class="table table-hover table-inverse table-striped">
@@ -48,6 +92,47 @@
               </table>
             </div>
           </div>
+      </div> -->
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-hover table-inverse table-striped">
+              <thead>
+              <tr>
+                  <th></th>
+                  <th>{{'productlist.listname' | translate}}</th>
+                  <th>{{'user.paymentDate' | translate}}</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-repeat="purchase in records" data-toggle="modal" data-target="#detailProductList">
+                    <td> {{purchase.purchaselist.name}} </td>
+                    <td> {{purchase.purchasedate | date:'medium'}} </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Change profile picture</h3>
+          </div>
+          <form>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" name="username" class="form-control" ng-model="pictureChoosen" placeholder="url">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn primary-btn" value="Choose" data-dismiss="modal" ng-disabled="pictureChoose()" data-ng-click="setProfilePicture(pictureChoosen)"/>
+              <button class="btn btn-warning" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+          </form>
       </div>
   </div>
 </div>

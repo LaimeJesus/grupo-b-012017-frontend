@@ -105,5 +105,17 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
       });
     }
 
+    UserAPI.setProfilePicture = function(id , imageUrl){
+      return $http({
+        method: 'POST',
+        url: urlbase + 'users/' + id + '/profile/imageUrl',
+        data: imageUrl,
+        headers: {
+          "Accept": "application/json;odata=verbose",
+          'Content-Type': 'application/json'
+        }
+      });
+    }
+
     return UserAPI;
   }]);
