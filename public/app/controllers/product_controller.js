@@ -111,17 +111,41 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     //PAGINATION
     ///////////////////////////////////////////////////////////////////////////
 
-      $scope.pagination = {};
-      $scope.pagination.currentPage = 1;
+    $(window).on("resize.doResize", function (){
+      console.log(window.innerWidth);
+      if (window.innerWidth < 700){
+        $scope.$apply(function(){
+          $scope.pagination.maxSize = 2;
+          $scope.pagination.itemsPerPage = 2;
+        });
+      } else{
+        $scope.$apply(function(){
+          $scope.pagination.maxSize = 5;
+          $scope.pagination.itemsPerPage = 5;
+        });
+      }
+    });
+
+    $scope.$on("$destroy",function (){
+        $(window).off("resize.doResize"); //remove the handler added earlier
+    });
+
+    $scope.pagination = {};
+    $scope.pagination.currentPage = 1;
+    if (window.innerWidth > 700){
       $scope.pagination.maxSize = 5;
       $scope.pagination.itemsPerPage = 5;
+    } else{
+      $scope.pagination.maxSize = 2;
+      $scope.pagination.itemsPerPage = 2;
+    }
 
-      // $scope.pagination.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize) + 1;
-      // $scope.pagination.numOfPages = 10;
-      // $scope.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize);
+    // $scope.pagination.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize) + 1;
+    // $scope.pagination.numOfPages = 10;
+    // $scope.numOfPages = Math.floor($scope.products.length/$scope.pagination.maxSize);
 
-      $scope.setPage = function (pageNo) {
-        $scope.pagination.currentPage = pageNo;
-      };
+    $scope.setPage = function (pageNo) {
+      $scope.pagination.currentPage = pageNo;
+    };
 
 });
