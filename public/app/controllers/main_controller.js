@@ -24,13 +24,13 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
         }
         UserService.reset();
         $location.path('/');
-        spinnerService.show('generalSpinner');
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerLogout = function (error) {
         console.log("Logout Fallo");
         $location.path('/');
-        spinnerService.show('generalSpinner');
+        spinnerService.hide('generalSpinner');
     };
 
     $scope.logout = function () {
