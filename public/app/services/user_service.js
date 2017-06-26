@@ -5,7 +5,8 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
         "logged" : false,
         "userId" : null,
         "address" : "",
-        "isloggedWithMail" : false
+        "isloggedWithMail" : false,
+        "role" : "NORMAL"
     };
 
     UserAPI.reset = function(){
@@ -14,7 +15,8 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
       user.userId = null;
       user.address = "";
       user.isloggedWithMail = false;
-    }
+      user.role = "NORMAL";
+    };
 
     UserAPI.setUsername = function(username){
       user.username = username;
@@ -23,10 +25,10 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
       return user.username;
     }
     UserAPI.getId = function () {
-        return user.userId;
+      return user.userId;
     }
     UserAPI.setId = function (id) {
-        user.userId = id;
+      user.userId = id;
     }
     UserAPI.logged = function(bool){
       user.logged = bool;
@@ -34,11 +36,17 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     UserAPI.islogged = function(){
       return user.logged;
     }
+    UserAPI.isAdmin = function(){
+      return user.role !== "NORMAL";
+    }
+    UserAPI.setRole = function(role){
+      user.role = role;
+    }
     UserAPI.getAddress = function () {
-        return user.address;
+      return user.address;
     }
     UserAPI.setAddress = function (newAddress) {
-        user.address = newAddress;
+      user.address = newAddress;
     }
     UserAPI.isloggedWithMail = function(){
       return user.isloggedWithMail;

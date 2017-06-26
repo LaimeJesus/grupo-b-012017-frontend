@@ -10,6 +10,10 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
         return UserService.islogged();
     };
 
+    $scope.isAdmin = function(){
+      return UserService.isAdmin();
+    }
+
     $scope.callbackLogout = function (data) {
         console.log("Logout Exitoso");
         console.log(UserService.islogged());

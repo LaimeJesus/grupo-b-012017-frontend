@@ -79,9 +79,16 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/">{{'navbar.products' | translate}}</a></li>
             <li><a href="offers">{{'navbar.offers' | translate}}</a></li>
-            <li data-ng-show="someoneLogged()"><a href="createOffer">{{'navbar.createoffer' | translate}}</a></li>
             <li data-ng-hide="someoneLogged()"><a href="login">{{'navbar.login' | translate}}</a></li>
             <li data-ng-hide="someoneLogged()"><a href="signup">{{'navbar.signup' | translate}}</a></li>
+            <li class="dropdown" data-ng-show="isAdmin()">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li data-ng-show="isAdmin()"><a href="createOffer">{{'navbar.createoffer' | translate}}</a></li>
+                <li data-ng-show="isAdmin()"><a href="createProduct">{{'navbar.createproduct' | translate}}</a></li>
+                <li data-ng-show="isAdmin()"><a href="registers">{{'navbar.registers' | translate}}</a></li>
+              </ul>
+            </li>
             <li class="dropdown" data-ng-show="someoneLogged()">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Options <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -100,12 +107,14 @@
     <div ng-view></div>
 
     <script src="app/app.js"></script>
+    <script src="app/translations.js"></script>
     <script src="app/services/services.js"></script>
     <script src="app/services/offer_service.js"></script>
     <script src="app/services/product_list_service.js"></script>
     <script src="app/services/product_service.js"></script>
     <script src="app/services/shop_service.js"></script>
     <script src="app/services/user_service.js"></script>
+    <script src="app/services/register_service.js"></script>
     <script src="app/filters/filters.js"></script>
     <script src="app/filters/priceFilter.js"></script>
     <script src="app/controllers/controllers.js"></script>
@@ -117,5 +126,6 @@
     <script src="app/controllers/login_controller.js"></script>
     <script src="app/controllers/sign_up_controller.js"></script>
     <script src="app/controllers/profile_controller.js"></script>
+    <script src="app/controllers/register_controller.js"></script>
   </body>
 </html>

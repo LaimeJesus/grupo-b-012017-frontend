@@ -19,6 +19,7 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
         UserService.setId(data.id);
         UserService.logged(true);
         UserService.setUsername(data.username);
+        UserService.setRole(data.role);
         if(typeof data.profile.address != 'undefined'){
           UserService.setAddress(data.profile.address.address);
         }else{

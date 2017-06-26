@@ -19,7 +19,6 @@
                 <td>{{list.pubDate | date:'shortTime'}}</td>
                 <td>{{list.totalAmount | price}}</td>
                 <td>
-                  <!-- <button type="button" class="btn btn-danger floatRight" data-ng-show="shopping.canBuy" data-ng-disabled="shopping.listId !== list.id" data-ng-click="shop(list.id)"> -->
                     <button type="button" class="btn btn-primary floatRight" data-ng-disabled="someoneShopping(list.id)" data-ng-show="someoneCanBuy()" data-ng-click="shop(list.id)">
                         <span><i class="fa fa-shopping-cart" aria-hidden="true"></i></span> {{'productlist.shop' | translate}}
                     </button>
@@ -43,7 +42,7 @@
 
     <div class="row">
         <div>
-            <button type="button" class="btn btn-success separated" data-toggle="modal" data-target="#modalNewProductList">{{'productlist.createlist' | translate}}</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNewProductList">{{'productlist.createlist' | translate}}</button>
         </div>
     </div>
 </div>

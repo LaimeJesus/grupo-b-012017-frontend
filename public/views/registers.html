@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+   <div class="table-responsive">
+     <table class="table table-hover table-inverse table-striped">
+         <thead>
+         <tr>
+             <th></th>
+             <th>id</th>
+             <th>{{'register.size' | translate}}</th>
+             <th>{{'register.waiting_time' | translate}}</th>
+             <th>{{'general.options' | translate}}</th>
+         </tr>
+         </thead>
+         <tbody>
+         <tr data-ng-repeat="register in registers">
+             <th scope="row"></th>
+             <td>{{register.id}}</td>
+             <td>{{register.size}}</td>
+             <td>{{register.waiting_time.milliseconds}}</td>
+             <td>
+                 <button type="button" class="btn btn-primary floatRight" data-ng-hide="register.isClosed" data-ng-click="close(register.id)">
+                     <span><i class="fa fa-trash-o" aria-hidden="true"></i></span> {{'general.close' | translate}}
+                 </button>
+                 <button type="button" class="btn btn-success floatRight" data-ng-hide="!register.isClosed" data-ng-click="open(register.id)">
+                     <span><i class="fa fa-shopping-cart" aria-hidden="true"></i></span> {{'general.open' | translate}}
+                 </button>
+                 <button type="button" class="btn btn-info floatRight" ng-click="get(register.id)">
+                     <span><i class="fa fa-truck" aria-hidden="true"></i></span> {{'general.update' | translate}}
+                 </button>
+             </td>
+         </tr>
+         </tbody>
+     </table>
+   </div>
+ </div>
+</div>
