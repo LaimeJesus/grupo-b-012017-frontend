@@ -41,5 +41,13 @@ myservices.factory('ProductService', ['$http', 'urlbase', function($http, urlbas
       });
     }
 
+    ProductAPI.uploadProduct = function(file){
+      return $http({
+        method: 'PUT',
+        url: urlbase + 'products/upload',
+        data: file
+      })
+    }
+
     return ProductAPI;
   }]);

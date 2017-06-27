@@ -26,16 +26,21 @@ app.config(['$translateProvider' , function ($translateProvider) {
       "options" : "Opciones",
       "close" : "Cerrar",
       "open" : "Abrir",
-      "update" : "Actualizar"
+      "update" : "Actualizar",
+      "loginfo" : "Ingresa para ver mas info"
     },
       "products" : {
         "name" : "Nombre",
+        "brand" : "Marca",
         "buy" : "Comprar",
         "price" : "Precio",
         "category" : "Categoria",
         "addtolist" : "Agregar a la lista",
         "list" : "Lista",
-        "quantity" : "Cantidad"
+        "quantity" : "Cantidad",
+        "details" : "Ver detalles",
+        "create" : "Crear Productos",
+        "upload" : "Cargar Products"
      },
      "productlist" : {
        "createlist" : "Crear una lista nueva",
@@ -100,12 +105,15 @@ app.config(['$translateProvider' , function ($translateProvider) {
     },
      "products" : {
         "name" : "Name",
+        "brand" : "Brand",
         "buy" : "Buy",
         "price" : "Price",
         "category" : "Category",
         "addtolist" : "Add to list",
         "list" : "List",
-        "quantity" : "Quantity"
+        "quantity" : "Quantity",
+        "details" : "See details",
+        "upload" : "Upload Products"
       },
       "productlist" : {
         "createlist" : "Create New List",
@@ -130,7 +138,8 @@ app.config(['$translateProvider' , function ($translateProvider) {
         "options" : "Options",
         "close" : "Close",
         "open" : "Open",
-        "update" : "Update"
+        "update" : "Update",
+        "loginfo" : "Log in to see more info"
       },
       "user" : {
         "username" : "Username",

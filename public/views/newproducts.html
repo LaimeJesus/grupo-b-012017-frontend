@@ -2,15 +2,21 @@
   <div class="row">
     <div data-ng-repeat="prod in products.slice(((pagination.currentPage-1)*pagination.maxSize),(pagination.currentPage*pagination.maxSize))" class="col-md-2 col-sm-4 col-xs-6 thumbnail">
         <a><img ng-src={{prod.imageUrl}} alt={{prod.name}} class="img-responsive"></a>
+
         <div class="caption">
-          <button ng-if="someoneLogged()" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.id)">
-              <label>{{'products.buy' | translate}} {{prod.name}} {{prod.brand}}</label>
-          </button>
-          <button ng-if="nooneLogged()" type="button" class="btn btn-primary btn-block">
-              <label>{{prod.name}} {{prod.brand}}</label>
-          </button>
+          <!-- <div class="row">
+              {{prod.name}} {{prod.brand}}
+          </div> -->
+          <div class="row">
+            <button ng-if="someoneLogged()" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" ng-click="getDetail(prod.id)">
+                <label>{{'products.details' | translate}}</label>
+            </button>
+            <button ng-if="nooneLogged()" type="button" class="btn btn-primary btn-block">
+                <label>{{'general.loginfo' | translate}}</label>
+            </button>
+          </div>
         </div>
-      </div>
+    </div>
   </div>
 
   <div class="text-center">
@@ -29,60 +35,56 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">{{'products.buy' | translate}} {{selectedProduct.name}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{selectedProduct.name}} {{selectedProduct.brand}}</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
             <div class="modal-body">
-              <div>
+              <div class="container-fluid">
+                <div>
             <!-- <div class="form-group"> -->
-                <dl class="dl-horizontal">
-                  <dt>{{'products.name' | translate}}</dt>
-                  <dd>{{selectedProduct.name}}</dd>
-                </dl>
-            <!-- </div> -->
-            <!-- <div class="form-group"> -->
-              <dl class="dl-horizontal">
-                <dt>{{'products.price' | translate}}</dt>
-                <dd>{{selectedProduct.price | price}}</dd>
-              </dl>
-            <!-- </div> -->
-            <!-- <div class="form-group"> -->
-              <dl class="dl-horizontal">
-                <dt>{{'products.category' | translate}}</dt>
-                <dd>{{selectedProduct.category}}</dd>
-              </dl>
-            <!-- </div> -->
+                  <dl class="dl-horizontal">
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <dt>{{'products.price' | translate}}</dt>
+                        <dd>{{selectedProduct.price | price}}</dd>
+                      </div>
+                      <div class="col-xs-6">
+                        <dt>{{'products.category' | translate}}</dt>
+                        <dd>{{selectedProduct.category}}</dd>
+                      </div>
+                    </div>
 
-            <hr>
+                  </dl>
+                  <hr>
+                <div>
+                    <a><img ng-src={{selectedProduct.imageUrl}} alt={{selectedProduct.name}} class="img-responsive center-block img-thumbnail"></a>
+                </div>
 
-            <div>
-                <a><img ng-src={{selectedProduct.imageUrl}} alt={{selectedProduct.name}} class="img-responsive center-block img-thumbnail"></a>
-            </div>
+                <span class="help-block"></span>
+                <hr>
 
-            <span class="help-block"></span>
-            <hr>
+                <div class="form-group">
+                  <dl class="dl-horizontal">
+                    <dt>{{'products.list' | translate}}</dt>
+                    <dd><select class="form-control" ng-model="selected.selectedList" ng-options="list.name for list in userLists"></select></dd>
+                  </dl>
+                </div>
+                <span class="help-block"></span>
 
-            <div class="form-group">
-              <dl class="dl-horizontal">
-                <dt>{{'products.list' | translate}}</dt>
-                <dd><select class="form-control" ng-model="selected.selectedList" ng-options="list.name for list in userLists"></select></dd>
-              </dl>
-            </div>
-            <span class="help-block"></span>
-
-            <div class="form-group">
-              <dl class="dl-horizontal">
-                <dt>{{'products.quantity' | translate}}</dt>
-                <dd><input class="form-control input-group" type="number" value="1" ng-model="selected.quantity" min="1" max="selectedProduct.stock"></dd>
-              </dl>
-            </div>
+                <div class="form-group">
+                  <dl class="dl-horizontal">
+                    <dt>{{'products.quantity' | translate}}</dt>
+                    <dd><input class="form-control input-group" type="number" value="1" ng-model="selected.quantity" min="1" max="selectedProduct.stock"></dd>
+                  </dl>
+                </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">{{'general.cancel' | translate}}</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="userLists.length == 0" ng-click="addProductToList()" >{{'products.addtolist' | translate}}</button>
+              </div>
           </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">{{'general.cancel' | translate}}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="userLists.length == 0" ng-click="addProductToList()" >{{'products.addtolist' | translate}}</button>
-            </div>
         </div>
     </div>
   </div>

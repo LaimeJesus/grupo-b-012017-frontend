@@ -50,9 +50,13 @@ var app = angular.module('aloloco-app', [
            templateUrl: '../views/delivery.html',
            controller: 'DeliveryController',
        })
-       .when('/registers',{
+       .when('/adminRegisters',{
          templateUrl: '../views/registers.html',
          controller: 'RegisterController',
+       })
+       .when('/adminProduct', {
+         templateUrl: '../views/admin_product.html',
+         controller: 'AdminProductController',
        })
        .otherwise({
          redirectTo: '/'
