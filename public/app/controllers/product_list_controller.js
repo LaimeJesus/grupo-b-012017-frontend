@@ -1,4 +1,4 @@
-mycontrollers.controller('ProductListController', function($scope, $route, $location, UserService, ProductListService, ShopService, spinnerService, $q) {
+mycontrollers.controller('ProductListController', function($scope, $route, $location, UserService, ProductListService, ShopService, spinnerService, $q, AlertService) {
     $scope.productlists = [];
     $scope.spanLog = "";
     $scope.selectedProductList = {};
@@ -109,18 +109,26 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     $scope.callbackDeleteList = function(data){
       console.log("List deleted");
       $scope.deleteFromProductlist($scope.idtodelete);
+      $scope.idtodelete = -1;
+      swal(AlertService.newAlert('Delete!', 'Your list has been deleted', 'success'));
       spinnerService.hide('generalSpinner');
     }
 
     $scope.errorDeleteList = function(error){
       console.log("List not deleted");
+      swal(AlertService.newAlert('Error deleting that list!', 'Your list has not been deleted.','error'));
       spinnerService.hide('generalSpinner');
     }
 
+    //que no se haga cada vez q entra al boton, solo en el confirm
     $scope.deleteList = function(listId){
       spinnerService.show('generalSpinner');
       $scope.idtodelete = listId;
-      ProductListService.deleteList(UserService.getId(), listId).then($scope.callbackDeleteList, $scope.errorDeleteList);
+      swal(AlertService.getDeleteButton()).then(function(){
+        ProductListService.deleteList(UserService.getId(), listId).then($scope.callbackDeleteList, $scope.errorDeleteList);
+      }).catch(swal.noop);
+
+      spinnerService.hide('generalSpinner');
     };
 
     // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED
@@ -180,11 +188,11 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
 
     $scope.errorWaitingTime = function(error){
       console.log(error);
-        spinnerService.hide('generalSpinner');
+      spinnerService.hide('generalSpinner');
     }
 
     $scope.waitingTime = function(listId){
-        spinnerService.show('generalSpinner');
+      spinnerService.show('generalSpinner');
       ProductListService.waitingTime(UserService.getId(), listId).then($scope.callbackWaitingTime, $scope.errorWaitingTime);
     }
 
