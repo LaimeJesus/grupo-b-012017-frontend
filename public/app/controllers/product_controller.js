@@ -113,16 +113,23 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $(window).on("resize.doResize", function (){
       console.log(window.innerWidth);
-      if (window.innerWidth < 700){
+      if (window.innerWidth < 750){
         $scope.$apply(function(){
           $scope.pagination.maxSize = 2;
           $scope.pagination.itemsPerPage = 2;
         });
       } else{
-        $scope.$apply(function(){
-          $scope.pagination.maxSize = 5;
-          $scope.pagination.itemsPerPage = 5;
-        });
+        if(window.innerWidth < 1000){
+          $scope.$apply(function(){
+            $scope.pagination.maxSize = 3;
+            $scope.pagination.itemsPerPage = 3;
+          });
+        } else{
+          $scope.$apply(function(){
+            $scope.pagination.maxSize = 5;
+            $scope.pagination.itemsPerPage = 5;
+          });
+        }
       }
     });
 

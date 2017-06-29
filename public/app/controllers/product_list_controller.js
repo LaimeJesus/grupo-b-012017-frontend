@@ -120,7 +120,6 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
       spinnerService.hide('generalSpinner');
     }
 
-    //que no se haga cada vez q entra al boton, solo en el confirm
     $scope.deleteList = function(listId){
       spinnerService.show('generalSpinner');
       $scope.idtodelete = listId;
