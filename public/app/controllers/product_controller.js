@@ -1,4 +1,4 @@
-mycontrollers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService) {
+mycontrollers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService, AlertService) {
 
     $scope.products = [];
 
@@ -83,12 +83,14 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $scope.callbackAddProductToList = function(data) {
         console.log("PRODUCT ADDED TO LIST");
+        swal(AlertService.newAlert('Added ' + $scope.selectedProduct.name, 'A product was added to: ' + $scope.selected.selectedList.name, 'success')).catch(swal.noop);
         $scope.resetSelectedProduct();
         spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerAddProductToList = function(error) {
         console.log("PRODUCT NOT ADDED TO LIST");
+        swal(AlertService.newAlert('Error adding ' + $scope.selectedProduct.name, 'A product was not added to: ' + $scope.selected.selectedList.name, 'error')).catch(swal.noop);
         $scope.resetSelectedProduct();
         spinnerService.hide('generalSpinner');
     };
