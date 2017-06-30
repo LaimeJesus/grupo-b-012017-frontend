@@ -54,6 +54,14 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     UserAPI.setIsloggedWithMail = function(bool){
       user.isloggedWithMail = bool;
     }
+
+    UserAPI.deslogWithMail = function(){
+      UserAPI.setIsloggedWithMail(false);
+      gapi.auth2.getAuthInstance().signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+
     UserAPI.login = function(user) {
       return $http({
         method: 'POST',
@@ -118,6 +126,18 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
         method: 'POST',
         url: urlbase + 'users/' + id + '/profile/imageUrl',
         data: imageUrl,
+        headers: {
+          "Accept": "application/json;odata=verbose",
+          'Content-Type': 'application/json'
+        }
+      });
+    }
+
+    UserAPI.changePassword = function(id , password){
+      return $http({
+        method: 'POST',
+        url: urlbase + 'users/' + id + '/profile/password',
+        data: password,
         headers: {
           "Accept": "application/json;odata=verbose",
           'Content-Type': 'application/json'

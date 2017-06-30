@@ -35,6 +35,7 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
         spinnerService.hide('generalSpinner');
         $scope.newList.name = "";
         $scope.productlists.push(response.data);
+        swal(AlertService.newAlert('List created correctly', 'Added list: ' + response.data.name, 'success')).catch(swal.noop);
     }
 
     $scope.errorHandlerCreate = function(error) {
@@ -42,6 +43,7 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
         console.log(error);
         $scope.newList.name = "";
         spinnerService.hide('generalSpinner');
+        swal(AlertService.newAlert('Error in create product list', 'Problem: ' + error.data.errorMessage, 'error')).catch(swal.noop);
     }
 
     $scope.createproductlist = function(){
@@ -70,17 +72,22 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
 
     $scope.callbackDeleteSelectedProduct = function(data){
       console.log("Selected product borrado");
-        spinnerService.hide('generalSpinner');
+      spinnerService.hide('generalSpinner');
+      swal(AlertService.newAlert('Deleted selected product', 'lists updated correctly', 'success')).catch(swal.noop);
     }
 
     $scope.errorHandlerDeleteSelectedProduct = function(error){
       console.log("Selected product no borrado");
-        spinnerService.hide('generalSpinner');
+      spinnerService.hide('generalSpinner');
+      swal(AlertService.newAlert('Error in delete selected product', 'Problem: ' + error.data.errorMessage, 'error')).catch(swal.noop);
     }
 
     $scope.deleteSelectedProduct = function(listId, selectedProductId){
-        spinnerService.show('generalSpinner');
-      ProductListService.deleteSelectedProduct(UserService.getId(), listId, selectedProductId).then( $scope.callbackDeleteSelectedProduct , $scope.errorHandlerDeleteSelectedProduct );
+      spinnerService.show('generalSpinner');
+      swal(AlertService.getDeleteButton()).then(function(){
+        ProductListService.deleteSelectedProduct(UserService.getId(), listId, selectedProductId).then( $scope.callbackDeleteSelectedProduct , $scope.errorHandlerDeleteSelectedProduct);
+      }).catch(swal.noop);
+      spinnerService.hide('generalSpinner');
     }
 
     $scope.callbackUpdateSelectedProduct = function(data){
@@ -88,15 +95,17 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
       spinnerService.hide('generalSpinner');
       $location.path('/mylists');
       $scope.mylists();
+      swal(AlertService.newAlert('Updated selected product', 'lists updated correctly', 'success')).catch(swal.noop);
     }
 
     $scope.errorHandlerUpdateSelectedProduct = function(error){
       console.log("Selected product no actualizado");
       spinnerService.hide('generalSpinner');
+      swal(AlertService.newAlert('Error in update selected product', 'Problem: ' + error.data.errorMessage, 'error')).catch(swal.noop);
     }
 
     $scope.updateSelectedProduct = function(listId, selectedProductId, selectedProduct){
-        spinnerService.show('generalSpinner');
+      spinnerService.show('generalSpinner');
       ProductListService.updateSelectedProduct(UserService.getId(), listId, selectedProductId, {quantity:selectedProduct.quantity, productId:selectedProduct.id}).then( $scope.callbackUpdateSelectedProduct , $scope.errorHandlerUpdateSelectedProduct );
     }
 
@@ -106,18 +115,27 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
       });
     }
 
-    $scope.callbackDeleteList = function(data){
+    $scope.callbackDeleteListWithoutAlert = function(data){
       console.log("List deleted");
       $scope.deleteFromProductlist($scope.idtodelete);
       $scope.idtodelete = -1;
-      swal(AlertService.newAlert('Delete!', 'Your list has been deleted', 'success'));
+      spinnerService.hide('generalSpinner');
+    }
+
+    $scope.callbackDeleteList = function(data){
+      $scope.callbackDeleteListWithoutAlert(data);
+      swal(AlertService.newAlert('Delete!', 'Your list has been deleted', 'success')).catch(swal.noop);
+    }
+
+    $scope.errorDeleteListwithoutAlert = function(error){
+      console.log("List not deleted");
       spinnerService.hide('generalSpinner');
     }
 
     $scope.errorDeleteList = function(error){
-      console.log("List not deleted");
-      swal(AlertService.newAlert('Error deleting that list!', 'Your list has not been deleted.','error'));
-      spinnerService.hide('generalSpinner');
+      $scope.errorDeleteListwithoutAlert(error);
+      // swal(AlertService.newAlert('Error deleting that list!', 'Your list has not been deleted.','error'));
+      swal(AlertService.newAlert('Error in delete list', 'Problem: ' + error.data.errorMessage, 'error')).catch(swal.noop);
     }
 
     $scope.deleteList = function(listId){
@@ -130,38 +148,52 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
       spinnerService.hide('generalSpinner');
     };
 
+    $scope.deleteListWithoutAlert = function(listId){
+      spinnerService.show('generalSpinner');
+      $scope.idtodelete = listId;
+      ProductListService.deleteList(UserService.getId(), listId).then($scope.callbackDeleteListWithoutAlert, $scope.errorDeleteListwithoutAlert);
+      spinnerService.hide('generalSpinner');
+    };
+
     // ADDED FOR READY AND WAITING TIME USES IN PRODUCT LIST SELECTED
     $scope.callbackReady = function(response){
-      console.log(response);
       console.log("CALLBACK READY");
-      $scope.startCountdown(response.data.milliseconds);
+      console.log(response.data);
+      var wu = response.data;
+      ShopService.setId(wu.productlistId);
+      ShopService.setRegisterId(wu.registerId);
+      $scope.startCountdown(wu.duration.milliseconds);
+      swal(AlertService.newAlert('Waiting for list: ' + ShopService.getListName(), 'In register: ' + wu.registerId + ' for ' + wu.duration.milliseconds + ' seconds', 'success')).catch(swal.noop);
       spinnerService.hide('generalSpinner');
     }
 
     $scope.errorReady = function(error){
       console.log(error);
+      ShopService.setListName("");
+      swal(AlertService.newAlert('Error in ready', 'Problem: ' + error.data.errorMessage, 'error')).catch(swal.noop);
       spinnerService.hide('generalSpinner');
-      ShopService.setId(null);
     }
 
     $scope.startCountdown = function(ms){
       ShopService.countdown(ms);
     }
 
-    $scope.ready = function(listId){
+    $scope.ready = function(listId, name){
       spinnerService.show('generalSpinner');
-      ShopService.setId(listId);
+      ShopService.setListName(name);
       ProductListService.ready(UserService.getId(), listId).then($scope.callbackReady, $scope.errorReady);
     }
 
     $scope.callbackShop = function(data){
       console.log("lista comprada");
-      $scope.deleteList(ShopService.getListId());
+      $scope.deleteListWithoutAlert(ShopService.getListId());
+      swal(AlertService.newAlert('Bought list', 'List: ' + ShopService.getListName() + ' added to history', 'success')).catch(swal.noop);
       ShopService.resetTimer();
       spinnerService.hide('generalSpinner');
     }
     $scope.errorShop = function(error){
       console.log("lista no comprada");
+      swal(AlertService.newAlert('Error shopping list', 'Problem: ' + error.data.errorMessage, 'error')).catch(swal.noop);
       ShopService.resetTimer();
       spinnerService.hide('generalSpinner');
     }

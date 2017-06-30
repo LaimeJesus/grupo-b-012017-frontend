@@ -1,4 +1,4 @@
-mycontrollers.controller('LoginController', function($scope, $window, $location, UserService, spinnerService, $timeout){
+mycontrollers.controller('LoginController', function($scope, $window, $location, UserService, spinnerService, $timeout, AlertService){
 
     $scope.loginuser = {
         "username" : "",
@@ -31,15 +31,15 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
         console.log("Login Exitoso");
         console.log(response.data);
         $scope.saveUserData(response.data);
+        swal(AlertService.newAlert('User: ' + response.data.username, 'Logged correctly', 'success')).catch(swal.noop);
         $scope.reset();
         $location.path('/');
         spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandler = function(error){
-        console.log("Something Failed");
-        $scope.loginError = true;
-        $timeout(function () { $scope.loginError = false; }, 3000);
+        console.log(error);
+        swal(AlertService.newAlert('Error in login', 'Problem: ' + error.data.errorMessage, 'error')).catch(swal.noop);
         $scope.reset();
         spinnerService.hide('generalSpinner');
     };
@@ -56,10 +56,11 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
     $scope.errorHandlerLogWithMail = function(error){
         console.log("can not log with mail");
         console.log(error);
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
+        UserService.setIsloggedWithMail(false);
+        gapi.auth2.getAuthInstance().signOut().then(function () {
           console.log('User signed out.');
         });
+        swal(AlertService.newAlert('Error in login', 'Problem: ' + error.data.errorMessage, 'error'));
         spinnerService.hide('generalSpinner');
     };
 
@@ -82,6 +83,7 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
                 },
                 function(error){
                     console.log("cancel log with gmail");
+                    swal(AlertService.newAlert('Error in login', 'Problem: ' + error.data.errorMessage, 'error'));
                 }
             );
             spinnerService.hide('generalSpinner');

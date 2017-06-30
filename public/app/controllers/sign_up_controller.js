@@ -1,4 +1,4 @@
-mycontrollers.controller('SignUpController', function($scope, $location, UserService, spinnerService){
+mycontrollers.controller('SignUpController', function($scope, $location, UserService, spinnerService, AlertService){
 
   $scope.signupuser = {};
   $scope.signupuser.username = "";
@@ -24,14 +24,16 @@ mycontrollers.controller('SignUpController', function($scope, $location, UserSer
   }
 
   $scope.signcallback = function (response){
-    $scope.reset();
     spinnerService.hide('generalSpinner');
+    swal(AlertService.newAlert('User: ' + $scope.signupuser.username, 'Created correctly', 'success'));
+    $scope.reset();
     $location.path("/");
   };
 
   $scope.errorHandler = function (error){
-    $scope.reset();
     spinnerService.hide('generalSpinner');
+    swal(AlertService.newAlert('Error in signup', 'Problem: ' + error.data.getMessage, 'error'));
+    $scope.reset();
     $location.path("/");
   };
 
