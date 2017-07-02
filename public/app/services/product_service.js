@@ -49,5 +49,13 @@ myservices.factory('ProductService', ['$http', 'urlbase', function($http, urlbas
       })
     }
 
+    ProductAPI.createProduct = function(data){
+      return $http({
+        method: 'POST',
+        url: urlbase + 'products/',
+        data: data
+      })
+    }
+
     return ProductAPI;
   }]);

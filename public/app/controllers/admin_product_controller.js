@@ -1,4 +1,4 @@
-mycontrollers.controller('AdminProductController', function ($scope, ProductService, UserService, OfferService, spinnerService) {
+mycontrollers.controller('AdminProductController', function ($scope, ProductService, UserService, OfferService, spinnerService, AlertService) {
 
   $scope.product = {};
   $scope.categories = [];
@@ -9,7 +9,8 @@ mycontrollers.controller('AdminProductController', function ($scope, ProductServ
     $scope.product.category = "";
     $scope.product.stock = 0;
     $scope.product.imageUrl = "";
-    $scope.product.processingTime = 0;
+    $scope.product.processingTime = {};
+    $scope.product.processingTime.milliseconds = 0;
     $scope.product.price = {};
     $scope.product.price.integer = 0;
     $scope.product.price.decimal = 0;
@@ -21,14 +22,26 @@ mycontrollers.controller('AdminProductController', function ($scope, ProductServ
 
   $scope.callbackGeneric = function(response){
     console.log(response);
+    $scope.categories = response.data;
   };
 
   $scope.errorGeneric = function(error){
     console.log(error);
   };
 
+  $scope.callbackCreateProduct = function(response) {
+    spinnerService.hide('generalSpinner');
+    swal(AlertService.newAlert('Product Creation', 'Product created succesfully', 'success'));
+  };
+
+  $scope.errorHandlerCreateProduct = function(error) {
+    spinnerService.hide('generalSpinner');
+    swal(AlertService.newAlert('Product Creation', 'Problem: ' + error.data.getMessage, 'error'));
+  }
+
   $scope.create = function(){
-    ProductService.createProduct($scope.product).then($scope.callbackGeneric, $scope.errorGeneric);
+    spinnerService.show('generalSpinner');
+    ProductService.createProduct($scope.product).then($scope.callbackCreateProduct, $scope.errorHandlerCreateProduct);
   };
 
   $scope.upload = function(){

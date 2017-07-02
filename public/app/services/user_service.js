@@ -9,6 +9,18 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
         "role" : "NORMAL"
     };
 
+
+    // FIRST Product Id for RECOMMENDATION (SEED)
+    var lastProduct = 1;
+
+    UserAPI.getLastProduct = function() {
+      return lastProduct;
+    }
+
+    UserAPI.setLastProduct = function(productID) {
+      lastProduct = productID;
+    }
+
     UserAPI.reset = function(){
       user.username = "";
       user.logged = false;

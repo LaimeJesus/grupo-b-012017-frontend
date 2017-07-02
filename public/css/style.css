@@ -9,13 +9,13 @@
   padding: 0.2em 0;
 }
 
-/*body {
+body {
   background: url("../images/background-image.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}*/
+}
 
 .toRight {
   width: 700px ;
@@ -170,6 +170,10 @@ img {
 
 .ourGreen {
     color: #5cb85c;
+}
+
+label.form-group {
+  color: green;
 }
 
 .floatRight {

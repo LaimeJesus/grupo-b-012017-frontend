@@ -1,4 +1,4 @@
-mycontrollers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService, AlertService) {
+mycontrollers.controller('ProductController', function ($scope, ProductService, UserService, ProductListService, spinnerService, AlertService, RecommendationService) {
 
     $scope.products = [];
 
@@ -19,12 +19,6 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     $scope.callback = function (data) {
         console.log(data);
         $scope.products = data.data;
-        for (var i=0 ; i<data.data.length ; i++){
-          if ($scope.products[i].imageUrl === "no-image"){
-            // $scope.products[i].imageUrl = "../images/no-image-available.png"
-            $scope.products[i].imageUrl = "http://image.ibb.co/kaSNyQ/no_image_fixed.png";
-          }
-        }
         spinnerService.hide('generalSpinner');
     };
     $scope.errorHandler = function(error){
@@ -83,6 +77,8 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $scope.callbackAddProductToList = function(data) {
         console.log("PRODUCT ADDED TO LIST");
+        UserService.setLastProduct(data.data.id);
+        $scope.setRecommendation();
         swal(AlertService.newAlert('Added ' + $scope.selectedProduct.name, 'A product was added to: ' + $scope.selected.selectedList.name, 'success')).catch(swal.noop);
         $scope.resetSelectedProduct();
         spinnerService.hide('generalSpinner');
@@ -106,8 +102,23 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
             }).then( $scope.callbackAddProductToList , $scope.errorHandlerAddProductToList);
     };
 
+
+    $scope.callbackRecommendation = function(data) {
+        console.log(data.data);
+    };
+
+    $scope.errorHandlerRecommendation = function(error) {
+        console.log(error);
+    };
+
+    $scope.setRecommendation = function() {
+        RecommendationService.getRecommendation(UserService.getLastProduct()).then($scope.callbackRecommendation, $scope.errorHandlerRecommendation);
+    };
+
+
     $scope.getProducts();
-    $scope.getLists()
+    $scope.getLists();
+    $scope.setRecommendation();
 
     ///////////////////////////////////////////////////////////////////////////
     //PAGINATION
