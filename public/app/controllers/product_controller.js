@@ -8,6 +8,10 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     $scope.selected.selectedList = {};
     $scope.selected.quantity = 1;
 
+    $scope.recommendation_first = "";
+    $scope.recommendation_second = "";
+    $scope.recommendation_third = "";
+
     $scope.someoneLogged = function () {
         return UserService.islogged();
     };
@@ -76,8 +80,7 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     };
 
     $scope.callbackAddProductToList = function(data) {
-        console.log("PRODUCT ADDED TO LIST");
-        UserService.setLastProduct(data.data.id);
+        UserService.setLastProduct($scope.selectedProduct.id);
         $scope.setRecommendation();
         swal(AlertService.newAlert('Added ' + $scope.selectedProduct.name, 'A product was added to: ' + $scope.selected.selectedList.name, 'success')).catch(swal.noop);
         $scope.resetSelectedProduct();
@@ -85,7 +88,6 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     };
 
     $scope.errorHandlerAddProductToList = function(error) {
-        console.log("PRODUCT NOT ADDED TO LIST");
         swal(AlertService.newAlert('Error adding ' + $scope.selectedProduct.name, 'A product was not added to: ' + $scope.selected.selectedList.name, 'error')).catch(swal.noop);
         $scope.resetSelectedProduct();
         spinnerService.hide('generalSpinner');
@@ -105,6 +107,9 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $scope.callbackRecommendation = function(data) {
         console.log(data.data);
+        $scope.recommendation_first = data.data[0].imageUrl;
+        $scope.recommendation_second = data.data[1].imageUrl;
+        $scope.recommendation_third = data.data[2].imageUrl;
     };
 
     $scope.errorHandlerRecommendation = function(error) {
