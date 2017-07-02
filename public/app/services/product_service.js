@@ -45,17 +45,39 @@ myservices.factory('ProductService', ['$http', 'urlbase', function($http, urlbas
       return $http({
         method: 'PUT',
         url: urlbase + 'products/upload',
-        data: file
-      })
+        data: file,
+        headers: {
+          'Content-Type' : 'multipart/form-data'
+        }
+      });
     }
 
     ProductAPI.createProduct = function(data){
       return $http({
         method: 'POST',
         url: urlbase + 'products/',
-        data: data
-      })
+        data: data,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
+    ProductAPI.updateProduct = function(id, product){
+      return $http({
+        method: 'PUT',
+        url: urlbase + 'products/' + id,
+        data: product,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    }
+    ProductAPI.deleteProduct = function(id){
+      return $http({
+        method: 'DELETE',
+        url: urlbase + 'products/' + id
+      });
+    }
     return ProductAPI;
   }]);

@@ -27,20 +27,26 @@ app.config(['$translateProvider' , function ($translateProvider) {
       "close" : "Cerrar",
       "open" : "Abrir",
       "update" : "Actualizar",
-      "loginfo" : "Ingresa para ver mas info"
+      "loginfo" : "Ingresa para ver mas info",
+      "adminProducts" : "Administrar Productos",
+      "delete" : "Eliminar"
     },
       "products" : {
         "name" : "Nombre",
         "brand" : "Marca",
         "buy" : "Comprar",
         "price" : "Precio",
+        "integer" : "Parte entera",
+        "decimal" : "Parte decimal",
         "category" : "Categoria",
         "addtolist" : "Agregar a la lista",
         "list" : "Lista",
         "quantity" : "Cantidad",
         "details" : "Ver detalles",
-        "create" : "Crear Productos",
-        "upload" : "Cargar Products"
+        "create" : "Crear Producto",
+        "update" : "Actualizar Producto",
+        "upload" : "Cargar Productos",
+        "processingTime" : "Tiempo de proceso en ms"
      },
      "productlist" : {
        "createlist" : "Crear una lista nueva",
@@ -102,18 +108,23 @@ app.config(['$translateProvider' , function ($translateProvider) {
         "ready" : "Ready to buy",
         "createproduct" : "Create Product",
         "registers" : "Cash Registers"
-    },
+      },
      "products" : {
         "name" : "Name",
         "brand" : "Brand",
         "buy" : "Buy",
         "price" : "Price",
+        "integer" : "Integer Part",
+        "decimal" : "Decimal Part",
         "category" : "Category",
         "addtolist" : "Add to list",
         "list" : "List",
         "quantity" : "Quantity",
         "details" : "See details",
-        "upload" : "Upload Products"
+        "processingTime" : "Processing time in ms",
+        "upload" : "Upload Products",
+        "create" : "Create Product",
+        "update" : "Update Product"
       },
       "productlist" : {
         "createlist" : "Create New List",
@@ -139,7 +150,9 @@ app.config(['$translateProvider' , function ($translateProvider) {
         "close" : "Close",
         "open" : "Open",
         "update" : "Update",
-        "loginfo" : "Log in to see more info"
+        "loginfo" : "Log in to see more info",
+        "adminProducts" : "Admin Products",
+        "delete" : "Delete"
       },
       "user" : {
         "username" : "Username",

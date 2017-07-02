@@ -1,85 +1,211 @@
-<div class="container">
+<div class="container-fluid">
   <div class="omb_login">
-    <h3 class="omb_authTitle">{{'products.create' | translate}} {{'navbar.title' | translate}}</h3>
-    <div class="row omb_row-sm-offset-3">
-      <div class="col-xs-12 col-sm-6">
-          <form class="omb_loginForm" ng-submit="create()">
-
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>Nombre del producto</h2></label>
-            <input type="text" class="form-control" placeholder="{{'products.name' | translate}}" ng-model="product.name" required>
-          </div>
-
-          <span class="help-block"></span>
-
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>Marca del producto</h2></label>
-            <input type="text" class="form-control" placeholder="{{'products.brand' | translate}}" ng-model="product.brand" required>
-          </div>
-
-          <span class="help-block"></span>
-
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>Categoria del producto</h2></label>
-            <select class="form-control" name="category" ng-model="product.category" required>
-              <option ng-repeat="category in categories" value="{{category.name}}">{{category.name}}</option>
-            </select>
-          </div>
-
-          <span class="help-block"></span>
-
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>Stock del producto</h2></label>
-            <input class="form-control input-group" type="number" value="1" ng-model="product.stock" min="1" required>
-          </div>
-
-          <span class="help-block"></span>
-
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>URL de la imagen del producto</h2></label>
-            <input type="text" class="form-control" placeholder="url" ng-model="product.url">
-          </div>
-
-          <span class="help-block"></span>
-
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>Tiempo de procesamiento en caja</h2></label>  
-            <input class="form-control input-group" type="number" value="0" ng-model="product.processingTime.milliseconds" min="0" required>
-          </div>
-
-          <span class="help-block"></span>
-
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>Parte entera del precio</h2></label>  
-            <input class="form-control input-group" type="number" placeholder="integer" value="0" ng-model="product.price.integer" min="0" required>
-          </div>
-          
-          <span class="help-block"></span>
-
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>Parte deciaml del precio</h2></label>    
-            <input class="form-control input-group" type="number" placeholder="decimal" value="0" ng-model="product.price.decimal" min="0" required>
-          </div>
-
-          <span class="help-block"></span>
-
-          <button class="btn btn-lg btn-primary btn-block" type="submit">{{'products.create' | translate}}</button>
-  
-          
-          <span class="help-block"></span>
-          <span class="help-block"></span>
-          <span class="help-block"></span>
-        
-        
-          <div class="form-group">
-            <label class="btn-outline-sucess ourGreen"><h2>Cargar archivos batch</h2></label>    
-            <input class="form-control input-group" type="file">
-            <button ng-click="upload()">Upload</button>
-          </div>
-
-        </form>
-      </div>
-
-    </div>
+    <h3 class="omb_authTitle">{{'general.adminProducts' | translate}} {{'navbar.title' | translate}}</h3>
+  <div class="row">
+   <div class="table-responsive">
+     <table class="table table-hover table-inverse table-striped">
+         <thead>
+         <tr>
+             <th></th>
+             <th>id</th>
+             <th>{{'products.name' | translate}}</th>
+             <th>{{'products.brand' | translate}}</th>
+             <th>Stock</th>
+             <th>{{'products.price' | translate}}</th>
+             <th>{{'products.category' | translate}}</th>
+             <th>{{'products.processingTime' | translate}}</th>
+             <th>url</th>
+         </tr>
+         </thead>
+         <tbody>
+         <tr data-ng-repeat="product in products">
+             <th scope="row"></th>
+             <td>{{product.id}}</td>
+             <td>{{product.name}}</td>
+             <td>{{product.brand}}</td>
+             <td>{{product.stock}}</td>
+             <td>{{product.processingTime.milliseconds}}</td>
+             <td>{{product.category}}</td>
+             <td>{{product.price.integer}}{{product.price.decimal}}</td>
+             <td>{{product.imageUrl}}</td>
+             <td>
+                 <button type="button" class="btn btn-success floatRight" data-toggle="modal" data-target="#modalUpdateProduct" data-ng-click="updateProduct(product)">
+                     <span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> {{'general.update' | translate}}
+                 </button>
+                 <button type="button" class="btn btn-danger floatRight" data-ng-click="delete(product.id)">
+                     <span><i class="fa fa-trash-o" aria-hidden="true"></i></span> {{'general.delete' | translate}}
+                 </button>
+             </td>
+         </tr>
+         </tbody>
+     </table>
+   </div>
+ </div>
+ </div>
+    <span class="help-block"></span>
+ <hr>
+ <div class="row">
+     <div>
+         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreateProduct" ng-click="updateAdminProduct()">{{'navbar.createproduct' | translate}}</button>
+     </div>
+ </div>
+ <span class="help-block"></span>
+ <hr>
+  <div class="row">
+    <!-- <label class="btn-outline-sucess ourGreen"><h2>{{'products.upload' | translate}}</h2></label> -->
+    <input name="file" id="file" type="file">
+    <button ng-click="upload()">Upload</button>
   </div>
+</div>
+
+<div class="modal fade" id="modalCreateProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header btn-primary">
+                <h5 class="modal-title">{{'products.create' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+              <form name="createProductForm">
+                <div class="form-group">
+                  <label class="btn-outline-sucess ourGreen"><h2>{{'products.name' | translate}}</h2></label>
+                  <input type="text" class="form-control" placeholder="{{'products.name' | translate}}" ng-model="adminProduct.name" ng-minlength="1" ng-maxlength="30" required>
+                </div>
+
+              <span class="help-block"></span>
+
+                <div class="form-group">
+                  <label class="btn-outline-sucess ourGreen"><h2>{{'products.brand' | translate}}</h2></label>
+                  <input type="text" class="form-control" placeholder="{{'products.brand' | translate}}" ng-model="adminProduct.brand" ng-minlength="1" ng-maxlength="30" required>
+                </div>
+
+              <span class="help-block"></span>
+
+                <div class="form-group">
+                  <label class="btn-outline-sucess ourGreen"><h2>{{'products.category' | translate}}</h2></label>
+                  <select class="form-control" ng-model="adminProduct.category" ng-options="category for category in categories" required></select>
+                </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>stock</h2></label>
+                <input class="form-control input-group" type="number" value="1" step="1" ng-model="adminProduct.stock" min="1" required>
+              </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>url</h2></label>
+                <input type="text" class="form-control" placeholder="url" ng-model="adminProduct.imageUrl">
+              </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>{{'products.processingTime' | translate}}</h2></label>
+                <input class="form-control input-group" type="number" value="0" ng-model="adminProduct.processingTime.milliseconds" min="0" required>
+              </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>{{'products.integer' | translate}}</h2></label>
+                <input class="form-control input-group" type="number" step="1" placeholder="integer" value="0" ng-model="adminProduct.price.integer" min="0" required>
+              </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>{{'products.decimal' | translate}}</h2></label>
+                <input class="form-control input-group" type="number" step="1" placeholder="decimal" value="0" ng-model="adminProduct.price.decimal" min="0" required>
+              </div>
+
+              <span class="help-block"></span>
+              <button type="submit" ng-disabled="createProductForm.$invalid" class="btn btn-primary" data-dismiss="modal" ng-click="create()">{{'navbar.createproduct' | translate}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.cancel' | translate}}</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header btn-primary">
+                <h5 class="modal-title">{{'products.update' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+              <form name="updateProductForm">
+                <div class="form-group">
+                  <label class="btn-outline-sucess ourGreen"><h2>{{'products.name' | translate}}</h2></label>
+                  <input type="text" class="form-control" placeholder="{{'products.name' | translate}}" ng-model="adminProduct.name" ng-minlength="1" ng-maxlength="30" required>
+                </div>
+
+              <span class="help-block"></span>
+
+                <div class="form-group">
+                  <label class="btn-outline-sucess ourGreen"><h2>{{'products.brand' | translate}}</h2></label>
+                  <input type="text" class="form-control" placeholder="{{'products.brand' | translate}}" ng-model="adminProduct.brand" ng-minlength="1" ng-maxlength="30" required>
+                </div>
+
+              <span class="help-block"></span>
+
+                <div class="form-group">
+                  <label class="btn-outline-sucess ourGreen"><h2>{{'products.category' | translate}}</h2></label>
+                  <select class="form-control" value="adminProduct.category" ng-model="adminProduct.category" ng-options="category for category in categories" required></select>
+                </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>stock</h2></label>
+                <input class="form-control input-group" type="number" value="adminProduct.stock" step="1" ng-model="adminProduct.stock" min="1" required>
+              </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>url</h2></label>
+                <input type="text" class="form-control" placeholder="url" ng-model="adminProduct.imageUrl">
+              </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>{{'products.processingTime' | translate}}</h2></label>
+                <input class="form-control input-group" type="number" value="adminProduct.processingTime.milliseconds" step="1" ng-model="adminProduct.processingTime.milliseconds" min="0" required>
+              </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>{{'products.integer' | translate}}</h2></label>
+                <input class="form-control input-group" type="number" placeholder="integer" step="1" value="adminProduct.price.integer" ng-model="adminProduct.price.integer" min="0" required>
+              </div>
+
+              <span class="help-block"></span>
+
+              <div class="form-group">
+                <label class="btn-outline-sucess ourGreen"><h2>{{'products.decimal' | translate}}</h2></label>
+                <input class="form-control input-group" type="number" placeholder="decimal" step="1" value="adminProduct.price.decimal" ng-model="adminProduct.price.decimal" min="0" required>
+              </div>
+
+              <span class="help-block"></span>
+              <button type="submit" class="btn btn-primary" ng-disabled="updateProductForm.$invalid" data-dismiss="modal" data-ng-click="update()">{{'products.update' | translate}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{'general.cancel' | translate}}</button>
+            </form>
+            </div>
+        </div>
+    </div>
 </div>

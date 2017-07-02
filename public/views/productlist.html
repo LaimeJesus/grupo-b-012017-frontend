@@ -104,7 +104,7 @@
                                 <td>{{selectedProduct.product.name}}</td>
                                 <td>
                                   <div class="form-group row">
-                                      <input class="form-control" type="number" value="{{selectedProduct.quantity}}" ng-model="selectedProduct.quantity" min="1" max="{{selectedProduct.stock}}">
+                                      <input class="form-control" type="number" value="{{selectedProduct.quantity}}" ng-model="selectedProduct.quantity" step="1" min="1" max="{{selectedProduct.stock}}">
                                   </div>
                                 </td>
                                 <!-- <td>{{selectedProduct.price.integer | date:'shortTime'}}</td> -->

@@ -32,7 +32,7 @@
 </div>
 
 <div class="footer" ng-controller="FooterController">
-  <div ng-include src="'views/recommendation_carrousel.html'"></div>  
+  <div ng-include src="'views/recommendation_carrousel.html'"></div>
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -80,7 +80,7 @@
                 <div class="form-group">
                   <dl class="dl-horizontal">
                     <dt>{{'products.quantity' | translate}}</dt>
-                    <dd><input class="form-control input-group" type="number" value="1" ng-model="selected.quantity" min="1" max="selectedProduct.stock"></dd>
+                    <dd><input class="form-control input-group" type="number" value="1" ng-model="selected.quantity" step="1" min="1" max="selectedProduct.stock"></dd>
                   </dl>
                 </div>
               </div>
