@@ -72,6 +72,7 @@
             </form>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li data-ng-show="someoneLogged()" ng-model="userOnline"></li>
             <li><a href="/" data-toggle="collapse" data-target="#mynavbar-collapse">{{'navbar.products' | translate}}</a></li>
             <li><a href="offers" data-toggle="collapse" data-target="#mynavbar-collapse">{{'navbar.offers' | translate}}</a></li>
             <li data-ng-hide="someoneLogged()" data-toggle="collapse" data-target="#mynavbar-collapse"><a href="login">{{'navbar.login' | translate}}</a></li>

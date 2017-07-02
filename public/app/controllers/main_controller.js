@@ -3,6 +3,9 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
     $scope.shopping.seconds = 0;
     $scope.shopping.listId = false;
 
+    $scope.userOnline = "";
+    $scope.userOnline = UserService.getUsername();
+
     $scope.someoneLogged = function () {
         return UserService.islogged();
     };
