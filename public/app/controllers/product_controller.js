@@ -107,9 +107,15 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $scope.callbackRecommendation = function(data) {
         console.log(data.data);
-        $scope.recommendation_first = data.data[0].imageUrl;
-        $scope.recommendation_second = data.data[1].imageUrl;
-        $scope.recommendation_third = data.data[2].imageUrl;
+        if(data.data.length > 2){
+          $scope.recommendation_first = data.data[0].imageUrl;
+          $scope.recommendation_second = data.data[1].imageUrl;
+          $scope.recommendation_third = data.data[2].imageUrl;
+        }else{
+          $scope.recommendation_first = 'http://image.ibb.co/gvV9Ka/No_Image_Available.jpg';
+          $scope.recommendation_second = 'http://image.ibb.co/gvV9Ka/No_Image_Available.jpg';
+          $scope.recommendation_third = 'http://image.ibb.co/gvV9Ka/No_Image_Available.jpg';
+        }
     };
 
     $scope.errorHandlerRecommendation = function(error) {
