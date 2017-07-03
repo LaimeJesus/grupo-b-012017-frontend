@@ -9,7 +9,7 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
         "role" : "NORMAL"
     };
 
-
+    var isShopping = false;
     // FIRST Product Id for RECOMMENDATION (SEED)
     var lastProduct = 1;
 
@@ -20,6 +20,14 @@ myservices.factory('UserService', ['$http','urlbase', function($http, urlbase) {
     UserAPI.setLastProduct = function(productID) {
       lastProduct = productID;
     }
+
+    UserAPI.isShopping = function(){
+      return isShopping;
+    };
+
+    UserAPI.setIsShopping = function(bool){
+      isShopping = bool;
+    };
 
     UserAPI.reset = function(){
       user.username = "";
