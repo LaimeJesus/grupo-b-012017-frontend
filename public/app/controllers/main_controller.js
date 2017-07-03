@@ -25,11 +25,11 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
             console.log('User signed out.');
           });
         }
-        if(UserService.isShopping()){
-          clearInterval($scope.timerId);
-          $scope.timerId = null;
-          UserService.setIsShopping(false);
-        };
+        // if(UserService.isShopping()){
+        //   clearInterval($scope.timerId);
+        //   $scope.timerId = null;
+        //   UserService.setIsShopping(false);
+        // };
 
         console.log("IS SIGNED IN " + gapi.auth2.getAuthInstance().isSignedIn.get());
         swal(AlertService.newAlert('Desloging correctly ', 'User: ' + UserService.getUsername(), 'success')).catch(swal.noop);
@@ -70,22 +70,22 @@ mycontrollers.controller('MainController', function ($scope, $location, UserServ
       spinnerService.hide('generalSpinner');
     };
 
-    $scope.timerId = null;
+    // $scope.timerId = null;
 
     $scope.$on('start', function(event, ms){
       var seconds = Math.ceil(ms / 1000);
       $scope.shopping.seconds = seconds;
       $scope.shopping.listId = ShopService.getListId();
 
-      UserService.setIsShopping(true);
+      // UserService.setIsShopping(true);
 
       console.log("waiting" + seconds);
       var defer = $q.defer();
       defer.promise.then($scope.callbackPuedeComprar, $scope.errorPuedeComprar);
-      $scope.timerId = setInterval(function() {
+      var timerId = setInterval(function() {
         $scope.$apply();
         if (seconds === 0) {
-              clearInterval($scope.timerId);
+              clearInterval(timerId);
               defer.resolve();
           }
           seconds--;
