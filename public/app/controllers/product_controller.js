@@ -8,6 +8,22 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     $scope.selected.selectedList = {};
     $scope.selected.quantity = 1;
 
+    $scope.myInterval = 5000;
+    $scope.noWrapSlides = false;
+    $scope.active = 0;
+    var slides = $scope.slides = [];
+
+    $scope.addRecommendations = function( products ) {
+        slides = $scope.slides = [];
+        for (var i = 0 ; i<products.length ; i++) {
+            slides.push({
+                image: products[i].imageUrl,
+                text: [products[i].name + ' ' + products[i].brand,'Buy now'][slides.length % 4],
+                id: i
+            });
+        }
+    };
+
     $scope.recommendation_first = "";
     $scope.recommendation_second = "";
     $scope.recommendation_third = "";
@@ -107,15 +123,7 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
 
     $scope.callbackRecommendation = function(data) {
         console.log(data.data);
-        if(data.data.length > 2){
-          $scope.recommendation_first = data.data[0].imageUrl;
-          $scope.recommendation_second = data.data[1].imageUrl;
-          $scope.recommendation_third = data.data[2].imageUrl;
-        }else{
-          $scope.recommendation_first = 'http://image.ibb.co/gvV9Ka/No_Image_Available.jpg';
-          $scope.recommendation_second = 'http://image.ibb.co/gvV9Ka/No_Image_Available.jpg';
-          $scope.recommendation_third = 'http://image.ibb.co/gvV9Ka/No_Image_Available.jpg';
-        }
+        $scope.addRecommendations(data.data);
     };
 
     $scope.errorHandlerRecommendation = function(error) {

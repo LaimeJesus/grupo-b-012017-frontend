@@ -1,4 +1,4 @@
-mycontrollers.controller('HomeOfferController', function($scope , OfferService, spinnerService){
+mycontrollers.controller('HomeOfferController', function($scope , OfferService, spinnerService, AlertService){
 
     $scope.offer = {};
     $scope.offer.startDate = "";
@@ -11,15 +11,15 @@ mycontrollers.controller('HomeOfferController', function($scope , OfferService, 
     $scope.offers = [];
 
     $scope.isCategory = function() {
-        return $scope.offer.type === "Category Offer";
+        return $scope.offer.type === "Category Offer" || $scope.offer.type === "Oferta por categoria" ;
     };
 
     $scope.isCrossing = function() {
-        return $scope.offer.type === "Crossing Offer";
+        return $scope.offer.type === "Crossing Offer" || $scope.offer.type === "Oferta tipo 2x1";
     };
 
     $scope.isCombination = function() {
-        return $scope.offer.type === "Combination Offer";
+        return $scope.offer.type === "Combination Offer" || $scope.offer.type === "Oferta por combinacion";
     };
 
     $scope.getType = function (offer) {
@@ -75,6 +75,7 @@ mycontrollers.controller('HomeOfferController', function($scope , OfferService, 
     $scope.callbackNewOffer = function (response) {
         console.log("Category Offer created succesfully");
         console.log(response);
+        swal(AlertService.newAlert('Offer creation: ' + $scope.offer.type, 'Created correctly', 'success'));
         $scope.resetCreateOffer();
         spinnerService.hide('generalSpinner');
     }
@@ -82,6 +83,7 @@ mycontrollers.controller('HomeOfferController', function($scope , OfferService, 
     $scope.errorHandlerNewOffer = function(error) {
         console.log("Category Offer created failed");
         console.log(error);
+        swal(AlertService.newAlert('Offer creation', 'Problem: ' + error.data.getMessage, 'error'));
         $scope.resetCreateOffer();
         spinnerService.hide('generalSpinner');
     };
