@@ -46,12 +46,12 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
 
   $scope.errorHandler = function(error){
     console.log("profile error");
-      spinnerService.hide('generalSpinner');
+    spinnerService.hide('generalSpinner');
   };
 
   $scope.getUser = function(){
-      spinnerService.show('generalSpinner');
-      UserService.getUser(UserService.getId()).then($scope.callbackProfile, $scope.errorHandler);
+    spinnerService.show('generalSpinner');
+    UserService.getUser(UserService.getId()).then($scope.callbackProfile, $scope.errorHandler);
   };
 
   $scope.callbackSetPicture = function(response){
