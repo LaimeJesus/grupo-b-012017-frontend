@@ -14,8 +14,6 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
   $scope.changePassword = {};
   $scope.resetChangePassword();
 
-
-
   $scope.callbackProfile = function(response){
     console.log("profile loaded");
     console.log(response.data);
@@ -78,7 +76,6 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
   };
 
   $scope.checkChangedPassword = function(){
-    //$scope.profile.password.password !== $scope.changePassword.oldpassword &&
     return $scope.changePassword.oldpassword !== $scope.changePassword.newpassword;
   };
 
@@ -94,8 +91,8 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
     spinnerService.hide('generalSpinner');
   }
 
-  $scope.changePassword = function(newPassword){
-    UserService.changePassword(UserService.getId(), newPassword).then($scope.callbackChangePassword, $scope.errorChangePassword);
+  $scope.changePasswordMethod = function(newPassword){
+    UserService.changePassword(UserService.getId(), $scope.changePassword).then($scope.callbackChangePassword, $scope.errorChangePassword);
   };
 
   $scope.getUser();

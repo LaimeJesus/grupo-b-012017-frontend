@@ -80,22 +80,22 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3>Change password</h3>
+            <h3>{{'user.changePassword' | translate}}</h3>
           </div>
           <form>
             <div class="modal-body">
               <div class="form-group">
-                <label>Old password</label>
-                <input type="password" name="oldusername" class="form-control" ng-model="changePassword.oldpassword" placeholder="Old Password">
+                <label>{{'user.oldpassword' | translate}}</label>
+                <input type="password" name="oldusername" class="form-control" ng-model="changePassword.oldpassword" placeholder="Old Password" required>
               </div>
               <div class="form-group">
-                <label>New password</label>
-                <input type="password" name="newpassword" class="form-control" ng-model="changePassword.newpassword" placeholder="New Password">
+                <label>{{'user.newpassword' | translate}}</label>
+                <input type="password" name="newpassword" class="form-control" ng-model="changePassword.newpassword" placeholder="New Password" required>
               </div>
             </div>
             <div class="modal-footer">
-              <input type="submit" class="btn primary-btn" value="Choose" data-dismiss="modal" ng-disabled="!checkChangedPassword()" data-ng-click="changePassword(changePassword.newpassword)"/>
-              <button class="btn btn-warning" type="button" data-dismiss="modal">Cancel</button>
+              <input type="submit" class="btn primary-btn" value="Choose" data-dismiss="modal" ng-disabled="!checkChangedPassword()" data-ng-click="changePasswordMethod(changePassword)"/>
+              <button class="btn btn-warning" type="button" data-dismiss="modal">{{'general.cancel' | translate}}</button>
             </div>
           </form>
       </div>
