@@ -71,7 +71,9 @@ app.config(['$translateProvider' , function ($translateProvider) {
        "changePassword" : "Cambiar Contraseña",
        "changeProfileImage" : "Cambiar Imagen de Perfil",
        "paymentDate" : "Fecha de Pago",
-       "address" : "Direccion"
+       "address" : "Direccion",
+       "oldpassword" : "Password Vieja",
+       "newpassword" : "Password Nueva"
      },
      "offerCreation" : {
        "initialDate" : "Fecha inicial",
@@ -162,7 +164,9 @@ app.config(['$translateProvider' , function ($translateProvider) {
         "changePassword" : "Change Password",
         "changeProfileImage" : "Change profile image",
         "paymentDate" : "Payment Date",
-        "address" : "Address"
+        "address" : "Address",
+        "oldpassword" : "Old Password",
+        "newpassword" : "New Password"
       },
       "offerCreation" : {
         "initialDate" : "Initial Date",
