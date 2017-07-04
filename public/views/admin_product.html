@@ -26,11 +26,11 @@
              <td>{{product.stock}}</td>
              <td>{{product.processingTime.milliseconds}}</td>
              <td>{{product.category}}</td>
-             <td>{{product.price.integer}}{{product.price.decimal}}</td>
+             <td>{{product.price | price}}</td>
              <td>{{product.imageUrl}}</td>
              <td>
                  <button type="button" class="btn btn-success floatRight" data-toggle="modal" data-target="#modalUpdateProduct" data-ng-click="updateProduct(product)">
-                     <span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> {{'general.update' | translate}}
+                     <span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> {{'general.edit' | translate}}
                  </button>
                  <button type="button" class="btn btn-danger floatRight" data-ng-click="delete(product.id)">
                      <span><i class="fa fa-trash-o" aria-hidden="true"></i></span> {{'general.delete' | translate}}
@@ -53,8 +53,8 @@
  <hr>
   <div class="row">
     <!-- <label class="btn-outline-sucess ourGreen"><h2>{{'products.upload' | translate}}</h2></label> -->
-    <input name="file" id="file" type="file">
-    <button ng-click="upload()">Upload</button>
+    <input id="file" type="file">
+    <button ng-click="upload()">{{'products.upload' | translate}}</button>
   </div>
 </div>
 
@@ -93,14 +93,14 @@
               <span class="help-block"></span>
 
               <div class="form-group">
-                <label class="btn-outline-sucess ourGreen"><h2>stock</h2></label>
+                <label class="btn-outline-sucess ourGreen"><h2>Stock</h2></label>
                 <input class="form-control input-group" type="number" value="1" step="1" ng-model="adminProduct.stock" min="1" required>
               </div>
 
               <span class="help-block"></span>
 
               <div class="form-group">
-                <label class="btn-outline-sucess ourGreen"><h2>url</h2></label>
+                <label class="btn-outline-sucess ourGreen"><h2>Url</h2></label>
                 <input type="text" class="form-control" placeholder="url" ng-model="adminProduct.imageUrl">
               </div>
 
@@ -169,14 +169,14 @@
               <span class="help-block"></span>
 
               <div class="form-group">
-                <label class="btn-outline-sucess ourGreen"><h2>stock</h2></label>
+                <label class="btn-outline-sucess ourGreen"><h2>Stock</h2></label>
                 <input class="form-control input-group" type="number" value="adminProduct.stock" step="1" ng-model="adminProduct.stock" min="1" required>
               </div>
 
               <span class="help-block"></span>
 
               <div class="form-group">
-                <label class="btn-outline-sucess ourGreen"><h2>url</h2></label>
+                <label class="btn-outline-sucess ourGreen"><h2>Url</h2></label>
                 <input type="text" class="form-control" placeholder="url" ng-model="adminProduct.imageUrl">
               </div>
 

@@ -18,11 +18,11 @@
                     <td>{{profile.email}}</td>
                   </tr>
                   <tr>
-                    <td>Home Address:</td>
+                    <td>{{'user.address'}}:</td>
                     <td>{{profile.profile.address.address}}</td>
                   </tr>
                   <tr>
-                    <td>Change Password:</td>
+                    <td>{{'user.changePassword' | translate}}:</td>
                     <td>
                       <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#changePasswordModal">Change Password</button>
                     </td>
@@ -40,13 +40,15 @@
               <tr>
                   <th scope="row"></th>
                   <th>{{'productlist.listname' | translate}}</th>
+                  <th>{{'general.totalcost' | translate}}
                   <th>{{'user.paymentDate' | translate}}</th>
               </tr>
               </thead>
               <tbody>
                 <tr data-ng-repeat="purchase in records" data-toggle="modal" data-target="#detailProductList">
                     <td scope="row"></td>
-                    <td> {{purchase.purchaselist.name}} </td>
+                    <td> {{purchase.name}} </td>
+                    <td> {{purchase.totalAmount | price}}</td>
                     <td> {{purchase.purchasedate | date:'medium'}} </td>
                 </tr>
               </tbody>
@@ -60,18 +62,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3>Change profile picture</h3>
+            <h3>{{'user.changeProfileImage' | translate}}</h3>
           </div>
           <form>
             <div class="modal-body">
               <div class="form-group">
-                <label>Image URL</label>
+                <label>{{'user.imageurl' | translate}}</label>
                 <input type="text" name="username" class="form-control" ng-model="pictureChoosen" placeholder="url">
               </div>
             </div>
             <div class="modal-footer">
               <input type="submit" class="btn primary-btn" value="Choose" data-dismiss="modal" ng-disabled="pictureChoose()" data-ng-click="setProfilePicture(pictureChoosen)"/>
-              <button class="btn btn-warning" type="button" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-warning" type="button" data-dismiss="modal">{{'general.cancel' | translate}}</button>
             </div>
           </form>
       </div>

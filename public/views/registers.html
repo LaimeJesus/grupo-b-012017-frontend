@@ -4,7 +4,7 @@
      <table class="table table-hover table-inverse table-striped">
          <thead>
          <tr>
-             <th></th>
+             <th scope="row"></th>
              <th>id</th>
              <th>{{'register.size' | translate}}</th>
              <th>{{'register.waiting_time' | translate}}</th>
@@ -13,7 +13,7 @@
          </thead>
          <tbody>
          <tr data-ng-repeat="register in registers">
-             <th scope="row"></th>
+             <td scope="row"></td>
              <td>{{register.id}}</td>
              <td>{{register.size}}</td>
              <td>{{register.waiting_time.milliseconds}}</td>

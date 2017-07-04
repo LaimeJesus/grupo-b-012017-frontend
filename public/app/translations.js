@@ -29,7 +29,12 @@ app.config(['$translateProvider' , function ($translateProvider) {
       "update" : "Actualizar",
       "loginfo" : "Ingresa para ver mas info",
       "adminProducts" : "Administrar Productos",
-      "delete" : "Eliminar"
+      "delete" : "Eliminar",
+      "edit" : "Editar",
+      "totalcost" : "Costo total",
+      "recommendations_availables" : "Algunos usuarios que compraron",
+      "bought" : "Tambien compraron",
+      "recommendations_not_availables" : "No hay recomendaciones para"
     },
       "products" : {
         "name" : "Nombre",
@@ -73,7 +78,8 @@ app.config(['$translateProvider' , function ($translateProvider) {
        "paymentDate" : "Fecha de Pago",
        "address" : "Direccion",
        "oldpassword" : "Password Vieja",
-       "newpassword" : "Password Nueva"
+       "newpassword" : "Password Nueva",
+       "imageurl" : "Url de la imagen"
      },
      "offerCreation" : {
        "initialDate" : "Fecha inicial",
@@ -154,7 +160,12 @@ app.config(['$translateProvider' , function ($translateProvider) {
         "update" : "Update",
         "loginfo" : "Log in to see more info",
         "adminProducts" : "Admin Products",
-        "delete" : "Delete"
+        "delete" : "Delete",
+        "edit" : "Edit",
+        "totalcost" : "Total Cost",
+        "recommendations_availables" : "Some users that bought",
+        "bought" : "Also bought",
+        "recommendations_not_availables" : "No recommendations available for"
       },
       "user" : {
         "username" : "Username",
@@ -166,7 +177,8 @@ app.config(['$translateProvider' , function ($translateProvider) {
         "paymentDate" : "Payment Date",
         "address" : "Address",
         "oldpassword" : "Old Password",
-        "newpassword" : "New Password"
+        "newpassword" : "New Password",
+        "imageurl" : "Url Image"
       },
       "offerCreation" : {
         "initialDate" : "Initial Date",

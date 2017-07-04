@@ -143,8 +143,8 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
       var wu = response.data;
       ShopService.setId(wu.productlistId);
       ShopService.setRegisterId(wu.registerId);
-      $scope.startCountdown(wu.duration.milliseconds);
-      swal(AlertService.newAlert('Waiting for list: ' + ShopService.getListName(), 'In register: ' + wu.registerId + ' for ' + wu.duration.milliseconds + ' seconds', 'success')).catch(swal.noop);
+      ShopService.countdown(wu.duration.milliseconds);
+      swal(AlertService.newAlert('Waiting for list: ' + ShopService.getListName(), 'In register: ' + wu.registerId + ' for ' + Math.ceil(wu.duration.milliseconds / 1000) + ' seconds', 'success')).catch(swal.noop);
       spinnerService.hide('generalSpinner');
     };
 
@@ -154,10 +154,6 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
       spinnerService.hide('generalSpinner');
     };
 
-    $scope.startCountdown = function(ms){
-      ShopService.countdown(ms);
-    };
-
     $scope.ready = function(listId, name){
       spinnerService.show('generalSpinner');
       ShopService.setListName(name);
@@ -165,7 +161,7 @@ mycontrollers.controller('ProductListController', function($scope, $route, $loca
     };
 
     $scope.callbackShop = function(data){
-      // $scope.deleteListWithoutAlert(ShopService.getListId());
+      $scope.deleteListWithoutAlert(ShopService.getListId());
       swal(AlertService.newAlert('Bought list', 'List: ' + ShopService.getListName() + ' added to history', 'success')).catch(swal.noop);
       ShopService.resetTimer();
       spinnerService.hide('generalSpinner');

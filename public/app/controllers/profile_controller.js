@@ -15,7 +15,6 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
   $scope.resetChangePassword();
 
   $scope.callbackProfile = function(response){
-    console.log(response.data);
     $scope.load_profile(response.data);
     spinnerService.hide('generalSpinner');
   };
@@ -30,7 +29,9 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
 
   $scope.parse_date = function(record){
     return {
-      purchaselist : record.productlist,
+      // purchaselist : record.productlist,
+      name : record.name,
+      totalAmount : record.totalAmount,
       purchasedate : new Date(record.purchaseDate.year, record.purchaseDate.month, record.purchaseDate.day)
     };
   }
@@ -44,7 +45,6 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
   };
 
   $scope.errorHandler = function(error){
-    console.log("profile error");
     spinnerService.hide('generalSpinner');
   };
 

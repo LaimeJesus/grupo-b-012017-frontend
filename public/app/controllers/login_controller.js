@@ -74,6 +74,7 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
         $scope.onLogInButtonClick = function(){//add a function to the controller so ng-click can bind to it
             spinnerService.show('generalSpinner');
             GoogleAuth.signIn().then(function(googleUser){//request to sign in
+                    console.log(GoogleAuth.currentUser.get().getBasicProfile());
                     var profile = googleUser.getBasicProfile();
                     var user = {};
                     user.email = profile.U3;

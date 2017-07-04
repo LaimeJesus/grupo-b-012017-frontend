@@ -32,15 +32,25 @@
 </div>
 
 <div class="footer">
-  <div style="height: 305px">
-    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-        <img ng-src="{{slide.image}}" style="margin:auto;">
-        <div class="carousel-caption">
-          <h4>Slide {{slide.id}}</h4>
-          <p>{{slide.text}}</p>
+  <div ng-show="recoAvailable()">
+    <div class="page-header">
+      <h3><font color="white">{{'general.recommendations_availables' | translate}}: {{nameLastProduct}} {{'general.bought' | translate}}:</font></h3>
+    </div>
+    <div style="height: 305px">
+      <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+        <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+          <img ng-src="{{slide.image}}" style="margin:auto;">
+          <div class="carousel-caption">
+            <h4>Slide {{slide.id}}</h4>
+            <p>{{slide.text}}</p>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div ng-hide="recoAvailable()">
+    <div class="page-header">
+      <h3><font color="white">{{'general.recommendations_not_availables' | translate}}: {{nameLastProduct}}</font></h3>
     </div>
   </div>
 </div>

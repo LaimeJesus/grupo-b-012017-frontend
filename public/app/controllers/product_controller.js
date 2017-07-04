@@ -24,10 +24,6 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
         }
     };
 
-    $scope.recommendation_first = "";
-    $scope.recommendation_second = "";
-    $scope.recommendation_third = "";
-
     $scope.someoneLogged = function () {
         return UserService.islogged();
     };
@@ -37,12 +33,10 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     }
 
     $scope.callback = function (data) {
-        console.log(data);
         $scope.products = data.data;
         spinnerService.hide('generalSpinner');
     };
     $scope.errorHandler = function(error){
-        console.log(error);
         spinnerService.hide('generalSpinner');
     };
 
@@ -52,34 +46,26 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     };
 
     $scope.callbackGetDetail = function(data) {
-        console.log("Detalle obtenido exitosamente");
-        console.log(data);
         $scope.selectedProduct = data.data;
         spinnerService.hide('generalSpinner');
     };
     $scope.errorHandlerGetDetail = function(error) {
-        console.log("Detalle no obtenido, algo fallo");
         $scope.spanLog = error.descripcion;
         spinnerService.hide('generalSpinner');
     };
 
     $scope.getDetail = function(id){
         spinnerService.show('generalSpinner');
-        console.log("Pedi detalle");
         ProductService.getDetail(id).then($scope.callbackGetDetail,$scope.errorHandlerGetDetail);
     };
 
     $scope.callbackGetLists = function (data) {
-        console.log("Listas obtenidas exitosamente");
-        console.log(data);
         $scope.userLists = data.data;
         $scope.resetSelectedProduct();
         spinnerService.hide('generalSpinner');
     };
 
     $scope.errorHandlerGetList = function(error) {
-        console.log("Listas no obtenidas, algo fallo");
-        console.log(error);
         spinnerService.hide('generalSpinner');
     };
 
@@ -124,21 +110,36 @@ mycontrollers.controller('ProductController', function ($scope, ProductService, 
     $scope.callbackRecommendation = function(data) {
         console.log(data.data);
         $scope.addRecommendations(data.data);
+        $scope.updateLastProduct();
     };
 
     $scope.errorHandlerRecommendation = function(error) {
         console.log(error);
+        $scope.updateLastProduct();
     };
 
     $scope.setRecommendation = function() {
         RecommendationService.getRecommendation(UserService.getLastProduct()).then($scope.callbackRecommendation, $scope.errorHandlerRecommendation);
     };
 
+    $scope.recoAvailable = function(){
+      return $scope.slides.length > 0;
+    }
 
+    $scope.updateLastProduct = function(){
+      for(var i=0; i<$scope.products.length; i++){
+        if($scope.products[i].id === UserService.getLastProduct()){
+          console.log($scope.nameLastProduct);
+          $scope.nameLastProduct = $scope.products[i].name;
+          break;
+        }
+      }
+    }
+    $scope.nameLastProduct = "";
     $scope.getProducts();
     $scope.getLists();
     $scope.setRecommendation();
-
+    // $scope.updateLastProduct();
     ///////////////////////////////////////////////////////////////////////////
     //PAGINATION
     ///////////////////////////////////////////////////////////////////////////
