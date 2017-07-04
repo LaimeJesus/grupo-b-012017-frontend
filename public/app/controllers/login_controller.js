@@ -82,8 +82,9 @@ mycontrollers.controller('LoginController', function($scope, $window, $location,
                     UserService.logInWithMail(user).then($scope.logincallback,$scope.errorHandlerLogWithMail);
                 },
                 function(error){
-                    console.log("cancel log with gmail");
-                    swal(AlertService.newAlert('Error in login', 'Problem: ' + error.data.errorMessage, 'error'));
+                    // console.log("cancel log with gmail");
+                    console.log(error);
+                    // swal(AlertService.newAlert('Error in login', 'Problem: ' + error.data, 'error'));
                 }
             );
             spinnerService.hide('generalSpinner');

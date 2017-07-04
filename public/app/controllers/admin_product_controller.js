@@ -1,4 +1,4 @@
-mycontrollers.controller('AdminProductController', function ($scope, ProductService, UserService, OfferService, spinnerService, AlertService) {
+mycontrollers.controller('AdminProductController', function ($scope, ProductService, UserService, OfferService, spinnerService, AlertService, UrlCheckerService) {
 
   $scope.adminProduct = {};
   $scope.products = [];
@@ -69,20 +69,24 @@ mycontrollers.controller('AdminProductController', function ($scope, ProductServ
   };
 
   $scope.callbackUpdateProduct = function(response){
-    for(var i=0;i<$scope.products.length;i++){
-      if($scope.products[i].id === $scope.adminProduct.id){
-        $scope.products[i].name = $scope.adminProduct.name;
-        $scope.products[i].brand = $scope.adminProduct.brand;
-        $scope.products[i].stock = $scope.adminProduct.stock;
-        $scope.products[i].processingTime.milliseconds = $scope.adminProduct.processingTime.milliseconds;
-        $scope.products[i].category = $scope.adminProduct.category;
-        $scope.products[i].price.integer = $scope.adminProduct.price.integer;
-        $scope.products[i].price.decimal = $scope.adminProduct.price.decimal;
-        $scope.products[i].imageUrl = $scope.adminProduct.imageUrl;
-        break;
-      }
-    }
-    // $scope.getProducts();
+    // for(var i=0;i<$scope.products.length;i++){
+    //   if($scope.products[i].id === $scope.adminProduct.id){
+    //     $scope.products[i].name = $scope.adminProduct.name;
+    //     $scope.products[i].brand = $scope.adminProduct.brand;
+    //     $scope.products[i].stock = $scope.adminProduct.stock;
+    //     $scope.products[i].processingTime.milliseconds = $scope.adminProduct.processingTime.milliseconds;
+    //     $scope.products[i].category = $scope.adminProduct.category;
+    //     $scope.products[i].price.integer = $scope.adminProduct.price.integer;
+    //     $scope.products[i].price.decimal = $scope.adminProduct.price.decimal;
+    //     if(UrlCheckerService.isValidImageUrl($scope.adminProduct)){
+    //       $scope.products[i].imageUrl = $scope.adminProduct.imageUrl;
+    //     }else{
+    //       $scope.products[i].imageUrl = UrlCheckerService.getValidUrl();
+    //     }
+    //     break;
+    //   }
+    // }
+    $scope.getProducts();
     $scope.resetProduct();
     $scope.adminProduct.category = $scope.categories[0];
     spinnerService.hide('generalSpinner');

@@ -6,7 +6,7 @@
      <table class="table table-hover table-inverse table-striped">
          <thead>
          <tr>
-             <th></th>
+             <th scope="row"></th>
              <th>id</th>
              <th>{{'products.name' | translate}}</th>
              <th>{{'products.brand' | translate}}</th>
@@ -19,7 +19,7 @@
          </thead>
          <tbody>
          <tr data-ng-repeat="product in products">
-             <th scope="row"></th>
+             <td scope="row"></td>
              <td>{{product.id}}</td>
              <td>{{product.name}}</td>
              <td>{{product.brand}}</td>

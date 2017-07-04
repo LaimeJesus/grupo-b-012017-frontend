@@ -1,8 +1,8 @@
-mycontrollers.controller('ProfileController', function($scope, $route, $timeout, UserService, spinnerService, AlertService){
+mycontrollers.controller('ProfileController', function($scope, $route, $timeout, UserService, spinnerService, AlertService, UrlCheckerService){
   $scope.records = [];
   $scope.profile = {};
   $scope.profile.address = "";
-  $scope.profile.url = "no-image";
+  $scope.profile.url = "";
 
   $scope.pictureChoosen = '';
 
@@ -15,7 +15,6 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
   $scope.resetChangePassword();
 
   $scope.callbackProfile = function(response){
-    console.log("profile loaded");
     console.log(response.data);
     $scope.load_profile(response.data);
     spinnerService.hide('generalSpinner');
@@ -25,7 +24,7 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
     $scope.profile = user;
     $scope.records = $scope.load_records(user.profile.purchaseRecords);
     if($scope.profile.profile.url === undefined){
-      $scope.profile.profile.url = "http://image.ibb.co/kaSNyQ/no_image_fixed.png";
+      $scope.profile.profile.url = UrlCheckerService.getValidImageUrl();
     }
   };
 
@@ -72,7 +71,7 @@ mycontrollers.controller('ProfileController', function($scope, $route, $timeout,
   };
 
   $scope.pictureChoose = function() {
-    return $scope.pictureChoosen === '' || $scope.pictureChoosen.match(/\.(jpeg|jpg|gif|png)$/) === null;
+    return $scope.pictureChoosen === '' || UrlCheckerService.isValidImageUrl($scope.pictureChoosen);
   };
 
   $scope.checkChangedPassword = function(){

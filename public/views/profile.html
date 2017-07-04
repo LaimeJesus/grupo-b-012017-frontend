@@ -10,7 +10,7 @@
               <img alt="User Pic" ng-src="{{profile.profile.url}}" class="img-circle img-responsive">
               <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#profileModal" >Upload New Picture</button>
             </div>
-            <div class=" col-md-9 col-lg-9 ">
+            <div class="col-md-9 col-lg-9 ">
               <table class="table table-user-information">
                 <tbody>
                   <tr>
@@ -38,12 +38,14 @@
           <table class="table table-hover table-inverse table-striped">
               <thead>
               <tr>
+                  <th scope="row"></th>
                   <th>{{'productlist.listname' | translate}}</th>
                   <th>{{'user.paymentDate' | translate}}</th>
               </tr>
               </thead>
               <tbody>
                 <tr data-ng-repeat="purchase in records" data-toggle="modal" data-target="#detailProductList">
+                    <td scope="row"></td>
                     <td> {{purchase.purchaselist.name}} </td>
                     <td> {{purchase.purchasedate | date:'medium'}} </td>
                 </tr>
